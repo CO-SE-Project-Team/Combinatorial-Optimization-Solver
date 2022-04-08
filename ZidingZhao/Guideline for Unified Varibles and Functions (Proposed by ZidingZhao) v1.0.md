@@ -9,10 +9,11 @@
 * **cx/cX/coord_x** *(1×n array/matrix)*: Coordinate x for Start/Depot(TSP/VRP) and cities/clients(TSP/VRP). First one being Start/Depot(TSP/VRP). Index for each item(Knapsack).
 * **cy/cY/coord_y** *(1×n array/matrix)*: Coordinate y for Start/Depot(TSP/VRP) and cities/clients(TSP/VRP). First one being Start/Depot(TSP/VRP). Value for each item(Knapsack).
 * **distance/dis** *(n×n array/matrix)*: Distance between each two nodes(TSP/VRP), from node i to node j.
-* **objVal** *(int/double)*: the min/max value of the object function.
 * **xi** *(int)*: starting node i if xij == 1. xi == 1(Knapsack Problem).
 * **xj** *(int)*: end node j if xij == 1. Null for Knapsack Problem.
+* **objVal** *(double)*: the min/max value of the object function.
 * (debatable) **timeLim/timeLimit/time_limit** *(int)*: Runtime limit in seconds.
+* More possible parameters for different algorithms.
 
 ## Unified Functions/Methods
 * **set_Problem(Problem)**: set all using struct Problem.
@@ -34,4 +35,6 @@
 * **get_timeLim(timeLim)** *(int)*
 * **get_xi()** *(int)*
 * **get_xj()** *(int)*
+* **get_objVal()** *(double)*
 * (debatable) **stop()**: stop the algorithm.
+* More possible functions/methods for different algorithms.
