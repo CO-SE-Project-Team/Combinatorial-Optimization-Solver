@@ -1,4 +1,4 @@
-# Guideline for Unified Variables and Functions
+# Guideline for Unified Variables and Functions v1.0
 
 ## Unified Variables
 * **Problem** *(struct)*: includes all the variables.
@@ -8,11 +8,11 @@
 *  **demand/dmd/d** *(1×n array/matrix)*: Demand for every customer(VRP Only).
 * **cx/cX/coord_x** *(1×n array/matrix)*: Coordinate x for Start/Depot(TSP/VRP) and cities/clients(TSP/VRP). First one being Start/Depot(TSP/VRP). Index for each item(Knapsack).
 * **cy/cY/coord_y** *(1×n array/matrix)*: Coordinate y for Start/Depot(TSP/VRP) and cities/clients(TSP/VRP). First one being Start/Depot(TSP/VRP). Value for each item(Knapsack).
-* **distance/dis** *(n×n array/matrix)*: Distance between each two nodes(TSP/VRP), from node i to node j. NOTE: This should be an internal variable.
+* **distance/dis** *(n×n array/matrix)*: Distance between each two nodes(TSP/VRP), from node i to node j.
+* **objVal** *(int/double)*: the min/max value of the object function.
+* **xi** *(int)*: starting node i if xij == 1. xi == 1(Knapsack Problem).
+* **xj** *(int)*: end node j if xij == 1. Null for Knapsack Problem.
 * (debatable) **timeLim/timeLimit/time_limit** *(int)*: Runtime limit in seconds.
-* **objVal** *(int/double)*: the min/max value of the object function. NOTE: This should be an internal variable.
-* **xi** *(int)*: node i if xij == 1.
-* **xj** *(int)*: node j if xij == 1.
 
 ## Unified Functions/Methods
 * **set_Problem(Problem)**: set all using struct Problem.
@@ -22,14 +22,16 @@
 * **set_capacity(capacity)** 
 * **set_cx(cx)** 
 * **set_cy(cy)** 
-* **set_timeLim(timeLim)** 
+* (debatable) **set_timeLim(timeLim)** 
 * **optimize()**: Optimize the problem.
 * **optimize(Problem)**: Optimize the problem according to the Problem struct.
-* **get_all()** *(struct)*
-* **get_problem(problem)**
-* **get_n(n)** *(int)*
-* **get_capacity(capacity)** *(int/double)*
-* **get_cx(cx)** *(1×n array/matrix)*
-* **get_cy(cy)** *(1×n array/matrix)*
+* **get_result()/get_all()** *(struct)*
+* **get_problem()**
+* **get_n()** *(int)*
+* **get_capacity()** *(int/double)*
+* **get_cx()** *(1×n array/matrix)*
+* **get_cy()** *(1×n array/matrix)*
 * **get_timeLim(timeLim)** *(int)*
-* get_xi
+* **get_xi()** *(int)*
+* **get_xj()** *(int)*
+* (debatable) **stop()**: stop the algorithm.
