@@ -53,14 +53,15 @@
 <li><strong>problem</strong> <em>(string)</em>: &quot;TSP&quot;, &quot;VRP&quot;, &quot;Knapsack&quot;/&quot;KP&quot;.</li>
 <li><strong>n</strong> <em>(int)</em>: Total number of nodes, including Starting Point/Depot.</li>
 <li><strong>capacity/c/cap/cpct</strong> <em>(int/double)</em>: Indicates the capacity of Truck/Knapsack</li>
-<li><strong>demand/dmd/d</strong> <em>(1×n array/matrix)</em>: Demand for every customer(VRP Only).</li>
+<li><strong>demand/dmd/d/weight</strong> <em>(1×n array/matrix)</em>: Demand for every customer(VRP Only). weight of items(KP)</li>
 <li><strong>cx/cX/coord_x</strong> <em>(1×n array/matrix)</em>: Coordinate x for Start/Depot(TSP/VRP) and cities/clients(TSP/VRP). First one being Start/Depot(TSP/VRP). Index for each item(Knapsack).</li>
 <li><strong>cy/cY/coord_y</strong> <em>(1×n array/matrix)</em>: Coordinate y for Start/Depot(TSP/VRP) and cities/clients(TSP/VRP). First one being Start/Depot(TSP/VRP). Value for each item(Knapsack).</li>
 <li><strong>distance/dis</strong> <em>(n×n array/matrix)</em>: Distance between each two nodes(TSP/VRP), from node i to node j.</li>
-<li><strong>objVal</strong> <em>(int/double)</em>: the min/max value of the object function.</li>
 <li><strong>xi</strong> <em>(int)</em>: starting node i if xij == 1. xi == 1(Knapsack Problem).</li>
 <li><strong>xj</strong> <em>(int)</em>: end node j if xij == 1. Null for Knapsack Problem.</li>
+<li><strong>objVal</strong> <em>(double)</em>: the min/max value of the object function.</li>
 <li>(debatable) <strong>timeLim/timeLimit/time_limit</strong> <em>(int)</em>: Runtime limit in seconds.</li>
+<li>More possible parameters for different algorithms.</li>
 </ul>
 <h2 id="unified-functionsmethods">Unified Functions/Methods</h2>
 <ul>
@@ -69,6 +70,7 @@
 <li><strong>set_problem(problem)</strong></li>
 <li><strong>set_n(n)</strong></li>
 <li><strong>set_capacity(capacity)</strong></li>
+<li><strong>set_demand(demand)/set_weight(weight)</strong>: demand of each customer(VRP), or weight for each item(KP)</li>
 <li><strong>set_cx(cx)</strong></li>
 <li><strong>set_cy(cy)</strong></li>
 <li>(debatable) <strong>set_timeLim(timeLim)</strong></li>
@@ -83,7 +85,9 @@
 <li><strong>get_timeLim(timeLim)</strong> <em>(int)</em></li>
 <li><strong>get_xi()</strong> <em>(int)</em></li>
 <li><strong>get_xj()</strong> <em>(int)</em></li>
+<li><strong>get_objVal()</strong> <em>(double)</em></li>
 <li>(debatable) <strong>stop()</strong>: stop the algorithm.</li>
+<li>More possible functions/methods for different algorithms.</li>
 </ul>
 
     </body>

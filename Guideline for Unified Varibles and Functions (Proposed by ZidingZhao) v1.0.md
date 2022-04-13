@@ -5,7 +5,7 @@
 * **problem** *(string)*: "TSP", "VRP", "Knapsack"/"KP".
 *  **n** *(int)*: Total number of nodes, including Starting Point/Depot.
 *  **capacity/c/cap/cpct** *(int/double)*: Indicates the capacity of Truck/Knapsack
-*  **demand/dmd/d** *(1×n array/matrix)*: Demand for every customer(VRP Only).
+*  **demand/dmd/d/weight** *(1×n array/matrix)*: Demand for every customer(VRP Only). weight of items(KP)
 * **cx/cX/coord_x** *(1×n array/matrix)*: Coordinate x for Start/Depot(TSP/VRP) and cities/clients(TSP/VRP). First one being Start/Depot(TSP/VRP). Index for each item(Knapsack).
 * **cy/cY/coord_y** *(1×n array/matrix)*: Coordinate y for Start/Depot(TSP/VRP) and cities/clients(TSP/VRP). First one being Start/Depot(TSP/VRP). Value for each item(Knapsack).
 * **distance/dis** *(n×n array/matrix)*: Distance between each two nodes(TSP/VRP), from node i to node j.
@@ -21,6 +21,7 @@
 * **set_problem(problem)**
 * **set_n(n)** 
 * **set_capacity(capacity)** 
+* **set_demand(demand)/set_weight(weight)**: demand of each customer(VRP), or weight for each item(KP)
 * **set_cx(cx)** 
 * **set_cy(cy)** 
 * (debatable) **set_timeLim(timeLim)** 
