@@ -57,8 +57,8 @@
 <li><strong>cx/cX/coord_x</strong> <em>(1×n array/matrix)</em>: Coordinate x for Start/Depot(TSP/VRP) and cities/clients(TSP/VRP). First one being Start/Depot(TSP/VRP). Index for each item(Knapsack).</li>
 <li><strong>cy/cY/coord_y</strong> <em>(1×n array/matrix)</em>: Coordinate y for Start/Depot(TSP/VRP) and cities/clients(TSP/VRP). First one being Start/Depot(TSP/VRP). Value for each item(Knapsack).</li>
 <li><strong>distance/dis</strong> <em>(n×n array/matrix)</em>: Distance between each two nodes(TSP/VRP), from node i to node j.</li>
-<li><strong>xi</strong> <em>(1×size(xi) array/matrix)</em>: starting node i if xij == 1. xi == 1(Knapsack Problem). NOTE: size(xi) = size(xj)</li>
-<li><strong>xj</strong> <em>(1×size(xj) array/matrix)</em>: end node j if xij == 1. Null for Knapsack Problem. NOTE: size(xi) = size(xj)</li>
+<li><strong>xi</strong> <em>(1×size(xi) array/matrix)</em>: starting node i if xij == 1. xi == i(Knapsack Problem). NOTE: size(xi) = size(xj)</li>
+<li><strong>xj</strong> <em>(1×size(xj) array/matrix)</em>: end node j if xij == j. Null for Knapsack Problem. NOTE: size(xi) = size(xj)</li>
 <li><strong>objVal</strong> <em>(double)</em>: the min/max value of the object function.</li>
 <li>(debatable) <strong>timeLim/timeLimit/time_limit</strong> <em>(int)</em>: Runtime limit in seconds.</li>
 <li>More possible parameters for different algorithms.</li>
