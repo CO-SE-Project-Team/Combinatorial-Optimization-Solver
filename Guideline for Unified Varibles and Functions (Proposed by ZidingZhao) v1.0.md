@@ -9,8 +9,8 @@
 * **cx/cX/coord_x** *(1×n array/matrix)*: Coordinate x for Start/Depot(TSP/VRP) and cities/clients(TSP/VRP). First one being Start/Depot(TSP/VRP). Index for each item(Knapsack).
 * **cy/cY/coord_y** *(1×n array/matrix)*: Coordinate y for Start/Depot(TSP/VRP) and cities/clients(TSP/VRP). First one being Start/Depot(TSP/VRP). Value for each item(Knapsack).
 * **distance/dis** *(n×n array/matrix)*: Distance between each two nodes(TSP/VRP), from node i to node j.
-* **xi** *(int)*: starting node i if xij == 1. xi == 1(Knapsack Problem).
-* **xj** *(int)*: end node j if xij == 1. Null for Knapsack Problem.
+* **xi** *(1×size(xi) array/matrix)*: starting node i if xij == 1. xi == 1(Knapsack Problem). NOTE: size(xi) = size(xj)
+* **xj** *(1×size(xj) array/matrix)*: end node j if xij == 1. Null for Knapsack Problem. NOTE: size(xi) = size(xj)
 * **objVal** *(double)*: the min/max value of the object function.
 * (debatable) **timeLim/timeLimit/time_limit** *(int)*: Runtime limit in seconds.
 * More possible parameters for different algorithms.
