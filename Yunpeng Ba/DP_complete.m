@@ -1,10 +1,31 @@
-%% 邻接矩阵
-edges=[0 30 6 4; 30 0 5 10 ;6 5 0 20; 4 10 20 0];
+timeLimit=0.01;
+t1=clock;
+problem='TSP';
+coord=[1 1;2 3;4 5];
+n=size(coord,1);
+%假设默认输入n行2列坐标矩阵coord
+cx=coord(:,1).';
+cy=coord(:,2).';
+xi=[];
+xj=[];
+for k=1:n
+    for m=1:n
+        xi=[xi k];
+        xj=[xj k];
+    end
+end
 
+dis=zeros(n);   % 初始化两个城市的距离矩阵全为0
+for i=2:n    %i从2开始，是因为他与他自己的距离是0
+    for j=1:i  
+        dis(i,j) = sqrt((cx(i)-cx(j))^2 + (cy(i)-cy(j))^2);   % 计算城市i和j的距离
+    end
+end
+dis = dis+dis';   % 生成对称完整的距离矩阵
 %% 动态规划
 
 %% 初始化dp矩阵
-[m,n] = size(edges); %dp表，n行, stateNum列
+[m,n] = size(dis); %dp表，n行, stateNum列
 stateNum = bitshift(1,n-1); %dp表列数为C（n-1）1+...+C（n-1）（n-1）+空集的1
 dp = zeros(n,stateNum); 
 % 提前循环初始化为inf
@@ -17,7 +38,7 @@ end
 %% 动规算法部分
 % 更新第一列
 for i=1:n
-    dp(i,1)=edges(i,1);
+    dp(i,1)=dis(i,1);
 end
 
 %dp（i,j）中的i是一个二进制形式的数，表示经过城市的集合，如0111表示经过了城市0,1,2
@@ -40,7 +61,7 @@ for j=1:stateNum-1
                 if k==0 || bitand(bitshift(j,-(k-1)),1)==1 
                 %如果j的第k位为1，i.e.j中有k这个城市
                     
-                    dp(i+1,j+1) = min(dp(i+1,j+1),edges(k+1,i+1)+dp(k+1,bitxor(j,(bitshift(1,k-1)))+1));
+                    dp(i+1,j+1) = min(dp(i+1,j+1),dis(k+1,i+1)+dp(k+1,bitxor(j,(bitshift(1,k-1)))+1));
                     %dp[k][j ^ (1 << (k - 1))，是将dp定位到，从k城市出发，经过城市子集V[s]，回到0号城市所花费的最小距离
                     %如果从k城市出发经过城市子集V[s]，V[s]中肯定不包含k，则在j中把第k个城市置0即可
                     %(j ^ (1 <<k -1))表示j的k位（必为1）置0，其他位保持不变
@@ -55,4 +76,21 @@ for j=1:stateNum-1
 end
 
 %% 结果就是
-dp(1,stateNum)
+objVal=dp(1,stateNum);
+t2=clock;
+t=etime(t2,t1);
+if t>timeLimit
+    objVal=-1;
+    d_min=-1;
+    %-1表示程序没跑完
+end
+Problem.problem=problem;
+Problem.n=n;
+Problem.cx=cx;
+Problem.cy=cy;
+Problem.dis=dis;
+Problem.xi=xi;
+Problem.xj=xj;
+Problem.objVal=objVal;
+Problem.timeLimit=timeLimit;
+
