@@ -1,7 +1,7 @@
+function [Problem]=DP_complete(coord)
 timeLimit=1;
 t1=clock;
 problem='TSP';
-coord=[1 3;2 8;4 6;15,13;13,1;40,1];
 n=size(coord,1);
 %假设默认输入n行2列坐标矩阵coord
 cx=coord(:,1).';

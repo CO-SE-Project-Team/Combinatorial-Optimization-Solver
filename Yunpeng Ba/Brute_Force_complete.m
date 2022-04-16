@@ -1,10 +1,7 @@
-clc;
-close all;
-clear;
+function [Problem]=Brute_Force_complete(coord)
 timeLimit=0.005;
 t1=clock;
 problem='TSP';
-coord=[1 1;2 3;4 5;5 6;6 7;7 8];
 n=size(coord,1);
 %假设默认输入n行2列坐标矩阵coord
 cx=coord(:,1).';

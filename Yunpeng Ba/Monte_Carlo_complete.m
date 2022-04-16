@@ -1,14 +1,11 @@
-clear;clc
+function [Problem]=Monte_Carlo_complete(towns)
 timeLimit=0.00001;
 t1=clock;
 problem='TSP';
-% 只有8个城市的简单情况
- towns =[0.64 0.41 0.99 0.55 0.77 0.25 0.11 0.89;
-         0.74 0.45 0.66 0.21  0.32 0.99 0.54 0.11]' ;  % 城市坐标矩阵，n行2列
-     coord=towns;
+
 n = size(towns,1);  % 城市的数目
-cx=coord(:,1).';
-cy=coord(:,2).';
+cx=towns(:,1).';
+cy=towns(:,2).';
 
 d = zeros(n);   % 初始化两个城市的距离矩阵全为0
 for i = 2:n    %i从2开始，是因为他与他自己的距离是0
