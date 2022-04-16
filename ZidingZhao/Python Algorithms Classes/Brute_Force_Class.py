@@ -5,4 +5,4 @@ class BruteForce:
         self.problem = 'KP'
         self.n = '5'
         self.capacity = 10
-        self.
+        self.demand = 
