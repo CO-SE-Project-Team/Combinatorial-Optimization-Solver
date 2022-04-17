@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Guideline for Unified Variables and Functions v1&period;0</title>
+        <title>Guideline for Unified Variables and Functions v4&period;1</title>
         <style>
 /* From extension vscode.github */
 /*---------------------------------------------------------------------------------------------
@@ -46,11 +46,12 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="guideline-for-unified-variables-and-functions-v10">Guideline for Unified Variables and Functions v1.0</h1>
+        <h1 id="guideline-for-unified-variables-and-functions-v41">Guideline for Unified Variables and Functions v4.1</h1>
+<p>NOTE: Critical variables and functions are marked with <strong>※</strong> in the front.</p>
 <h2 id="unified-variables">Unified Variables</h2>
 <ul>
-<li><strong>Problem</strong> <em>(struct)</em>: includes all the variables.</li>
-<li><strong>problem</strong> <em>(string)</em>: &quot;TSP&quot;, &quot;VRP&quot;, &quot;Knapsack&quot;/&quot;KP&quot;.</li>
+<li><strong>※</strong> <strong>Data</strong> <em>(struct)</em>: includes all the variables Below.</li>
+<li><strong>problem</strong> <em>(string)</em>: &quot;TSP&quot;, &quot;VRP&quot;, &quot;KP&quot;/&quot;Knapsack&quot;.</li>
 <li><strong>n</strong> <em>(int)</em>: Total number of nodes, including Starting Point/Depot.</li>
 <li><strong>capacity/c/cap/cpct</strong> <em>(int/double)</em>: Indicates the capacity of Truck/Knapsack</li>
 <li><strong>demand/dmd/d/weight</strong> <em>(1×n array/matrix)</em>: Demand for every customer(VRP Only). weight of items(KP)</li>
@@ -60,23 +61,24 @@
 <li><strong>xi</strong> <em>(1×size(xi) array/matrix)</em>: starting node i if xij == 1. xi == i(Knapsack Problem). NOTE: size(xi) = size(xj)</li>
 <li><strong>xj</strong> <em>(1×size(xj) array/matrix)</em>: end node j if xij == j. Null for Knapsack Problem. NOTE: size(xi) = size(xj)</li>
 <li><strong>objVal</strong> <em>(double)</em>: the min/max value of the object function.</li>
+<li><strong>iterations</strong> <em>(int)</em>: shows how many iterations the algorithm takes.</li>
 <li>(debatable) <strong>timeLim/timeLimit/time_limit</strong> <em>(int)</em>: Runtime limit in seconds.</li>
 <li>More possible parameters for different algorithms.</li>
 </ul>
 <h2 id="unified-functionsmethods">Unified Functions/Methods</h2>
 <ul>
-<li><strong>set_Problem(Problem)</strong>: set all using struct Problem.</li>
+<li><strong>set_Data(Data)</strong>: set all using struct Problem.</li>
 <li><strong>set_all(problem, n, capacity, cx, cy, timeLimit)</strong>: set all possible variables, some variables could be ignored.</li>
-<li><strong>set_problem(problem)</strong></li>
 <li><strong>set_n(n)</strong></li>
 <li><strong>set_capacity(capacity)</strong></li>
 <li><strong>set_demand(demand)/set_weight(weight)</strong>: demand of each customer(VRP), or weight for each item(KP)</li>
 <li><strong>set_cx(cx)</strong></li>
 <li><strong>set_cy(cy)</strong></li>
 <li>(debatable) <strong>set_timeLim(timeLim)</strong></li>
-<li><strong>optimize()</strong>: Optimize the problem.</li>
-<li><strong>optimize(Problem)</strong>: Optimize the problem according to the Problem struct.</li>
-<li><strong>get_result()/get_all()</strong> <em>(struct)</em></li>
+<li><strong>solve()</strong>: Solve the problem.</li>
+<li><strong>※</strong> <strong>solve(Data)</strong> <em>(struct)</em>: Solve the problem according to the Data struct, return the Data which is updated by the algorithm.</li>
+<li><strong>get_Data()</strong> <em>(struct)</em>: NOTE: Recommended for algorithms output.</li>
+<li><strong>get_result()/get_all()</strong> <em>(struct)</em>: NOTE: NOT recommended!</li>
 <li><strong>get_problem()</strong></li>
 <li><strong>get_n()</strong> <em>(int)</em></li>
 <li><strong>get_capacity()</strong> <em>(int/double)</em></li>

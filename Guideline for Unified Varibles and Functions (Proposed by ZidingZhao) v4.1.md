@@ -1,8 +1,10 @@
-# Guideline for Unified Variables and Functions v1.0
+# Guideline for Unified Variables and Functions v4.1
+
+NOTE: Critical variables and functions are marked with **※** in the front.
 
 ## Unified Variables
-* **Problem** *(struct)*: includes all the variables.
-* **problem** *(string)*: "TSP", "VRP", "Knapsack"/"KP".
+* **※** **Data** *(struct)*: includes all the variables Below.
+* **problem** *(string)*: "TSP", "VRP", "KP"/"Knapsack".
 *  **n** *(int)*: Total number of nodes, including Starting Point/Depot.
 *  **capacity/c/cap/cpct** *(int/double)*: Indicates the capacity of Truck/Knapsack
 *  **demand/dmd/d/weight** *(1×n array/matrix)*: Demand for every customer(VRP Only). weight of items(KP)
@@ -12,22 +14,23 @@
 * **xi** *(1×size(xi) array/matrix)*: starting node i if xij == 1. xi == i(Knapsack Problem). NOTE: size(xi) = size(xj)
 * **xj** *(1×size(xj) array/matrix)*: end node j if xij == j. Null for Knapsack Problem. NOTE: size(xi) = size(xj)
 * **objVal** *(double)*: the min/max value of the object function.
+* **iterations** *(int)*: shows how many iterations the algorithm takes.
 * (debatable) **timeLim/timeLimit/time_limit** *(int)*: Runtime limit in seconds.
 * More possible parameters for different algorithms.
 
 ## Unified Functions/Methods
-* **set_Problem(Problem)**: set all using struct Problem.
+* **set_Data(Data)**: set all using struct Problem.
 * **set_all(problem, n, capacity, cx, cy, timeLimit)**: set all possible variables, some variables could be ignored.
-* **set_problem(problem)**
 * **set_n(n)** 
 * **set_capacity(capacity)** 
 * **set_demand(demand)/set_weight(weight)**: demand of each customer(VRP), or weight for each item(KP)
 * **set_cx(cx)** 
 * **set_cy(cy)** 
 * (debatable) **set_timeLim(timeLim)** 
-* **optimize()**: Optimize the problem.
-* **optimize(Problem)**: Optimize the problem according to the Problem struct.
-* **get_result()/get_all()** *(struct)*
+* **solve()**: Solve the problem.
+* **※** **solve(Data)** *(struct)*: Solve the problem according to the Data struct, return the Data which is updated by the algorithm.
+* **get_Data()** *(struct)*: NOTE: Recommended for algorithms output.
+* **get_result()/get_all()** *(struct)*: NOTE: NOT recommended!
 * **get_problem()**
 * **get_n()** *(int)*
 * **get_capacity()** *(int/double)*
