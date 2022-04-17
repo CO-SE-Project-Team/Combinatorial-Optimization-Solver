@@ -10,6 +10,7 @@ class VRPGurobi:
         self.xc = []
         self.yc = []
         self.TimeLimit = 20
+        self.Data = {}
         
     def set_all(self, n, Capacity, Dmd, xc, yc, TimeLimit):
         self.n = n
@@ -61,6 +62,10 @@ class VRPGurobi:
 
     def get_active_cj(self):
         return self.active_cj
+
+#     def solve(self, Data):
+#         self.
+
 
 # for (i, j) in active_arcs:
 #     plt.plot([xc[i], xc[j]], [yc[i], yc[j]], c='g', e=0)   

@@ -9,6 +9,7 @@ class Mypy:
         self.b = b
         self.c = 0
         self.Array = []
+        self.dic = {}
 #  if the varible is created out of init, it is not going to be recognized by the matlab!!! So use getter method please.
 
         # x = np.arange(1, 11)
@@ -33,3 +34,7 @@ class Mypy:
         return self.c
     def setArray(self, Array):
         self.Array = Array
+
+    def get_set_dic(self, Stct):
+        self.dic = Stct
+        return self.dic
