@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Guideline for Unified Variables and Functions v1&period;0</title>
+        <title>Guideline for Unified Variables and Functions v1&period;2</title>
         <style>
 /* From extension vscode.github */
 /*---------------------------------------------------------------------------------------------
@@ -46,11 +46,11 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="guideline-for-unified-variables-and-functions-v10">Guideline for Unified Variables and Functions v1.0</h1>
+        <h1 id="guideline-for-unified-variables-and-functions-v12">Guideline for Unified Variables and Functions v1.2</h1>
 <h2 id="unified-variables">Unified Variables</h2>
 <ul>
-<li><strong>Problem</strong> <em>(struct)</em>: includes all the variables.</li>
-<li><strong>problem</strong> <em>(string)</em>: &quot;TSP&quot;, &quot;VRP&quot;, &quot;Knapsack&quot;/&quot;KP&quot;.</li>
+<li><strong>Data</strong> <em>(struct)</em>: includes all the variables.</li>
+<li><strong>problem</strong> <em>(string)</em>: &quot;TSP&quot;, &quot;VRP&quot;, &quot;KP&quot;/&quot;Knapsack&quot;.</li>
 <li><strong>n</strong> <em>(int)</em>: Total number of nodes, including Starting Point/Depot.</li>
 <li><strong>capacity/c/cap/cpct</strong> <em>(int/double)</em>: Indicates the capacity of Truck/Knapsack</li>
 <li><strong>demand/dmd/d/weight</strong> <em>(1×n array/matrix)</em>: Demand for every customer(VRP Only). weight of items(KP)</li>
@@ -76,7 +76,8 @@
 <li>(debatable) <strong>set_timeLim(timeLim)</strong></li>
 <li><strong>optimize()</strong>: Optimize the problem.</li>
 <li><strong>optimize(Problem)</strong>: Optimize the problem according to the Problem struct.</li>
-<li><strong>get_result()/get_all()</strong> <em>(struct)</em></li>
+<li><strong>get_Data()</strong> <em>(struct)</em>: NOTE: Recommended for algorithms output.</li>
+<li><strong>get_result()/get_all()</strong> <em>(struct)</em>: NOTE: NOT recommended!</li>
 <li><strong>get_problem()</strong></li>
 <li><strong>get_n()</strong> <em>(int)</em></li>
 <li><strong>get_capacity()</strong> <em>(int/double)</em></li>

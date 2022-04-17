@@ -1,8 +1,8 @@
-# Guideline for Unified Variables and Functions v1.0
+# Guideline for Unified Variables and Functions v1.2
 
 ## Unified Variables
-* **Problem** *(struct)*: includes all the variables.
-* **problem** *(string)*: "TSP", "VRP", "Knapsack"/"KP".
+* **Data** *(struct)*: includes all the variables.
+* **problem** *(string)*: "TSP", "VRP", "KP"/"Knapsack".
 *  **n** *(int)*: Total number of nodes, including Starting Point/Depot.
 *  **capacity/c/cap/cpct** *(int/double)*: Indicates the capacity of Truck/Knapsack
 *  **demand/dmd/d/weight** *(1×n array/matrix)*: Demand for every customer(VRP Only). weight of items(KP)
@@ -27,7 +27,8 @@
 * (debatable) **set_timeLim(timeLim)** 
 * **optimize()**: Optimize the problem.
 * **optimize(Problem)**: Optimize the problem according to the Problem struct.
-* **get_result()/get_all()** *(struct)*
+* **get_Data()** *(struct)*: NOTE: Recommended for algorithms output.
+* **get_result()/get_all()** *(struct)*: NOTE: NOT recommended!
 * **get_problem()**
 * **get_n()** *(int)*
 * **get_capacity()** *(int/double)*
