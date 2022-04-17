@@ -1,4 +1,4 @@
-# Guideline for Unified Variables and Functions v2.1
+# Guideline for Unified Variables and Functions v3.1
 
 ## Unified Variables
 * **Data** *(struct)*: includes all the variables.
@@ -16,17 +16,16 @@
 * More possible parameters for different algorithms.
 
 ## Unified Functions/Methods
-* **set_Problem(Problem)**: set all using struct Problem.
+* **set_Data(Data)**: set all using struct Problem.
 * **set_all(problem, n, capacity, cx, cy, timeLimit)**: set all possible variables, some variables could be ignored.
-* **set_Data(Data)**
 * **set_n(n)** 
 * **set_capacity(capacity)** 
 * **set_demand(demand)/set_weight(weight)**: demand of each customer(VRP), or weight for each item(KP)
 * **set_cx(cx)** 
 * **set_cy(cy)** 
 * (debatable) **set_timeLim(timeLim)** 
-* **optimize()**: Optimize the problem.
-* **optimize(Problem)**: Optimize the problem according to the Problem struct.
+* **solve()**: Solve the problem.
+* **solve(Data)**: Solve the problem according to the Data struct.
 * **get_Data()** *(struct)*: NOTE: Recommended for algorithms output.
 * **get_result()/get_all()** *(struct)*: NOTE: NOT recommended!
 * **get_problem()**

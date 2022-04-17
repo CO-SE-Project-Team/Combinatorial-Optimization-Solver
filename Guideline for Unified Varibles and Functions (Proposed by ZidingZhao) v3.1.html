@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Guideline for Unified Variables and Functions v1&period;2</title>
+        <title>Guideline for Unified Variables and Functions v3&period;1</title>
         <style>
 /* From extension vscode.github */
 /*---------------------------------------------------------------------------------------------
@@ -46,7 +46,7 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="guideline-for-unified-variables-and-functions-v12">Guideline for Unified Variables and Functions v1.2</h1>
+        <h1 id="guideline-for-unified-variables-and-functions-v31">Guideline for Unified Variables and Functions v3.1</h1>
 <h2 id="unified-variables">Unified Variables</h2>
 <ul>
 <li><strong>Data</strong> <em>(struct)</em>: includes all the variables.</li>
@@ -65,17 +65,16 @@
 </ul>
 <h2 id="unified-functionsmethods">Unified Functions/Methods</h2>
 <ul>
-<li><strong>set_Problem(Problem)</strong>: set all using struct Problem.</li>
+<li><strong>set_Data(Data)</strong>: set all using struct Problem.</li>
 <li><strong>set_all(problem, n, capacity, cx, cy, timeLimit)</strong>: set all possible variables, some variables could be ignored.</li>
-<li><strong>set_problem(problem)</strong></li>
 <li><strong>set_n(n)</strong></li>
 <li><strong>set_capacity(capacity)</strong></li>
 <li><strong>set_demand(demand)/set_weight(weight)</strong>: demand of each customer(VRP), or weight for each item(KP)</li>
 <li><strong>set_cx(cx)</strong></li>
 <li><strong>set_cy(cy)</strong></li>
 <li>(debatable) <strong>set_timeLim(timeLim)</strong></li>
-<li><strong>optimize()</strong>: Optimize the problem.</li>
-<li><strong>optimize(Problem)</strong>: Optimize the problem according to the Problem struct.</li>
+<li><strong>solve()</strong>: Solve the problem.</li>
+<li><strong>solve(Data)</strong>: Solve the problem according to the Data struct.</li>
 <li><strong>get_Data()</strong> <em>(struct)</em>: NOTE: Recommended for algorithms output.</li>
 <li><strong>get_result()/get_all()</strong> <em>(struct)</em>: NOTE: NOT recommended!</li>
 <li><strong>get_problem()</strong></li>
