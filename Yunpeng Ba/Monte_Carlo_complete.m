@@ -1,11 +1,11 @@
-function [Problem]=Monte_Carlo_complete(towns)
-timeLimit=0.00001;
+function [Problem]=Monte_Carlo_complete(Input)
 t1=clock;
+timeLimit=Input.timeLimit;
 problem='TSP';
-
-n = size(towns,1);  % 城市的数目
-cx=towns(:,1).';
-cy=towns(:,2).';
+cx=Input.cx;
+cy=Input.cy;
+n=size(cx,2);
+towns=[cx;cy].';
 
 d = zeros(n);   % 初始化两个城市的距离矩阵全为0
 for i = 2:n    %i从2开始，是因为他与他自己的距离是0
@@ -20,7 +20,7 @@ dis=d;
 
 min_result = +inf;  % 假设最短的距离为min_result，初始化为无穷大，后面只要找到比它小的就对其更新
 min_path = [1:n];   % 初始化最短的路径就是1-2-3-...-n
-N = 500000;  % 模拟的次数，尽量比解的个数大几倍十几倍，但也不要太大，运行慢
+N = Input.N;  % 模拟的次数，尽量比解的个数大几倍十几倍，但也不要太大，运行慢
 
 for i = 1:N  % 开始循环
     result = 0;  % 初始化走过的路程为0
@@ -56,6 +56,7 @@ Problem.xi=xi;
 Problem.xj=xj;
 Problem.objVal=objVal;
 Problem.timeLimit=timeLimit;
+Problem.N=N;
 
 
 

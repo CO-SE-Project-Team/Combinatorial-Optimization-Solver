@@ -1,11 +1,11 @@
-function [Problem]=SA_complete(C)
-timeLimit=0.005;
+function [Problem]=SA_complete(Input)
 t1=clock;
+timeLimit=Input.timeLimit;
 problem='TSP';
-
-cx=C(:,1).';
-cy=C(:,2).';
-n=size(C,1); %TSP问题的规模，即城市数目
+cx=Input.cx;
+cy=Input.cy;
+n=size(cx,2);
+C=[cx;cy].';
 dis=zeros(n);   % 初始化两个城市的距离矩阵全为0
 for i=2:n    %i从2开始，是因为他与他自己的距离是0
     for j=1:i  
@@ -17,7 +17,9 @@ dis = dis+dis';   % 生成对称完整的距离矩阵
 
 T=100*n;     %初始温度
 L=100;       %马尔科夫链的长度
-K=0.99;      %衰减参数
+K=Input.N;      %默认输入的N为衰减参数
+
+%N=Input.N;
 
 
 %%%城市坐标结构体%%%%%%%
@@ -32,7 +34,6 @@ end
 
 l=1;        %统计迭代次数
 len(l)=func5(city,n); %每次迭代后路线的长度
-
 
 while T>0.001
     %%%%%%%%%%%%%%%多次迭代扰动，温度降低前多次试验%%%%%%%%
@@ -111,7 +112,7 @@ Problem.xi=xi;
 Problem.xj=xj;
 Problem.objVal=objVal;
 Problem.timeLimit=timeLimit;
-
+Problem.N=l; %此处N是统计数据，表示迭代次数；与输入时表示一个参数不同
 
 %计算距离的函数
 function len=func5(city,n)

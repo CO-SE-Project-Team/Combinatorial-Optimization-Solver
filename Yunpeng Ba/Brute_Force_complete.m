@@ -1,11 +1,12 @@
-function [Problem]=Brute_Force_complete(coord)
-timeLimit=0.005;
+function [Problem]=Brute_Force_complete(Input)
 t1=clock;
+timeLimit=Input.timeLimit;
+N=-1; %迭代次数（暴力用不着）
 problem='TSP';
-n=size(coord,1);
-%假设默认输入n行2列坐标矩阵coord
-cx=coord(:,1).';
-cy=coord(:,2).';
+
+cx=Input.cx;
+cy=Input.cy;
+n=size(cx,2);
 
 dis=zeros(n);   % 初始化两个城市的距离矩阵全为0
 for i=2:n    %i从2开始，是因为他与他自己的距离是0
@@ -59,3 +60,4 @@ Problem.xi=xi;
 Problem.xj=xj;
 Problem.objVal=objVal;
 Problem.timeLimit=timeLimit;
+Problem.N=N;

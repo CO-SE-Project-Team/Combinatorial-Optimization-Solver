@@ -1,13 +1,12 @@
-function [Problem]=DP_complete(coord)
-timeLimit=1;
+function [Problem]=DP_complete(Input)
 t1=clock;
+timeLimit=Input.timeLimit;
 problem='TSP';
-n=size(coord,1);
-%假设默认输入n行2列坐标矩阵coord
-cx=coord(:,1).';
-cy=coord(:,2).';
-xi=[];
-xj=[];
+cx=Input.cx;
+cy=Input.cy;
+n=size(cx,2);
+coord=[cx;cy].';
+N=-1; %动态规划要求全部遍历，N用不着
 
 dis=zeros(n);   % 初始化两个城市的距离矩阵全为0
 for i=2:n    %i从2开始，是因为他与他自己的距离是0
@@ -91,7 +90,8 @@ t2=clock;
 t=etime(t2,t1);
 if t>timeLimit
     objVal=-1;
-    d_min=-1;
+    xi=-1;
+    xj=-1;
     %-1表示程序没跑完
 end
 Problem.problem=problem;
@@ -103,4 +103,5 @@ Problem.xi=xi;
 Problem.xj=xj;
 Problem.objVal=objVal;
 Problem.timeLimit=timeLimit;
+Problem.N=N;
 
