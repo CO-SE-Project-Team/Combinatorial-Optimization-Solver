@@ -1,16 +1,11 @@
-classdef Brute_Force_complete
-    properties
-        data
-    end
-    methods
-        function [data]=solve(data)
+function [Problem]=Brute_Force_complete(Input)
 t1=clock;
-timeLimit=data.timeLimit;
+timeLimit=Input.timeLimit;
 N=-1; %迭代次数（暴力用不着）
 problem='TSP';
 
-cx=data.cx;
-cy=data.cy;
+cx=Input.cx;
+cy=Input.cy;
 n=size(cx,2);
 
 dis=zeros(n);   % 初始化两个城市的距离矩阵全为0
@@ -54,19 +49,15 @@ if d_min==-1
     xj=-1;
 else
     xi=path_min(1,1:n);
-    xj=path_min(1,2:n+1);  
-    
-            data.problem=problem;
-            data.n=n;
-            data.cx=cx;
-            data.cy=cy;
-            data.dis=dis;
-            data.xi=xi;
-            data.xj=xj;
-            data.objVal=objVal;
-            data.timeLimit=timeLimit;
-            data.iterations=N;
+    xj=path_min(1,2:n+1);
 end
-        end
-    end
-end
+Problem.problem=problem;
+Problem.n=n;
+Problem.cx=cx;
+Problem.cy=cy;
+Problem.dis=dis;
+Problem.xi=xi;
+Problem.xj=xj;
+Problem.objVal=objVal;
+Problem.timeLimit=timeLimit;
+Problem.N=N;
