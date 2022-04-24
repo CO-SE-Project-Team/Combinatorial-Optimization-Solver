@@ -61,7 +61,7 @@ Cutting planes:
   Inf proof: 2
   Relax-and-lift: 3
 
-Explored 1 nodes (1244 simplex iterations) in 0.26 seconds (0.10 work units)
+Explored 1 nodes (1244 simplex iterations) in 0.31 seconds (0.10 work units)
 Thread count was 8 (of 8 available processors)
 
 Solution count 9: 173.127 177.117 178.802 ... 317.063
@@ -138,3 +138,111 @@ Solution count 9: 173.127 177.117 178.802 ... 317.063
 
 Optimal solution found (tolerance 1.00e-01)
 Best objective 1.731268508215e+02, best bound 1.578762602633e+02, gap 8.8089%
+Message: MatlabButton Selected
+Message: languageIndex is now: 1
+Message: PythonButton Selected
+Message: languageIndex is now: 2
+Message: TSPButton Selected
+Message: problemIndex is now: 1
+Message: VRPButton Selected
+Message: problemIndex is now: 2
+{Invalid or deleted object.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('MatlabSolver_v2/startupFcn', 'C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp', 73)" style="font-weight:bold">MatlabSolver_v2/startupFcn</a> (<a href="matlab: opentoline('C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp',73,0)">line 73</a>)
+                app.dairy=fileread('diary_Output(MatlabSolver_v2)');
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.apps.AppBase/runStartupFcn', 'C:\Program Files\MATLAB\R2022a\toolbox\matlab\appdesigner\appdesigner\runtime\+matlab\+apps\AppBase.m', 69)" style="font-weight:bold">matlab.apps.AppBase/runStartupFcn</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2022a\toolbox\matlab\appdesigner\appdesigner\runtime\+matlab\+apps\AppBase.m',69,0)">line 69</a>)
+            ams.runStartupFcn(app, startfcn);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('MatlabSolver_v2', 'C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp', 571)" style="font-weight:bold">MatlabSolver_v2</a> (<a href="matlab: opentoline('C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp',571,0)">line 571</a>)
+            runStartupFcn(app, @startupFcn)
+} 
+clc
+{Invalid or deleted object.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('MatlabSolver_v2/startupFcn', 'C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp', 73)" style="font-weight:bold">MatlabSolver_v2/startupFcn</a> (<a href="matlab: opentoline('C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp',73,0)">line 73</a>)
+                app.dairy=fileread('diary_Output(MatlabSolver_v2)');
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.apps.AppBase/runStartupFcn', 'C:\Program Files\MATLAB\R2022a\toolbox\matlab\appdesigner\appdesigner\runtime\+matlab\+apps\AppBase.m', 69)" style="font-weight:bold">matlab.apps.AppBase/runStartupFcn</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2022a\toolbox\matlab\appdesigner\appdesigner\runtime\+matlab\+apps\AppBase.m',69,0)">line 69</a>)
+            ams.runStartupFcn(app, startfcn);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('MatlabSolver_v2', 'C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp', 571)" style="font-weight:bold">MatlabSolver_v2</a> (<a href="matlab: opentoline('C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp',571,0)">line 571</a>)
+            runStartupFcn(app, @startupFcn)
+} 
+clc
+{Invalid or deleted object.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('MatlabSolver_v2/startupFcn', 'C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp', 73)" style="font-weight:bold">MatlabSolver_v2/startupFcn</a> (<a href="matlab: opentoline('C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp',73,0)">line 73</a>)
+                app.dairy=fileread('diary_Output(MatlabSolver_v2)');
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.apps.AppBase/runStartupFcn', 'C:\Program Files\MATLAB\R2022a\toolbox\matlab\appdesigner\appdesigner\runtime\+matlab\+apps\AppBase.m', 69)" style="font-weight:bold">matlab.apps.AppBase/runStartupFcn</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2022a\toolbox\matlab\appdesigner\appdesigner\runtime\+matlab\+apps\AppBase.m',69,0)">line 69</a>)
+            ams.runStartupFcn(app, startfcn);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('MatlabSolver_v2', 'C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp', 571)" style="font-weight:bold">MatlabSolver_v2</a> (<a href="matlab: opentoline('C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp',571,0)">line 571</a>)
+            runStartupFcn(app, @startupFcn)
+} 
+Message: TSPButton Selected
+Message: problemIndex is now: 1
+Message: VRPButton Selected
+Message: problemIndex is now: 2
+Message: KPButton Selected
+Message: problemIndex is now: 3
+Message: VRPButton Selected
+Message: problemIndex is now: 2
+Message: MatlabButton Selected
+Message: languageIndex is now: 1
+Message: PythonButton Selected
+Message: languageIndex is now: 2
+Message: KPButton Selected
+Message: problemIndex is now: 3
+Message: VRPButton Selected
+Message: problemIndex is now: 2
+Message: KPButton Selected
+Message: problemIndex is now: 3
+Message: VRPButton Selected
+Message: problemIndex is now: 2
+{Invalid or deleted object.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('MatlabSolver_v2/startupFcn', 'C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp', 73)" style="font-weight:bold">MatlabSolver_v2/startupFcn</a> (<a href="matlab: opentoline('C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp',73,0)">line 73</a>)
+                app.dairy=fileread('diary_Output(MatlabSolver_v2)');
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.apps.AppBase/runStartupFcn', 'C:\Program Files\MATLAB\R2022a\toolbox\matlab\appdesigner\appdesigner\runtime\+matlab\+apps\AppBase.m', 69)" style="font-weight:bold">matlab.apps.AppBase/runStartupFcn</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2022a\toolbox\matlab\appdesigner\appdesigner\runtime\+matlab\+apps\AppBase.m',69,0)">line 69</a>)
+            ams.runStartupFcn(app, startfcn);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('MatlabSolver_v2', 'C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp', 575)" style="font-weight:bold">MatlabSolver_v2</a> (<a href="matlab: opentoline('C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp',575,0)">line 575</a>)
+            runStartupFcn(app, @startupFcn)
+} 
+clc
+{Unrecognized method, property, or field 'set_Data' for class 'py.Gurobi_Class.Gurobi'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('MatlabSolver_v2/SolveButtonPushed', 'C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp', 173)" style="font-weight:bold">MatlabSolver_v2/SolveButtonPushed</a> (<a href="matlab: opentoline('C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp',173,0)">line 173</a>)
+            app.Algo.set_Data(app.Data);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.apps.AppBase>@(source,event)executeCallback(appdesigner.internal.service.AppManagementService.instance(),app,callback,requiresEventData,event)', 'C:\Program Files\MATLAB\R2022a\toolbox\matlab\appdesigner\appdesigner\runtime\+matlab\+apps\AppBase.m', 63)" style="font-weight:bold">matlab.apps.AppBase>@(source,event)executeCallback(appdesigner.internal.service.AppManagementService.instance(),app,callback,requiresEventData,event)</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2022a\toolbox\matlab\appdesigner\appdesigner\runtime\+matlab\+apps\AppBase.m',63,0)">line 63</a>)
+            newCallback = @(source, event)executeCallback(appdesigner.internal.service.AppManagementService.instance(), ...
+} 
+Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('MatlabSolver_v2/startupFcn')" style="font-weight:bold">MatlabSolver_v2/startupFcn</a>
+Error while evaluating Button PrivateButtonPushedFcn.
+
+[Warning: The following error was caught while executing 'onCleanup' class destructor:
+Invalid or deleted object.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('onCleanup/delete', 'C:\Program Files\MATLAB\R2022a\toolbox\matlab\general\onCleanup.m', 23)" style="font-weight:bold">onCleanup/delete</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2022a\toolbox\matlab\general\onCleanup.m',23,0)">line 23</a>)
+            obj.task();] 
+[Warning: The following error was caught while executing 'onCleanup' class destructor:
+Invalid or deleted object.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('onCleanup/delete', 'C:\Program Files\MATLAB\R2022a\toolbox\matlab\general\onCleanup.m', 23)" style="font-weight:bold">onCleanup/delete</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2022a\toolbox\matlab\general\onCleanup.m',23,0)">line 23</a>)
+            obj.task();] 
+{Invalid or deleted object.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('MatlabSolver_v2/startupFcn', 'C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp', 78)" style="font-weight:bold">MatlabSolver_v2/startupFcn</a> (<a href="matlab: opentoline('C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp',78,0)">line 78</a>)
+                if app.is_solving
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.apps.AppBase/runStartupFcn', 'C:\Program Files\MATLAB\R2022a\toolbox\matlab\appdesigner\appdesigner\runtime\+matlab\+apps\AppBase.m', 69)" style="font-weight:bold">matlab.apps.AppBase/runStartupFcn</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2022a\toolbox\matlab\appdesigner\appdesigner\runtime\+matlab\+apps\AppBase.m',69,0)">line 69</a>)
+            ams.runStartupFcn(app, startfcn);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('MatlabSolver_v2', 'C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp', 636)" style="font-weight:bold">MatlabSolver_v2</a> (<a href="matlab: opentoline('C:\Users\ZZDDD\OneDrive\SDIM\SDM223 System Engineering\Combinatorial Optimization\ZidingZhao\MatlabSolver_v2.mlapp',636,0)">line 636</a>)
+            runStartupFcn(app, @startupFcn)
+} 
+clc
