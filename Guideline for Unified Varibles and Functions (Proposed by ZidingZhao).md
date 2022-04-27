@@ -1,4 +1,4 @@
-# Guideline for Unified Variables and Functions v4.1
+# Guideline for Unified Variables and Functions v5.2
 
 NOTE: Critical variables and functions are marked with **※** in the front.
 
@@ -15,11 +15,17 @@ NOTE: Critical variables and functions are marked with **※** in the front.
 * **xj** *(1×size(xj) array/matrix)*: end node j if xij == j. Null for Knapsack Problem. NOTE: size(xi) = size(xj)
 * **objVal** *(double)*: the min/max value of the object function.
 * **iterations** *(int)*: shows how many iterations the algorithm takes.
+* **iterator** *(int)*: shows current times of iterations.
+* **is_stop** *(boolean)*: a boolean flag for whether the algorithm should stop the iteration.
 * (debatable) **timeLim/timeLimit/time_limit** *(int)*: Runtime limit in seconds.
 * More possible parameters for different algorithms.
 
 ## Unified Functions/Methods
-* **set_Data(Data)**: set all using struct Problem.
+* **※** **set_Data(Data)**: set all using struct Problem.
+* **※** **solve()**: Solve the problem according to the Data struct, return the Data which is updated by the algorithm.
+* **※** **get_Data()** *(struct)*: NOTE: Recommended for algorithms output.
+* **※** **pause()**: pause the algorithm.
+* **※** **resume()**: resume the algorithm.
 * **set_all(problem, n, capacity, cx, cy, timeLimit)**: set all possible variables, some variables could be ignored.
 * **set_n(n)** 
 * **set_capacity(capacity)** 
@@ -28,8 +34,6 @@ NOTE: Critical variables and functions are marked with **※** in the front.
 * **set_cy(cy)** 
 * (debatable) **set_timeLim(timeLim)** 
 * **solve()**: Solve the problem.
-* **※** **solve(Data)** *(struct)*: Solve the problem according to the Data struct, return the Data which is updated by the algorithm.
-* **get_Data()** *(struct)*: NOTE: Recommended for algorithms output.
 * **get_result()/get_all()** *(struct)*: NOTE: NOT recommended!
 * **get_problem()**
 * **get_n()** *(int)*
@@ -40,5 +44,4 @@ NOTE: Critical variables and functions are marked with **※** in the front.
 * **get_xi()** *(int)*
 * **get_xj()** *(int)*
 * **get_objVal()** *(double)*
-* (debatable) **stop()**: stop the algorithm.
 * More possible functions/methods for different algorithms.

@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Guideline for Unified Variables and Functions v4&period;1</title>
+        <title>Guideline for Unified Variables and Functions v5&period;2</title>
         <style>
 /* From extension vscode.github */
 /*---------------------------------------------------------------------------------------------
@@ -42,11 +42,9 @@
 .task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
 </style>
         
-        
-        
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="guideline-for-unified-variables-and-functions-v41">Guideline for Unified Variables and Functions v4.1</h1>
+        <h1 id="guideline-for-unified-variables-and-functions-v52">Guideline for Unified Variables and Functions v5.2</h1>
 <p>NOTE: Critical variables and functions are marked with <strong>※</strong> in the front.</p>
 <h2 id="unified-variables">Unified Variables</h2>
 <ul>
@@ -62,12 +60,18 @@
 <li><strong>xj</strong> <em>(1×size(xj) array/matrix)</em>: end node j if xij == j. Null for Knapsack Problem. NOTE: size(xi) = size(xj)</li>
 <li><strong>objVal</strong> <em>(double)</em>: the min/max value of the object function.</li>
 <li><strong>iterations</strong> <em>(int)</em>: shows how many iterations the algorithm takes.</li>
+<li><strong>iterator</strong> <em>(int)</em>: shows current times of iterations.</li>
+<li><strong>is_stop</strong> <em>(boolean)</em>: a boolean flag for whether the algorithm should stop the iteration.</li>
 <li>(debatable) <strong>timeLim/timeLimit/time_limit</strong> <em>(int)</em>: Runtime limit in seconds.</li>
 <li>More possible parameters for different algorithms.</li>
 </ul>
 <h2 id="unified-functionsmethods">Unified Functions/Methods</h2>
 <ul>
-<li><strong>set_Data(Data)</strong>: set all using struct Problem.</li>
+<li><strong>※</strong> <strong>set_Data(Data)</strong>: set all using struct Problem.</li>
+<li><strong>※</strong> <strong>solve()</strong>: Solve the problem according to the Data struct, return the Data which is updated by the algorithm.</li>
+<li><strong>※</strong> <strong>get_Data()</strong> <em>(struct)</em>: NOTE: Recommended for algorithms output.</li>
+<li><strong>※</strong> <strong>pause()</strong>: pause the algorithm.</li>
+<li><strong>※</strong> <strong>resume()</strong>: resume the algorithm.</li>
 <li><strong>set_all(problem, n, capacity, cx, cy, timeLimit)</strong>: set all possible variables, some variables could be ignored.</li>
 <li><strong>set_n(n)</strong></li>
 <li><strong>set_capacity(capacity)</strong></li>
@@ -76,8 +80,6 @@
 <li><strong>set_cy(cy)</strong></li>
 <li>(debatable) <strong>set_timeLim(timeLim)</strong></li>
 <li><strong>solve()</strong>: Solve the problem.</li>
-<li><strong>※</strong> <strong>solve(Data)</strong> <em>(struct)</em>: Solve the problem according to the Data struct, return the Data which is updated by the algorithm.</li>
-<li><strong>get_Data()</strong> <em>(struct)</em>: NOTE: Recommended for algorithms output.</li>
 <li><strong>get_result()/get_all()</strong> <em>(struct)</em>: NOTE: NOT recommended!</li>
 <li><strong>get_problem()</strong></li>
 <li><strong>get_n()</strong> <em>(int)</em></li>
@@ -88,9 +90,10 @@
 <li><strong>get_xi()</strong> <em>(int)</em></li>
 <li><strong>get_xj()</strong> <em>(int)</em></li>
 <li><strong>get_objVal()</strong> <em>(double)</em></li>
-<li>(debatable) <strong>stop()</strong>: stop the algorithm.</li>
 <li>More possible functions/methods for different algorithms.</li>
 </ul>
 
+        
+        
     </body>
     </html>

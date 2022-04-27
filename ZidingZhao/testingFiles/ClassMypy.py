@@ -37,4 +37,5 @@ class Mypy:
 
     def get_set_dic(self, Stct):
         self.dic = Stct
+        Stct['a'] += 1
         return self.dic
