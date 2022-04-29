@@ -3,6 +3,9 @@ classdef TSP_BF
         data
     end
     methods
+        function [obj]=TSP_BF(data)
+            obj.data=data;
+        end
         function [obj]=solve(obj)
             t1=clock;
             timeLim=obj.data.timeLim;
