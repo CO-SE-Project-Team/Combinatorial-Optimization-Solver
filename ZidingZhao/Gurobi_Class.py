@@ -133,8 +133,8 @@ class Gurobi:
         self.mdl.Params.TimeLimit = self.TimeLimit  # seconds
         self.mdl.optimize()
         self.active_A = [a for a in self.A if self.x[a].x > 0.99]
-        self.active_ci = [a[0] for a in self.active_A]
-        self.active_cj = [a[1] for a in self.active_A]
+        self.active_ci = [a[0] + 1 for a in self.active_A]
+        self.active_cj = [a[1] + 1 for a in self.active_A]
         self.objVal = self.mdl.objVal
 
         self.Data['xi'] = self.active_ci
