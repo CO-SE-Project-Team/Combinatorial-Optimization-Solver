@@ -3,8 +3,7 @@ classdef TSP_BF
         data
     end
     methods
-        function [obj]=TSP_BF(data)
-            obj.data=data;
+        function [obj]=TSP_BF()
         end
         function [obj]=solve(obj)
             t1=clock;
@@ -77,6 +76,11 @@ classdef TSP_BF
             obj.data=data;
         end
         function [data]=get_Data(obj)
+            data=obj.data;
+        end
+        function [data]=get_solved_Data(obj,data)
+            obj.data=data;
+            obj=solve(obj);
             data=obj.data;
         end
     end
