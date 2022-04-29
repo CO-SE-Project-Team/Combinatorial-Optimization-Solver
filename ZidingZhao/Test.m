@@ -1,5 +1,20 @@
-% Algorithms = {py.VRP_Python_Class_Gurobi.VRPGurobi(), py.VRP_Python_Class_Gurobi.VRPGurobi()};
-% Class = Algorithms{1};
+classdef Test
+    properties(SetAccess = private)
+        a;
+        b;
+        c;
+    end
 
-a = {1,1;1,1;1,1;};
-a(:,:,2) = {1,1;1,1;1,1;};
+    methods
+        function obj = Test()
+            obj.a = 1;
+            obj.b = 2;
+            obj.c = 3;
+        end
+
+        function draw()
+%             app.Lamp = [1,0,1];
+        end
+    end
+
+end

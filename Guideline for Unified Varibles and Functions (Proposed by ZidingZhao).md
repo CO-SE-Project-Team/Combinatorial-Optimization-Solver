@@ -1,4 +1,4 @@
-# Guideline for Unified Variables and Functions v5.2
+# Guideline for Unified Variables and Functions v5.3
 
 NOTE: Critical variables and functions are marked with **※** in the front.
 
@@ -26,6 +26,7 @@ NOTE: Critical variables and functions are marked with **※** in the front.
 * **※** **get_Data()** *(struct)*: NOTE: Recommended for algorithms output.
 * **※** **pause()**: pause the algorithm.
 * **※** **resume()**: resume the algorithm.
+* **※** **get_solved_Data(Data)** *(struct)*: set & get Data, all in one.
 * **set_all(problem, n, capacity, cx, cy, timeLimit)**: set all possible variables, some variables could be ignored.
 * **set_n(n)** 
 * **set_capacity(capacity)** 
