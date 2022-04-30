@@ -39,14 +39,13 @@ classdef TSP_GA
             %保存每代的最小路径便于画图
             minPathes = zeros(maxGEN,1); %每一代的最小路径长度
             
-            bestpoppath=0; %当代最短路径
             
             % GA算法
             for  gen=1:maxGEN %遍历每一代
-                gen=obj.data.iterator;
+                obj.data.iterator=gen;
                 % 计算适应度的值，即路径总距离
                 [fval, sumDistance, minPath, maxPath] = fitness(dis, pop);
-                obj.data.objVal=minPath;
+                
                 % 分两次随机的从种群中选择4个染色体作候选，然后选这几个中的最好的作为父代，来交叉产生下一个子代
                 tournamentSize=4; %设置大小
                 for k=1:popSize
@@ -82,23 +81,21 @@ classdef TSP_GA
                 end
                 %fprintf('代数:%d   最短路径:%.2fKM \n', gen,minPath);
                 % 更新
-                pop = offspring;
-                % 画出当前状态下的最短路径
+                
                 
                 if minPath < gbest
                     gbest = minPath; %gbest所有代中的最小值，minPath是某一代的最小值
                     bestpoppath=paint(cities, pop, gbest, sumDistance,gen); %返回这一代中的最短路径
-                    paint(cities, pop, gbest, sumDistance,gen);
                     for z=1:cityNum
                         if bestpoppath(1,z)==1
                             bestpoppathf1=[bestpoppath(1,z:cityNum) bestpoppath(1,1:z-1) 1];
-                            xi=bestpoppathf1(1,1:cityNum);
-                            xj=bestpoppathf1(1,2:cityNum+1);
                             break
                         end
                     end
                 end
                 
+                pop = offspring;
+                % 画出当前状态下的最短路径
                 t2 = clock;
                 t=etime(t2,t1);
                 if t>timeLim
@@ -112,7 +109,9 @@ classdef TSP_GA
             %ylabel('路径长度');
             %xlabel('迭代次数');
             %grid on
-            
+            obj.data.objVal=gbest;
+            xi=bestpoppathf1(1,1:cityNum);
+            xj=bestpoppathf1(1,2:cityNum+1);
             
             %offspring 每一代
             
@@ -213,7 +212,7 @@ classdef TSP_GA
                 %axis equal
                 %hold on
                 [minPathX,~] = find(totalDistances==minPath,1, 'first');
-                bestPopPath = pop(minPathX, :); %这个就是最佳路径
+                bestPopPath = pop(minPathX, :); %这个就是当代最佳路径
                 bestX = zeros(1,length);
                 bestY = zeros(1,length);
                 for j=1:length
