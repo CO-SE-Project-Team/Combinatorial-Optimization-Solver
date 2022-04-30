@@ -46,7 +46,7 @@ classdef TSP_GA
                 gen=obj.data.iterator;
                 % 计算适应度的值，即路径总距离
                 [fval, sumDistance, minPath, maxPath] = fitness(dis, pop);
-                
+                obj.data.objVal=minPath;
                 % 分两次随机的从种群中选择4个染色体作候选，然后选这几个中的最好的作为父代，来交叉产生下一个子代
                 tournamentSize=4; %设置大小
                 for k=1:popSize
@@ -237,7 +237,6 @@ classdef TSP_GA
             obj.data.dis=dis;
             obj.data.xi=xi;
             obj.data.xj=xj;
-            obj.data.objVal=gbest;
             obj.data.timeLim=timeLim;
             obj.data.algorithm=algorithm;
         end
