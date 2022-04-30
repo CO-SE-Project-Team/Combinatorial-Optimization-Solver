@@ -1,11 +1,12 @@
-classdef TSP_BF
+classdef TSP_BF < handle
     properties
-        data
+        data;
+        timeEditField;
     end
     methods
         function [obj]=TSP_BF()
         end
-        function [obj]=solve(obj)
+        function solve(obj)
             t1=clock;
             timeLim=obj.data.timeLim;
             iterations=-1; %迭代次数（暴力用不着）
@@ -70,7 +71,7 @@ classdef TSP_BF
                 obj.data.iterator=iterator;
             end
         end
-        function [obj]=set_Data(obj,data)
+        function set_Data(obj,data)
             obj.data=data;
         end
         function [data]=get_Data(obj)
@@ -80,6 +81,15 @@ classdef TSP_BF
             obj.data=data;
             obj=solve(obj);
             data=obj.data;
+        end
+
+        function set_timeEditField(obj, timeEditField)
+            obj.timeEditField = timeEditField;
+            obj.timeEditField.Value = 'timeEditFieldSetted';
+        end
+
+        function draw_objVal(obj, app)
+            obj.app = app;
         end
     end
 end
