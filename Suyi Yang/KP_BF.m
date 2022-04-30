@@ -48,7 +48,7 @@ classdef KP_BF
                 obj.data.problem=problem;
                 obj.data.weight=weight;
                 obj.data.n=n;
-                obj.data.cx=[];
+                obj.data.cx=(1:n);
                 obj.data.cy=cy;
                 obj.data.dis=0;
                 obj.data.xi=xi;
