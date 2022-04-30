@@ -18,8 +18,8 @@ classdef KP_BF
             cy=obj.data.cy;% 物品价值
             n =length(weight);% n为物品的个数
             objVal=0;%被选择物品的总价值
-            xi=zeros(1,n);
-            xj=zeros(1,n);
+            xi=[];
+            xj=[];
             
             for i=0:2^n-1
                 v=dec2bin(i,n);%
@@ -45,14 +45,12 @@ classdef KP_BF
             end
             for i=1:n
                 if optv(i)=='1'
-                    xi(i)=1;
-                else
-                    xi(i)=0;
+                    xi=[xi,cx(i)];
                 end
             end
             for i=1:n
-                if xi(i)==1
-                    xj(i)=cy(i);
+                if optv(i)=='1'
+                    xj=[xj,cy(i)];
                 end
             end
 
