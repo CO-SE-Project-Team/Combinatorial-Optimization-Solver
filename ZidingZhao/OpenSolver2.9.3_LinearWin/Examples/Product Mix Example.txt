@@ -1,1 +1,0 @@
-The product mix problem seeks to find how much of each product to produce using available resources to maximise profit.
