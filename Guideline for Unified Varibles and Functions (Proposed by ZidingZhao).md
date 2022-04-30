@@ -1,4 +1,4 @@
-# Guideline for Unified Variables and Functions v5.3
+# Guideline for Unified Variables and Functions v5.4
 
 NOTE: Critical variables and functions are marked with **※** in the front.
 
@@ -19,6 +19,7 @@ NOTE: Critical variables and functions are marked with **※** in the front.
 * **is_stop** *(boolean)*: a boolean flag for whether the algorithm should stop the iteration.
 * (debatable) **timeLim/timeLimit/time_limit** *(int)*: Runtime limit in seconds.
 * More possible parameters for different algorithms.
+* **algorithm** *(string)*: "BF", "MC", "GREEDY", "DP", "GA", "SA", "KNN", "TWOOPT", "VNS", "ACO".
 
 ## Unified Functions/Methods
 * **※** **set_Data(Data)**: set all using struct Problem.
