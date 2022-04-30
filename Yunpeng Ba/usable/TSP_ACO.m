@@ -1,11 +1,11 @@
-classdef TSP_ACO
+classdef TSP_ACO < handle
     properties
         data
     end
     methods
         function [obj]=TSP_ACO()
         end
-        function [obj]=solve(obj)
+        function solve(obj)
             t1=clock;
             timeLim=obj.data.timeLim;
             problem='TSP';
@@ -142,7 +142,7 @@ classdef TSP_ACO
             obj.data.algorithm=algorithm;
         end
         
-        function [obj]=set_Data(obj,data)
+        function set_Data(obj,data)
             obj.data=data;
         end
         function [data]=get_Data(obj)
@@ -150,7 +150,7 @@ classdef TSP_ACO
         end
         function [data]=get_solved_Data(obj,data)
             obj.data=data;
-            obj=solve(obj);
+            obj.solve(obj);
             data=obj.data;
         end
     end

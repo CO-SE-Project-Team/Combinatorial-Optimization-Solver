@@ -1,16 +1,17 @@
-classdef TSP_BF
+classdef TSP_BF < handle
     properties
         data
     end
     methods
         function [obj]=TSP_BF()
         end
-        function [obj]=solve(obj)
+        function solve(obj)
             t1=clock;
             timeLim=obj.data.timeLim;
             iterations=-1; %迭代次数（暴力用不着）
             iterator=-1; %迭代次数（暴力用不着）
             problem='TSP';
+            algorithm='BF';
             
             cx=obj.data.cx;
             cy=obj.data.cy;
@@ -23,7 +24,7 @@ classdef TSP_BF
                 end
             end
             dis = dis+dis';   % 生成对称完整的距离矩阵
-             m=randperm(n-1);
+            m=randperm(n-1);
             V=[];
             V2=perms(m);%得到全排列遍历矩阵
             V2=V2+1;
@@ -68,9 +69,10 @@ classdef TSP_BF
                 obj.data.timeLim=timeLim;
                 obj.data.iterations=iterations;
                 obj.data.iterator=iterator;
+                obj.data.algorithm=algorithm;
             end
         end
-        function [obj]=set_Data(obj,data)
+        function set_Data(obj,data)
             obj.data=data;
         end
         function [data]=get_Data(obj)
@@ -78,7 +80,7 @@ classdef TSP_BF
         end
         function [data]=get_solved_Data(obj,data)
             obj.data=data;
-            obj=solve(obj);
+            obj.solve(obj);
             data=obj.data;
         end
     end

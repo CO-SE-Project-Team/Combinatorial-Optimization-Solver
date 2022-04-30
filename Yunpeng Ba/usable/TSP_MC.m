@@ -1,11 +1,11 @@
-classdef TSP_MC
+classdef TSP_MC < handle
     properties
         data
     end
     methods
         function [obj]=TSP_MC()
         end
-        function [obj]=solve(obj)
+        function solve(obj)
             t1=clock;
             timeLim=obj.data.timeLim;
             problem='TSP';
@@ -69,7 +69,7 @@ classdef TSP_MC
             obj.data.timeLim=timeLim;
             obj.data.algorithm=algorithm;
         end
-        function [obj]=set_Data(obj,data)
+        function set_Data(obj,data)
             obj.data=data;
         end
         function [data]=get_Data(obj)
@@ -77,7 +77,7 @@ classdef TSP_MC
         end
         function [data]=get_solved_Data(obj,data)
             obj.data=data;
-            obj=solve(obj);
+            obj.solve(obj);
             data=obj.data;
         end
     end
