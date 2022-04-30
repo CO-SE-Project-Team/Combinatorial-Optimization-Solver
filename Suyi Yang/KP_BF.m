@@ -18,7 +18,8 @@ classdef KP_BF
             cy=obj.data.cy;% 物品价值
             n =length(weight);% n为物品的个数
             objVal=0;%被选择物品的总价值
-            xj=zeros(n);
+            xi=zeros(1,n);
+            xj=zeros(1,n);
             
             for i=0:2^n-1
                 v=dec2bin(i,n);%
@@ -31,7 +32,7 @@ classdef KP_BF
                     end
                     if (temp_w<=capacity)&&(temp_p>objVal)
                         objVal=temp_p;
-                        xi=v;
+                        optv=v;
                     end
                 end
             end
@@ -42,9 +43,15 @@ classdef KP_BF
                 objVal=-1;
                 %-1表示程序没跑完
             end
-          
             for i=1:n
-                if xi(i)=='1'
+                if optv(i)=='1'
+                    xi(i)=1;
+                else
+                    xi(i)=0;
+                end
+            end
+            for i=1:n
+                if xi(i)==1
                     xj(i)=cy(i);
                 end
             end
@@ -52,10 +59,10 @@ classdef KP_BF
             obj.data.problem=problem;
             obj.data.n=n;
             obj.data.capacity=capacity;
-            obj.data.demand=demand;
+            obj.data.demand=weight;
             obj.data.cx=cx;
             obj.data.cy=cy;
-            obj.data.dis=dis;
+            obj.data.dis=0;
             obj.data.xi=xi;
             obj.data.xj=xj;
             obj.data.objVal=objVal;
