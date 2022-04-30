@@ -15,11 +15,6 @@ classdef TSP_SA
             cy=obj.data.cy;
             n=size(cx,2);
             
-            C=[cx;cy]';
-            T=obj.data.iterations;     %初始温度
-            L=100;       %马尔科夫链的长度
-            %K=0.99;      %衰减参数
-            
             dis=zeros(n);   % 初始化两个城市的距离矩阵全为0
             for i=2:n    %i从2开始，是因为他与他自己的距离是0
                 for j=1:i
@@ -28,24 +23,29 @@ classdef TSP_SA
             end
             dis = dis+dis';   % 生成对称完整的距离矩阵
             
+            C=[cx;cy]';
+            T=obj.data.iterations;     %初始温度
+            L=100;       %马尔科夫链的长度
+            %K=0.99;      %衰减参数
+            
             %%%城市坐标结构体%%%%%%%
             city=struct([]);
             
-            for f=1:n
-                city(f).x=C(f,1);
-                city(f).y=C(f,2);
+            
+            for i=1:n
+                city(i).x=C(i,1);
+                city(i).y=C(i,2);
             end
             
             
             l=1;        %统计迭代次数
             len(l)=func5(city,n); %每次迭代后路线的长度
-            
-            
-            %figure(1);
-            count=0;
+            gbest=inf;
+            iterator=0;
             while T>0
+                iterator=iterator+1;
                 %%%%%%%%%%%%%%%多次迭代扰动，温度降低前多次试验%%%%%%%%
-                for z=1:L
+                for i=1:L
                     %%%%%%%%%%%%%%%计算原路线总距离%%%%%%%%%
                     len1=func5(city,n);
                     %%%%%%%%%%%%%%%产生随机扰动%%%%%%%%%
@@ -79,47 +79,33 @@ classdef TSP_SA
                 
                 %%%%%%%%%%%%%%%计算新路线的距离%%%%%%%%%
                 len(l)=func5(city,n);
+                if len(l)<gbest
+                    gbest=len(l);
+                    path=[];
+                    for m=1:n
+                        for o=1:n
+                            if [city(m).x,city(m).y]==C(o,:)
+                                path=[path o];
+                                break
+                            end
+                        end
+                    end
+                end
                 %%%%%%%%%%%%%%%温度不断下降%%%%%%%%%
                 T=T-1;
-                count=count+1;
-                obj.data.iterator=count;
-                %T=T*K;
-                
-                %for i=1:n-1
-                %  plot([city(i).x,city(i+1).x],[city(i).y,city(i+1).y],'bo-');
-                %   hold on;
-                %end
-                %plot([city(n).x,city(1).x],[city(n).y,city(1).y],'ro-');
-                
-                %title(['优化最短距离:',num2str(len(l))]);%%num2str将数字转为字符数组
-                %hold off;
-                %pause(0.005);
-                t2=clock;
+                t2 = clock;
                 t=etime(t2,t1);
                 if t>timeLim
                     break
                 end
             end
-            
-            path=[];
-            for z=1:n
-                for y=1:n
-                    if [city(z).x,city(z).y]==C(y,:)
-                        path=[path y];
-                        break
-                    end
-                end
-            end
-            %求出来的路径目前是随机起始点，但路径是闭环，所以把路径开头改成1即可
             path1=[];
-            for u=1:n
-                if path(1,u)==1
-                    path1=[path(1,u:n) path(1,1:u-1) 1];
+            for z=1:n
+                if path(1,z)==1
+                    path1=[path(1,z:n) path(1,1:z-1) 1];
                     break
                 end
             end
-            
-            objVal=len(l);
             xi=path1(1,1:n);
             xj=path1(1,2:n+1);
             
@@ -132,6 +118,7 @@ classdef TSP_SA
                 len=len+sqrt((city(n).x-city(1).x)^2+(city(n).y-city(1).y)^2);
             end
             
+            
             obj.data.problem=problem;
             obj.data.n=n;
             obj.data.cx=cx;
@@ -139,7 +126,8 @@ classdef TSP_SA
             obj.data.dis=dis;
             obj.data.xi=xi;
             obj.data.xj=xj;
-            obj.data.objVal=objVal;
+            obj.data.objVal=gbest;
+            obj.data.iterator=iterator;
             obj.data.timeLim=timeLim;
             obj.data.algorithm=algorithm;
         end
