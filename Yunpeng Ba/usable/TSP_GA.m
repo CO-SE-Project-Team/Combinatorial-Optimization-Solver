@@ -17,7 +17,7 @@ classdef TSP_GA
             %%%%%%%%%%%%自定义参数%%%%%%%%%%%%%
             cities = [cx;cy];
             cityNum=size(cx,2);
-            maxGEN = 10;
+            maxGEN = obj.data.iterations;
             popSize = 20; % 遗传算法种群大小
             crossoverProbabilty = 0.9; %交叉概率
             mutationProbabilty = 0.1; %变异概率
@@ -43,7 +43,7 @@ classdef TSP_GA
             
             % GA算法
             for  gen=1:maxGEN %遍历每一代
-                
+                gen=obj.data.iterator;
                 % 计算适应度的值，即路径总距离
                 [fval, sumDistance, minPath, maxPath] = fitness(dis, pop);
                 
