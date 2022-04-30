@@ -10,14 +10,15 @@ classdef KP_BF
             timeLim=obj.data.timeLim;
             iterations=-1; %迭代次数（暴力用不着）
             iterator=-1; %迭代次数（暴力用不着）
-            problem='KP';
+            problem="KP";
             
             capacity=obj.data.capacity;% 背包的容量
-            weight=obj.data.weight;% 物品的重量
+            weight=obj.data.demand;% 物品的重量
+            cx=obj.data.cx;
             cy=obj.data.cy;% 物品价值
             n =length(weight);% n为物品的个数
-            v=[];%背包里物品的状态，0为取，1为不取
             objVal=0;%被选择物品的总价值
+            xj=zeros(n);
             
             for i=0:2^n-1
                 v=dec2bin(i,n);%
@@ -41,23 +42,26 @@ classdef KP_BF
                 objVal=-1;
                 %-1表示程序没跑完
             end
-            if objVal==-1
-                xi=-1;
-                xj=-1;
-            else
-                obj.data.problem=problem;
-                obj.data.weight=weight;
-                obj.data.n=n;
-                obj.data.cx=(1:n);
-                obj.data.cy=cy;
-                obj.data.dis=0;
-                obj.data.xi=xi;
-                obj.data.xj=[];
-                obj.data.objVal=objVal;
-                obj.data.timeLim=timeLim;
-                obj.data.iterations=iterations;
-                obj.data.iterator=iterator;
+          
+            for i=1:n
+                if xi(i)=='1'
+                    xj(i)=cy(i);
+                end
             end
+
+            obj.data.problem=problem;
+            obj.data.n=n;
+            obj.data.capacity=capacity;
+            obj.data.demand=demand;
+            obj.data.cx=cx;
+            obj.data.cy=cy;
+            obj.data.dis=dis;
+            obj.data.xi=xi;
+            obj.data.xj=xj;
+            obj.data.objVal=objVal;
+            obj.data.timeLim=timeLim;
+            obj.data.iterations=iterations;
+            obj.data.iterator=iterator;
         end
         function [obj]=set_Data(obj,data)
             obj.data=data;
