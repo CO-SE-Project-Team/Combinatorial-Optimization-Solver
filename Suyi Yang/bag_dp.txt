@@ -1,0 +1,62 @@
+         capacity int16;%背包最大容量
+        cx = [];%记录物品重量的数组（第一位须在读入的矩阵首位插入0）
+        cy = [];%记录物品价值的数组（第一位须在读入的矩阵首位插入0）
+        objVal double;%被选择物品的总价值
+	n = length(app.cx);% n为物品的个数
+            distance = [];%定义状态转移矩阵存储选中物品总价值
+            xi = [];%背包里物品的状态，0为取，1为不取（第一位为0）
+            app.objVal = 0;%被选择物品的总价值
+
+            %判断第一个物品放或不放；
+            for j=1:(app.capacity+1)
+                if app.cx(n)<j
+                    distance(n,j)=app.cy(n) ;
+                else
+                    distance(n,j)=0;
+                end
+            end
+
+            %判断下一个物品是放还是不放；不放时：F[i,v]=F[i-1,v]；放时：F[i,v]=max{F[i-1,v],F[i-1,v-C_i]+w_i}；
+            for i=n-1:-1:1
+                for j=1:(app.capacity+1)
+                    if j<=app.cx(i)
+                        distance(i,j)=distance(i+1,j);
+                    else
+                        if distance(i+1,j)>distance(i+1,j-app.cx(i))+app.cy(i)
+                            distance(i,j)=distance(i+1,j);
+                        else
+                            distance(i,j)=distance(i+1,j-app.cx(i))+app.cy(i);
+                        end
+                    end
+                end
+            end
+
+            %确定被选择的物品。
+            i=app.capacity;
+            for j=1:n-1
+                if distance(j,i)==distance(j+1,i)
+                    xi(j)=0;
+                else
+                    xi(j)=1;
+                    i=i-app.cx(j);
+                end
+            end
+            if distance(n,i)==0
+                xi(n)=0;
+            else
+                xi(n)=1;
+        
+            end
+
+            %计算被选择物品的总价值
+            for i=2:n
+                if(xi(i)==1)
+                    app.objVal=app.objVal+app.cy(i);
+                end
+            end
+
+            app.ResultEditField.Value = app.objVal;
+
+            %版权声明：本文为CSDN博主「Tsroad」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+            %原文链接：https://blog.csdn.net/tsroad/article/details/52048562
+            %本代码对原文语法、变量名、输入输出、运算处理进行了部分改动
