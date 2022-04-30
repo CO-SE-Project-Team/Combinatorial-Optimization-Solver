@@ -48,7 +48,7 @@ classdef TSP_MC
                     t=etime(t2,t1);
                     min_path = path;
                     min_result = result;
-                    if t>timeLimit
+                    if t>timeLim
                         break
                     end
                 end
@@ -67,8 +67,6 @@ classdef TSP_MC
             obj.data.xj=xj;
             obj.data.objVal=objVal;
             obj.data.timeLim=timeLim;
-            obj.data.iterations=iterations;
-            obj.data.iterator=iterator;
             obj.data.algorithm=algorithm;
         end
         function [obj]=set_Data(obj,data)
