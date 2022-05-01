@@ -44,7 +44,6 @@ classdef TSP_BF < ALGORITHM
             % %                 %-1表示程序没跑完
             % %             end
             if obj.is_stop()==true
-                d_min=0;
                 xi=0;
                 xj=0;
             else

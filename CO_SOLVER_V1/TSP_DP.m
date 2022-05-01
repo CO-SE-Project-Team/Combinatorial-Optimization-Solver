@@ -66,7 +66,6 @@ classdef TSP_DP < ALGORITHM
             %             t=etime(t2,t1);
             %             if t>timeLim
             if obj.is_stop()==true
-                objVal=0;
                 xi=0;
                 xj=0;
             end
