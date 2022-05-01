@@ -62,7 +62,6 @@ classdef TSP_BF < ALGORITHM
             obj.Data.timeLim=timeLim;
             obj.Data.iterations=iterations;
             obj.Data.iterator=iterator;
-            obj.Data.algorithm=algorithm;
         end
     end
 end
