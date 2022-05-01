@@ -79,7 +79,7 @@ classdef TSP_BF < handle
         end
         function [data]=get_solved_Data(obj,data)
             obj.data=data;
-            obj=solve(obj);
+            obj.solve();
             data=obj.data;
         end
 

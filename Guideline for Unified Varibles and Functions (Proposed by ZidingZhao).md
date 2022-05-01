@@ -1,4 +1,4 @@
-# Guideline for Unified Variables and Functions v5.6
+# Guideline for Unified Variables and Functions v5.7
 
 NOTE: Critical variables and functions are marked with **※** in the front.
 
@@ -18,7 +18,7 @@ NOTE: Critical variables and functions are marked with **※** in the front.
 * **iterator** *(int)*: shows current times of iterations.
 * (debatable) **timeLim/timeLimit/time_limit** *(int)*: Runtime limit in seconds.
 * More possible parameters for different algorithms.
-* **algorithm** *(string)*: "BF", "MC", "GREEDY", "DP", "GA", "SA", "KNN", "TWOOPT", "VNS", "ACO".
+* algorithm *(string)*: "BF", "MC", "GREEDY", "DP", "GA", "SA", "KNN", "TWOOPT", "VNS", "ACO".
 
 ## Unified Functions/Methods
 * **※** **set_Data(Data)**: set all using struct Problem.
@@ -27,7 +27,8 @@ NOTE: Critical variables and functions are marked with **※** in the front.
 * **※** **pause()**: pause the algorithm.
 * **※** **resume()**: resume the algorithm.
 * **※** **get_solved_Data(Data)** *(struct)*: set & get Data, all in one.
-* **is_stop()** *(boolean)*: return a boolean flag for whether the algorithm should stop the iteration.
+* **※** **start_clock()**: start the timing clock.
+* **※****is_stop()** *(boolean)*: return a boolean flag for whether the algorithm should stop the iteration.
 * **set_all(problem, n, capacity, cx, cy, timeLimit)**: set all possible variables, some variables could be ignored.
 * **set_n(n)** 
 * **set_capacity(capacity)** 

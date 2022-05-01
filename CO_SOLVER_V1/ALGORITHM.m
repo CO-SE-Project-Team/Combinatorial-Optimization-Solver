@@ -110,9 +110,11 @@ classdef  ALGORITHM < handle
         function iterator = get_iterator(obj)
             iterator = obj.Data.iterator;
         end
+
         function start_clock(obj)
             obj.startTime=clock;
         end
+        
         function [bool]=is_stop(obj)
             obj.endTime=clock;
             deltaT=etime(obj.endTime,obj.startTime);
