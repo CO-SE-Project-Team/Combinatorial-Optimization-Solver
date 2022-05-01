@@ -37,17 +37,16 @@ classdef SubALGORITHM < ALGORITHM %类名改成 问题_算法, 如把subALGORITH
                 
                 % 注意要记得更新xi，xj，objVal等变量
                 % ----------------以上是你的算法内容-----------------------
+                        
+                % 这里将算法内部算好的变量赋给父类Data，方便父类get_Data()
+                obj.Data.xi=xi;
+                obj.Data.xj=xj;
+                obj.Data.objVal=objVal;
                 
                 % 当前迭代数加一，方便父类is_stop()检查是否超过iterations并停止算法
                 obj.Data.iterator = obj.Data.iterator + 1;
             end
         end
-        
-        % 这里将算法内部算好的变量赋给父类Data，方便父类get_Data()
-        obj.Data.xi=xi;
-        obj.Data.xj=xj;
-        obj.Data.objVal=objVal;
-        
     end
 end
 
