@@ -1,14 +1,12 @@
-classdef TSP_BF < ALGORITHM
-    methods
-        function solve(obj)
-            obj.start_clock();
-            timeLim=obj.Data.timeLim;
+            cx=[0.640000000000000,0.410000000000000,0.990000000000000,0.550000000000000,0.770000000000000,0.250000000000000,0.110000000000000,0.890000000000000];
+            cy=[0.740000000000000,0.450000000000000,0.660000000000000,0.210000000000000,0.320000000000000,0.990000000000000,0.540000000000000,0.110000000000000];
+            t1=clock;
+            timeLim=5;
             iterations=-1; %迭代次数（暴力用不着）
             iterator=-1; %迭代次数（暴力用不着）
             problem='TSP';
             
-            cx=obj.Data.cx;
-            cy=obj.Data.cy;
+
             n=size(cx,2);
             
             dis=zeros(n);   % 初始化两个城市的距离矩阵全为0
@@ -18,6 +16,7 @@ classdef TSP_BF < ALGORITHM
                 end
             end
             dis = dis+dis';   % 生成对称完整的距离矩阵
+            
             m=randperm(n-1);
             V=[];
             V2=perms(m);%得到全排列遍历矩阵
@@ -25,7 +24,7 @@ classdef TSP_BF < ALGORITHM
             for v=1:size(V2)
                 V(v,:)=[1 V2(v,:) 1];
             end
-            
+
             d=[];
             for i=1:size(V,1)                           %计算每一条环路的各段长度
                 for j=1:size(V,2)-1
@@ -36,32 +35,19 @@ classdef TSP_BF < ALGORITHM
             [d,position]=min(D);                        %找到最短环路
             d_min=d;                                    %最短环路的长度
             path_min=V(position,:);                     %最短环路的路径
-            %             t2=clock;
-            %             t=etime(t2,t1);
-            % %             if t>timeLim
-            % %                 path_min=-1;
-            % %                 d_min=-1;
-            % %                 %-1表示程序没跑完
-            % %             end
-            if obj.is_stop()==true
-                d_min=0;
-                xi=0;
-                xj=0;
+            objVal=d_min;
+            t2=clock;
+            t=etime(t2,t1);
+            if t>timeLim
+                path_min=-1;
+                d_min=-1;
+                %-1表示程序没跑完
+            end
+            if d_min==-1
+                xi=-1;
+                xj=-1;
             else
                 xi=path_min(1,1:n);
                 xj=path_min(1,2:n+1);
+
             end
-            obj.Data.problem=problem;
-            obj.Data.n=n;
-            obj.Data.cx=cx;
-            obj.Data.cy=cy;
-            obj.Data.dis=dis;
-            obj.Data.xi=xi;
-            obj.Data.xj=xj;
-            obj.Data.objVal=d_min;
-            obj.Data.timeLim=timeLim;
-            obj.Data.iterations=iterations;
-            obj.Data.iterator=iterator;
-        end
-    end
-end
