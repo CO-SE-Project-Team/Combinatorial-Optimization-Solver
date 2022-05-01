@@ -6,7 +6,6 @@ classdef TSP_BF < ALGORITHM
             iterations=-1; %迭代次数（暴力用不着）
             iterator=-1; %迭代次数（暴力用不着）
             problem='TSP';
-            algorithm='BF';
             
             cx=obj.Data.cx;
             cy=obj.Data.cy;
