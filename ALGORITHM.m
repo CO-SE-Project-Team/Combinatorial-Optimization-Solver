@@ -13,9 +13,9 @@ classdef  ALGORITHM < handle
         end
 
         % IMPLEMENT YOUR ALGORITHM FOR THIS FUNCITON
-        function solve(obj)
-            % YOUR SOLVE FUNCITON, IMPLEMENT THIS FUNCITON
-        end
+        % function solve(obj)
+        %     % YOUR SOLVE FUNCITON, IMPLEMENT THIS FUNCITON
+        % end
 
         function set_Data(obj, Data)
             obj.Data = Data;
