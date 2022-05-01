@@ -116,7 +116,7 @@ classdef  ALGORITHM < handle
         function [bool]=is_stop(obj)
             obj.endTime=clock;
             deltaT=etime(obj.endTime,obj.startTime);
-            if deltaT>timeLim && obj.Data.iterator> obj.Data.iterations %iterator+=1需要算法在循环中补充
+            if (deltaT>obj.Data.timeLim) || (obj.Data.iterator > obj.Data.iterations) %iterator+=1需要算法在循环中补充
                 bool=true;
             else
                 bool=false;
