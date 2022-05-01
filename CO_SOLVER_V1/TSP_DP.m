@@ -66,8 +66,8 @@ classdef TSP_DP < ALGORITHM
             %             t=etime(t2,t1);
             %             if t>timeLim
             if obj.is_stop()==true
-                xi=0;
-                xj=0;
+                xi=1;
+                xj=1;
             end
             %0表示程序没跑完
             %             end
