@@ -1,10 +1,12 @@
-classdef TestClass
+classdef TestClass < handle
     %TESTCLASS Summary of this class goes here
     %   Detailed explanation goes here
     
     properties
         Property1
         TestProperty
+        a
+        b
     end
     
     methods
@@ -19,6 +21,16 @@ classdef TestClass
             %   Detailed explanation goes here
             outputArg = obj.Property1 + inputArg;
         end
+
+        function set_ab(obj,a,b)
+            obj.a = a;
+            obj.b = b;
+        end
+
+        function a = get_a(obj)
+            a = obj.a;
+        end
+
     end
 end
 
