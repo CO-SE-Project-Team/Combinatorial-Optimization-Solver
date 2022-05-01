@@ -62,14 +62,7 @@ classdef TSP_DP < ALGORITHM
             route=[1 route 1];
             xi=route(1,1:n);
             xj=route(1,2:n+1);
-            %             t2=clock;
-            %             t=etime(t2,t1);
-            %             if t>timeLim
-            if obj.is_stop()==true
-                xi=1;
-                xj=1;
-            end
-            %0表示程序没跑完
+%无迭代，放弃timeLim
             %             end
             
             obj.Data.problem=problem;

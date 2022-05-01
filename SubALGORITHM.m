@@ -1,4 +1,4 @@
-classdef SubALGORITHM < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改成：'TSP_GA'
+classdef SubALGORITHM < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改成：'TSP_GA'，这个文件需要把ALGORITHM加到目录
     % SubALGORITHM 继承了 ALGORITHM
     % 父类具有 Data 结构体, 此处无需再次声明、
     % 本类不需要有任何变量
@@ -50,3 +50,11 @@ classdef SubALGORITHM < ALGORITHM %类名改成 问题_算法, 如把subALGORITH
         
     end
 end
+
+%本地命令行测试步骤
+% p=SubALGORITHM()
+% 打开.mat文件导入数据Data
+% p.set_Data(Data)
+% p.solve()
+% p.get_Data() 需要在变量里把Data.timeLim修改，测试能完整跑完和无法完整跑完两种情况
+% p.get_solved_Data(Data)这个是前几种方法的集合，也需要测试一次
