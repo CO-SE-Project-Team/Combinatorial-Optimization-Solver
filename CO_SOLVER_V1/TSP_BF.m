@@ -3,8 +3,8 @@ classdef TSP_BF < ALGORITHM
         function solve(obj)
             obj.start_clock();
             timeLim=obj.Data.timeLim;
-            iterations=-1; %迭代次数（暴力用不着）
-            iterator=-1; %迭代次数（暴力用不着）
+            iterations=0; %迭代次数（暴力用不着）
+            iterator=0; %迭代次数（暴力用不着）
             problem='TSP';
             
             cx=obj.Data.cx;
