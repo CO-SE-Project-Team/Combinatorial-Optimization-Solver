@@ -6,7 +6,6 @@ classdef TSP_BF < ALGORITHM
             iterations=-1; %迭代次数（暴力用不着）
             iterator=-1; %迭代次数（暴力用不着）
             problem='TSP';
-            algorithm='BF';
             
             cx=obj.Data.cx;
             cy=obj.Data.cy;
@@ -45,9 +44,9 @@ classdef TSP_BF < ALGORITHM
             % %                 %-1表示程序没跑完
             % %             end
             if obj.is_stop()==true
-                d_min=-1;
-                xi=-1;
-                xj=-1;
+                d_min=0;
+                xi=0;
+                xj=0;
             else
                 xi=path_min(1,1:n);
                 xj=path_min(1,2:n+1);
@@ -63,7 +62,6 @@ classdef TSP_BF < ALGORITHM
             obj.Data.timeLim=timeLim;
             obj.Data.iterations=iterations;
             obj.Data.iterator=iterator;
-            obj.Data.algorithm=algorithm;
         end
     end
 end
