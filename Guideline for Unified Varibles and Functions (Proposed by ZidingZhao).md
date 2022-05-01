@@ -1,4 +1,4 @@
-# Guideline for Unified Variables and Functions v5.4
+# Guideline for Unified Variables and Functions v5.6
 
 NOTE: Critical variables and functions are marked with **※** in the front.
 
@@ -16,7 +16,6 @@ NOTE: Critical variables and functions are marked with **※** in the front.
 * **objVal** *(double)*: the min/max value of the object function.
 * **iterations** *(int)*: shows how many iterations the algorithm takes.
 * **iterator** *(int)*: shows current times of iterations.
-* **is_stop** *(boolean)*: a boolean flag for whether the algorithm should stop the iteration.
 * (debatable) **timeLim/timeLimit/time_limit** *(int)*: Runtime limit in seconds.
 * More possible parameters for different algorithms.
 * **algorithm** *(string)*: "BF", "MC", "GREEDY", "DP", "GA", "SA", "KNN", "TWOOPT", "VNS", "ACO".
@@ -28,6 +27,7 @@ NOTE: Critical variables and functions are marked with **※** in the front.
 * **※** **pause()**: pause the algorithm.
 * **※** **resume()**: resume the algorithm.
 * **※** **get_solved_Data(Data)** *(struct)*: set & get Data, all in one.
+* **is_stop()** *(boolean)*: return a boolean flag for whether the algorithm should stop the iteration.
 * **set_all(problem, n, capacity, cx, cy, timeLimit)**: set all possible variables, some variables could be ignored.
 * **set_n(n)** 
 * **set_capacity(capacity)** 
