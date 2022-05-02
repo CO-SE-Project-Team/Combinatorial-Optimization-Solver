@@ -47,9 +47,10 @@ classdef TSP_MC < ALGORITHM
                     min_path = path;
                     min_result = result;
                     min_path = [min_path,min_path(1)];   % 在最短路径的最后面加上一个元素，即第一个点（我们要生成一个封闭的图形）
-                    objVal=min_result;
-                    xi=min_path(1,1:n);
-                    xj=min_path(1,2:n+1);
+                    obj.Data.objVal=min_result;
+                    obj.Data.xi=min_path(1,1:n);
+                    obj.Data.xj=min_path(1,2:n+1);
+                    update_status_by(obj.data.objVal,obj.data.xi,obj.data.xj);
                     %                     if t>timeLim
                     %                         break
                     %                     end
@@ -62,9 +63,6 @@ classdef TSP_MC < ALGORITHM
             obj.Data.cx=cx;
             obj.Data.cy=cy;
             obj.Data.dis=dis;
-            obj.Data.xi=xi;
-            obj.Data.xj=xj;
-            obj.Data.objVal=objVal;
             obj.Data.timeLim=timeLim;
         end
     end

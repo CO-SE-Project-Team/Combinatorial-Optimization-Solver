@@ -1,20 +1,14 @@
-classdef TSP_DP
-    properties
-        data
-    end
+classdef TSP_DP < ALGORITHM
     methods
-        function [obj]=TSP_DP()
-        end
-        function [obj]=solve(obj)
-            t1=clock;
-            timeLim=obj.data.timeLim;
-            iterations=-1; %迭代次数（动规用不着）
-            iterator=-1; %迭代次数（动规用不着）
+        function solve(obj)
+            obj.start_clock();
+            timeLim=obj.Data.timeLim;
+            iterations=0; %迭代次数（动规用不着）
+            iterator=0; %迭代次数（动规用不着）
             problem='TSP';
-            algorithm='DP';
             
-            cx=obj.data.cx;
-            cy=obj.data.cy;
+            cx=obj.Data.cx;
+            cy=obj.Data.cy;
             n=size(cx,2);
             
             dis=zeros(n);   % 初始化两个城市的距离矩阵全为0
@@ -68,38 +62,20 @@ classdef TSP_DP
             route=[1 route 1];
             xi=route(1,1:n);
             xj=route(1,2:n+1);
-            t2=clock;
-            t=etime(t2,t1);
-            if t>timeLim
-                objVal=-1;
-                xi=-1;
-                xj=-1;
-                %-1表示程序没跑完
-            end
+%无迭代，放弃timeLim
+            %             end
             
-            obj.data.problem=problem;
-            obj.data.n=n;
-            obj.data.cx=cx;
-            obj.data.cy=cy;
-            obj.data.dis=dis;
-            obj.data.xi=xi;
-            obj.data.xj=xj;
-            obj.data.objVal=objVal;
-            obj.data.timeLim=timeLim;
-            obj.data.iterations=iterations;
-            obj.data.iterator=iterator;
-            obj.data.algorithm=algorithm;
-        end
-        function [obj]=set_Data(obj,data)
-            obj.data=data;
-        end
-        function [data]=get_Data(obj)
-            data=obj.data;
-        end
-        function [data]=get_solved_Data(obj,data)
-            obj.data=data;
-            obj=solve(obj);
-            data=obj.data;
+            obj.Data.problem=problem;
+            obj.Data.n=n;
+            obj.Data.cx=cx;
+            obj.Data.cy=cy;
+            obj.Data.dis=dis;
+            obj.Data.xi=xi;
+            obj.Data.xj=xj;
+            obj.Data.objVal=objVal;
+            obj.Data.timeLim=timeLim;
+            obj.Data.iterations=iterations;
+            obj.Data.iterator=iterator;
         end
     end
 end

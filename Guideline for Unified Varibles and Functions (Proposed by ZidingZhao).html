@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Guideline for Unified Variables and Functions v5&period;7</title>
+        <title>Guideline for Unified Variables and Functions v5&period;8</title>
         <style>
 /* From extension vscode.github */
 /*---------------------------------------------------------------------------------------------
@@ -44,7 +44,7 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="guideline-for-unified-variables-and-functions-v57">Guideline for Unified Variables and Functions v5.7</h1>
+        <h1 id="guideline-for-unified-variables-and-functions-v58">Guideline for Unified Variables and Functions v5.8</h1>
 <p>NOTE: Critical variables and functions are marked with <strong>※</strong> in the front.</p>
 <h2 id="unified-variables">Unified Variables</h2>
 <ul>
@@ -60,7 +60,6 @@
 <li><strong>xj</strong> <em>(1×size(xj) array/matrix)</em>: end node j if xij == j. Null for Knapsack Problem. NOTE: size(xi) = size(xj)</li>
 <li><strong>objVal</strong> <em>(double)</em>: the min/max value of the object function.</li>
 <li><strong>iterations</strong> <em>(int)</em>: shows how many iterations the algorithm takes.</li>
-<li><strong>iterator</strong> <em>(int)</em>: shows current times of iterations.</li>
 <li>(debatable) <strong>timeLim/timeLimit/time_limit</strong> <em>(int)</em>: Runtime limit in seconds.</li>
 <li>More possible parameters for different algorithms.</li>
 <li>algorithm <em>(string)</em>: &quot;BF&quot;, &quot;MC&quot;, &quot;GREEDY&quot;, &quot;DP&quot;, &quot;GA&quot;, &quot;SA&quot;, &quot;KNN&quot;, &quot;TWOOPT&quot;, &quot;VNS&quot;, &quot;ACO&quot;.</li>
@@ -73,7 +72,8 @@
 <li><strong>※</strong> <strong>pause()</strong>: pause the algorithm.</li>
 <li><strong>※</strong> <strong>resume()</strong>: resume the algorithm.</li>
 <li><strong>※</strong> <strong>get_solved_Data(Data)</strong> <em>(struct)</em>: set &amp; get Data, all in one.</li>
-<li><strong>is_stop()</strong> <em>(boolean)</em>: return a boolean flag for whether the algorithm should stop the iteration.</li>
+<li><strong>※</strong> <strong>start_clock()</strong>: start the timing clock.</li>
+<li>**※**<strong>is_stop()</strong> <em>(boolean)</em>: return a boolean flag for whether the algorithm should stop the iteration.</li>
 <li><strong>set_all(problem, n, capacity, cx, cy, timeLimit)</strong>: set all possible variables, some variables could be ignored.</li>
 <li><strong>set_n(n)</strong></li>
 <li><strong>set_capacity(capacity)</strong></li>

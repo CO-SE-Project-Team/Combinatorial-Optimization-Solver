@@ -1,8 +1,6 @@
 classdef  VRP_BF < ALGORITHM
     methods
         function solve(obj)
-            obj.start_clock();
-
             problem = obj.Data.problem;
             n = obj.Data.n;
             capacity = obj.Data.capacity;
@@ -71,14 +69,10 @@ classdef  VRP_BF < ALGORITHM
                             minDis = di;
                             route = p(i,:);
                         end
-                        obj.Data.iterator  = obj.Data.iterator + 1;
-                        obj.Data.objVal = minDis;
-                        
                     end
                 end
             end
 
-            disp(route);
             r = [];
             for i = 2:size(route,2)-1
                 if route(1,i) == 1 && route(1,i-1) == 1
@@ -87,7 +81,6 @@ classdef  VRP_BF < ALGORITHM
                 r = [r, route(1,i)];
             end
             r = [1 r 1];
-            disp(r);
 
             obj.Data.xi = r(1, 1:size(r,2)-1);
             obj.Data.xj = r(1, 2:size(r,2));
