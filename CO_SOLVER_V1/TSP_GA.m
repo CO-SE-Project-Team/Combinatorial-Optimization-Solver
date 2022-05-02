@@ -95,6 +95,7 @@ classdef TSP_GA < ALGORITHM
                 obj.data.objVal=gbest;
                 obj.data.xi=bestpoppathf1(1,1:cityNum);
                 obj.data.xj=bestpoppathf1(1,2:cityNum+1);
+                update_status_by(obj.data.objVal,obj.data.xi,obj.data.xj);
             end
             %figure
             %plot(minPathes, 'MarkerFaceColor', 'red','LineWidth',1);

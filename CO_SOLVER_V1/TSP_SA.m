@@ -96,7 +96,7 @@ classdef TSP_SA < ALGORITHM
             end
             obj.Data.xi=path1(1,1:n);
             obj.Data.xj=path1(1,2:n+1);
-            
+            update_status_by(obj.data.objVal,obj.data.xi,obj.data.xj);
             %计算距离的函数
             function len=func5(city,n)
                 len=0;
