@@ -1,4 +1,4 @@
-classdef KP_DP < ALGORITHM
+dataclassdef KP_DP < ALGORITHM
     methods
         function solve(obj)
             obj.start_clock();
