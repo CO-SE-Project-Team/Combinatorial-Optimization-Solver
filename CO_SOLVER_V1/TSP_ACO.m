@@ -102,9 +102,8 @@ classdef TSP_ACO < ALGORITHM
                 Tau=(1-Rho).*Tau+Delta_Tau; %考虑信息素挥发，更新后的信息素
                 %第六步：禁忌表清零（禁忌表：防止搜索过程中出现循环，避免局部最优）
                 Tabu=zeros(m,n);             %%直到最大迭代次数
-            end
-            
-            %%第七步：输出结果%%%
+                
+                %%第七步：输出结果%%%
             Pos=find(L_best==min(L_best)); %找到最佳路径
             Shortest_Route=R_best(Pos(1),:); %最大迭代次数后最佳路径
             Shortest_Length=L_best(Pos(1)); %最大迭代次数后最短距离
@@ -118,6 +117,9 @@ classdef TSP_ACO < ALGORITHM
                     break
                 end
             end
+            end
+            
+            
             
             obj.Data.problem=problem;
             obj.Data.n=n;

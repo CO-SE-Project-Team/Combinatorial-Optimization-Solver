@@ -34,7 +34,7 @@ classdef TSP_SA < ALGORITHM
             
             l=1;        %统计迭代次数
             len(l)=func5(city,n); %每次迭代后路线的长度
-            gbest=inf;
+            obj.Data.objVal=inf;
             obj.Data.iterator=0;
             while obj.is_stop() == false
                 obj.Data.iterator=obj.Data.iterator+1;
@@ -73,8 +73,8 @@ classdef TSP_SA < ALGORITHM
                 
                 %%%%%%%%%%%%%%%计算新路线的距离%%%%%%%%%
                 len(l)=func5(city,n);
-                if len(l)<gbest
-                    gbest=len(l);
+                if len(l)<obj.Data.objVal
+                    obj.Data.objVal=len(l);
                     path=[];
                     for m=1:n
                         for o=1:n
@@ -94,8 +94,8 @@ classdef TSP_SA < ALGORITHM
                     break
                 end
             end
-            xi=path1(1,1:n);
-            xj=path1(1,2:n+1);
+            obj.Data.xi=path1(1,1:n);
+            obj.Data.xj=path1(1,2:n+1);
             
             %计算距离的函数
             function len=func5(city,n)
@@ -109,13 +109,7 @@ classdef TSP_SA < ALGORITHM
             
             obj.Data.problem=problem;
             obj.Data.n=n;
-            obj.Data.cx=cx;
-            obj.Data.cy=cy;
             obj.Data.dis=dis;
-            obj.Data.xi=xi;
-            obj.Data.xj=xj;
-            obj.Data.objVal=gbest;
-            obj.Data.timeLim=timeLim;
         end
     end
 end

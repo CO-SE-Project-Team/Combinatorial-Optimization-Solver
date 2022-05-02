@@ -92,11 +92,9 @@ classdef TSP_GA < ALGORITHM
                 
                 pop = offspring;
                 % 画出当前状态下的最短路径
-                t2 = clock;
-                t=etime(t2,t1);
-                if t>timeLim
-                    break
-                end
+                obj.data.objVal=gbest;
+                obj.data.xi=bestpoppathf1(1,1:cityNum);
+                obj.data.xj=bestpoppathf1(1,2:cityNum+1);
             end
             %figure
             %plot(minPathes, 'MarkerFaceColor', 'red','LineWidth',1);
@@ -105,9 +103,7 @@ classdef TSP_GA < ALGORITHM
             %ylabel('路径长度');
             %xlabel('迭代次数');
             %grid on
-            obj.data.objVal=gbest;
-            xi=bestpoppathf1(1,1:cityNum);
-            xj=bestpoppathf1(1,2:cityNum+1);
+            
             
             %offspring 每一代
             
@@ -230,9 +226,6 @@ classdef TSP_GA < ALGORITHM
             obj.data.cx=cx;
             obj.data.cy=cy;
             obj.data.dis=dis;
-            obj.data.xi=xi;
-            obj.data.xj=xj;
-            obj.data.timeLim=timeLim;
         end
     end
 end
