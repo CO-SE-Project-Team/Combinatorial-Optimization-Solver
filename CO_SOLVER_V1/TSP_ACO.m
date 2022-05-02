@@ -109,9 +109,6 @@ classdef TSP_ACO < ALGORITHM
                 Shortest_Route=R_best(Pos(1),:); %最大迭代次数后最佳路径
                 Length=L_best(Pos(1)); %最大迭代次数后最短距离
                 
-                if Length<ShortestLength
-                    ShortestLength=Length;
-                end
                 path1=[];
                 for u=1:n
                     if Shortest_Route(1,u)==1
@@ -126,7 +123,6 @@ classdef TSP_ACO < ALGORITHM
             end
             
             
-            obj.Data.objVal=ShortestLength;
             obj.Data.problem=problem;
             obj.Data.n=n;
             obj.Data.cx=cx;
