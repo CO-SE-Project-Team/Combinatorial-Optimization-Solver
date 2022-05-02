@@ -114,6 +114,7 @@ classdef TSP_ACO < ALGORITHM
                         path1=[Shortest_Route(1,u:n) Shortest_Route(1,1:u-1) 1];
                         obj.Data.xi=path1(1,1:n);
                         obj.Data.xj=path1(1,2:n+1);
+                        obj.Data.objVal=Shortest_Length;
                         obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
                         break
                     end
@@ -127,7 +128,6 @@ classdef TSP_ACO < ALGORITHM
             obj.Data.cx=cx;
             obj.Data.cy=cy;
             obj.Data.dis=D;
-            obj.Data.objVal=Shortest_Length;
             obj.Data.timeLim=timeLim;
         end
     end
