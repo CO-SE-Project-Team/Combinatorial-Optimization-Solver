@@ -86,17 +86,18 @@ classdef TSP_SA < ALGORITHM
                     end
                 end
                 %%%%%%%%%%%%%%%温度不断下降%%%%%%%%%
-            end
-            path1=[];
-            for z=1:n
-                if path(1,z)==1
-                    path1=[path(1,z:n) path(1,1:z-1) 1];
-                    break
+                path1=[];
+                for z=1:n
+                    if path(1,z)==1
+                        path1=[path(1,z:n) path(1,1:z-1) 1];
+                        break
+                    end
                 end
+                obj.Data.xi=path1(1,1:n);
+                obj.Data.xj=path1(1,2:n+1);
+                obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
             end
-            obj.Data.xi=path1(1,1:n);
-            obj.Data.xj=path1(1,2:n+1);
-            obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
+            
             %计算距离的函数
             function len=func5(city,n)
                 len=0;
