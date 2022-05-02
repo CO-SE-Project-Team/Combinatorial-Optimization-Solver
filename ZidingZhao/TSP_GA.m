@@ -1,15 +1,9 @@
-classdef TSP_GA
-    properties
-        data
-    end
+classdef TSP_GA < ALGORITHM
     methods
-        function [obj]=TSP_GA()
-        end
-        function [obj]=solve(obj)
-            t1=clock;
+        function solve(obj)
+            obj.start_clock();
             timeLim=obj.data.timeLim;
             problem='TSP';
-            algorithm='GA';
             
             cx=obj.data.cx;
             cy=obj.data.cy;
@@ -17,8 +11,7 @@ classdef TSP_GA
             %%%%%%%%%%%%自定义参数%%%%%%%%%%%%%
             cities = [cx;cy];
             cityNum=size(cx,2);
-            maxGEN = obj.data.iterations;
-            popSize = 20; % 遗传算法种群大小
+            popSize = 2; % 遗传算法种群大小
             crossoverProbabilty = 0.9; %交叉概率
             mutationProbabilty = 0.1; %变异概率
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -37,12 +30,15 @@ classdef TSP_GA
             end
             offspring = zeros(popSize,cityNum); %生成后代的矩阵
             %保存每代的最小路径便于画图
-            minPathes = zeros(maxGEN,1); %每一代的最小路径长度
+            minPathes = zeros(obj.data.iterations,1); %每一代的最小路径长度
             
             
             % GA算法
-            for  gen=1:maxGEN %遍历每一代
+            for  gen=1:obj.data.iterations %遍历每一代
                 obj.data.iterator=gen;
+                if obj.is_stop()==true
+                    break
+                end
                 % 计算适应度的值，即路径总距离
                 [fval, sumDistance, minPath, maxPath] = fitness(dis, pop);
                 
@@ -237,18 +233,6 @@ classdef TSP_GA
             obj.data.xi=xi;
             obj.data.xj=xj;
             obj.data.timeLim=timeLim;
-            obj.data.algorithm=algorithm;
-        end
-        function [obj]=set_Data(obj,data)
-            obj.data=data;
-        end
-        function [data]=get_Data(obj)
-            data=obj.data;
-        end
-        function [data]=get_solved_Data(obj,data)
-            obj.data=data;
-            obj=solve(obj);
-            data=obj.data;
         end
     end
 end

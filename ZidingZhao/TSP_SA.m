@@ -1,18 +1,12 @@
-classdef TSP_SA
-    properties
-        data
-    end
+classdef TSP_SA < ALGORITHM
     methods
-        function [obj]=TSP_SA()
-        end
-        function [obj]=solve(obj)
-            t1=clock;
-            timeLim=obj.data.timeLim;
+        function solve(obj)
+            obj.start_clock();
+            timeLim=obj.Data.timeLim;
             problem='TSP';
-            algorithm='SA';
             
-            cx=obj.data.cx;
-            cy=obj.data.cy;
+            cx=obj.Data.cx;
+            cy=obj.Data.cy;
             n=size(cx,2);
             
             dis=zeros(n);   % 初始化两个城市的距离矩阵全为0
@@ -24,7 +18,7 @@ classdef TSP_SA
             dis = dis+dis';   % 生成对称完整的距离矩阵
             
             C=[cx;cy]';
-            T=obj.data.iterations;     %初始温度
+            %T=obj.Data.iterations;     %初始温度
             L=100;       %马尔科夫链的长度
             %K=0.99;      %衰减参数
             
@@ -41,9 +35,9 @@ classdef TSP_SA
             l=1;        %统计迭代次数
             len(l)=func5(city,n); %每次迭代后路线的长度
             gbest=inf;
-            iterator=0;
-            while T>0
-                iterator=iterator+1;
+            obj.Data.iterator=0;
+            while obj.is_stop() == false
+                obj.Data.iterator=obj.Data.iterator+1;
                 %%%%%%%%%%%%%%%多次迭代扰动，温度降低前多次试验%%%%%%%%
                 for i=1:L
                     %%%%%%%%%%%%%%%计算原路线总距离%%%%%%%%%
@@ -70,7 +64,7 @@ classdef TSP_SA
                         city=tmp_city;
                     else
                         %%%%%%%%%%%%%%%以一定概率选择是否接受%%%%%%%%%
-                        if exp(-delta_e/T)>rand()
+                        if exp(-delta_e/(obj.Data.iterations-obj.Data.iterator+1))>rand()
                             city=tmp_city;
                         end
                     end
@@ -92,12 +86,6 @@ classdef TSP_SA
                     end
                 end
                 %%%%%%%%%%%%%%%温度不断下降%%%%%%%%%
-                T=T-1;
-                t2 = clock;
-                t=etime(t2,t1);
-                if t>timeLim
-                    break
-                end
             end
             path1=[];
             for z=1:n
@@ -119,28 +107,15 @@ classdef TSP_SA
             end
             
             
-            obj.data.problem=problem;
-            obj.data.n=n;
-            obj.data.cx=cx;
-            obj.data.cy=cy;
-            obj.data.dis=dis;
-            obj.data.xi=xi;
-            obj.data.xj=xj;
-            obj.data.objVal=gbest;
-            obj.data.iterator=iterator;
-            obj.data.timeLim=timeLim;
-            obj.data.algorithm=algorithm;
-        end
-        function [obj]=set_Data(obj,data)
-            obj.data=data;
-        end
-        function [data]=get_Data(obj)
-            data=obj.data;
-        end
-        function [data]=get_solved_Data(obj,data)
-            obj.data=data;
-            obj=solve(obj);
-            data=obj.data;
+            obj.Data.problem=problem;
+            obj.Data.n=n;
+            obj.Data.cx=cx;
+            obj.Data.cy=cy;
+            obj.Data.dis=dis;
+            obj.Data.xi=xi;
+            obj.Data.xj=xj;
+            obj.Data.objVal=gbest;
+            obj.Data.timeLim=timeLim;
         end
     end
 end

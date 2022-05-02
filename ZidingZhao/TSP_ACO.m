@@ -1,25 +1,19 @@
-classdef TSP_ACO
-    properties
-        data
-    end
+classdef TSP_ACO < ALGORITHM
     methods
-        function [obj]=TSP_ACO()
-        end
-        function [obj]=solve(obj)
-            t1=clock;
-            timeLim=obj.data.timeLim;
+        function solve(obj)
+            obj.start_clock();
+            timeLim=obj.Data.timeLim;
             problem='TSP';
-            algorithm='ACO';
             
-            cx=obj.data.cx;
-            cy=obj.data.cy;
+            cx=obj.Data.cx;
+            cy=obj.Data.cy;
             n=size(cx,2);
             
-            m=50;    %蚂蚁个数
+            m=5;    %蚂蚁个数
             Alpha=1;  %Alpha表征信息素重要程度的参数
             Beta=5;  % Beta表征启发式因子重要程度的参数
             Rho=0.1; % Rho信息素蒸发系数
-            NC_max=obj.data.iterations; %最大迭代次数
+            obj.Data.iterations=obj.Data.iterations; %最大迭代次数
             Q=100;         %信息素增加强度
             
             C=[cx;cy]';
@@ -39,13 +33,12 @@ classdef TSP_ACO
             Eta=1./D;          %Eta为启发因子，这里设为距离的倒数
             Tau=ones(n,n);     %Tau为信息素矩阵
             Tabu=zeros(m,n);   %存储并记录路径的生成
-            NC=0;               %迭代计数器，记录迭代次数
-            R_best=zeros(NC_max,n);       %各代最佳路线
-            L_best=inf.*ones(NC_max,1);   %各代最佳路线的长度  %inf 正无穷
-            L_ave=zeros(NC_max,1);        %各代路线的平均长度
-            while NC<=NC_max
-                NC=NC+1;                      %迭代继续
-                obj.data.iterator=NC;
+            obj.Data.iterator=0;               %迭代计数器，记录迭代次数
+            R_best=zeros(obj.Data.iterations,n);       %各代最佳路线
+            L_best=inf.*ones(obj.Data.iterations,1);   %各代最佳路线的长度  %inf 正无穷
+            L_ave=zeros(obj.Data.iterations,1);        %各代路线的平均长度
+            while obj.is_stop() == false
+                obj.Data.iterator=obj.Data.iterator+1;                      %迭代继续
                 %%第二步：将m只蚂蚁放到n个城市上%%
                 Randpos=[];   %随即存取
                 for i=1:(ceil(m/n))
@@ -78,8 +71,8 @@ classdef TSP_ACO
                     end
                 end
                 
-                if NC>=2
-                    Tabu(1,:)=R_best(NC-1,:);
+                if obj.Data.iterator>=2
+                    Tabu(1,:)=R_best(obj.Data.iterator-1,:);
                 end
                 %%%第四步：记录本次迭代最佳路线%%%
                 L=zeros(m,1);     %开始距离为0，m*1的列向量
@@ -90,10 +83,10 @@ classdef TSP_ACO
                     end
                     L(i)=L(i)+D(R(1),R(n));      %加上回到起点的距离，得到一轮下来后走过的距离
                 end
-                L_best(NC)=min(L);           %最佳距离取最小
-                pos=find(L==L_best(NC));
-                R_best(NC,:)=Tabu(pos(1),:); %此轮迭代后的最佳路线
-                L_ave(NC)=mean(L);           %此轮迭代后的平均距离
+                L_best(obj.Data.iterator)=min(L);           %最佳距离取最小
+                pos=find(L==L_best(obj.Data.iterator));
+                R_best(obj.Data.iterator,:)=Tabu(pos(1),:); %此轮迭代后的最佳路线
+                L_ave(obj.Data.iterator)=mean(L);           %此轮迭代后的平均距离
                 
                 
                 %%%第五步：更新信息素%%%
@@ -110,48 +103,31 @@ classdef TSP_ACO
                 %第六步：禁忌表清零（禁忌表：防止搜索过程中出现循环，避免局部最优）
                 Tabu=zeros(m,n);             %%直到最大迭代次数
                 
-                t2 = clock;
-                t=etime(t2,t1);
-                if t>timeLim
-                    break
+                %%第七步：输出结果%%%
+                Pos=find(L_best==min(L_best)); %找到最佳路径
+                Shortest_Route=R_best(Pos(1),:); %最大迭代次数后最佳路径
+                Shortest_Length=L_best(Pos(1)); %最大迭代次数后最短距离
+                
+                path1=[];
+                for u=1:n
+                    if Shortest_Route(1,u)==1
+                        path1=[Shortest_Route(1,u:n) Shortest_Route(1,1:u-1) 1];
+                        obj.Data.xi=path1(1,1:n);
+                        obj.Data.xj=path1(1,2:n+1);
+                        break
+                    end
                 end
             end
             
-            %%第七步：输出结果%%%
-            Pos=find(L_best==min(L_best)); %找到最佳路径
-            Shortest_Route=R_best(Pos(1),:) %最大迭代次数后最佳路径
-            Shortest_Length=L_best(Pos(1)) %最大迭代次数后最短距离
             
-            path1=[];
-            for u=1:n
-                if Shortest_Route(1,u)==1
-                    path1=[Shortest_Route(1,u:n) Shortest_Route(1,1:u-1) 1];
-                    obj.data.xi=path1(1,1:n);
-                    obj.data.xj=path1(1,2:n+1);
-                    break
-                end
-            end
             
-            obj.data.problem=problem;
-            obj.data.n=n;
-            obj.data.cx=cx;
-            obj.data.cy=cy;
-            obj.data.dis=D;
-            obj.data.objVal=Shortest_Length;
-            obj.data.timeLim=timeLim;
-            obj.data.algorithm=algorithm;
-        end
-        
-        function [obj]=set_Data(obj,data)
-            obj.data=data;
-        end
-        function [data]=get_Data(obj)
-            data=obj.data;
-        end
-        function [data]=get_solved_Data(obj,data)
-            obj.data=data;
-            obj=solve(obj);
-            data=obj.data;
+            obj.Data.problem=problem;
+            obj.Data.n=n;
+            obj.Data.cx=cx;
+            obj.Data.cy=cy;
+            obj.Data.dis=D;
+            obj.Data.objVal=Shortest_Length;
+            obj.Data.timeLim=timeLim;
         end
     end
 end

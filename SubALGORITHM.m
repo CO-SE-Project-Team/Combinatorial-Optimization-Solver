@@ -42,9 +42,8 @@ classdef SubALGORITHM < ALGORITHM %类名改成 问题_算法, 如把subALGORITH
                 obj.Data.xi=xi;
                 obj.Data.xj=xj;
                 obj.Data.objVal=objVal;
-                
-                % 当前迭代数加一，方便父类is_stop()检查是否超过iterations并停止算法
-                obj.Data.iterator = obj.Data.iterator + 1;
+
+                obj.update_status_by(objVal, xi, xj); % 这将会把当前的objVal，xi，xj更新到GUI中。
             end
         end
     end
