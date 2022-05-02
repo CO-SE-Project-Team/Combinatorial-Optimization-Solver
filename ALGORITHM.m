@@ -150,7 +150,7 @@ classdef  ALGORITHM < handle
                 obj.objVals = [obj.objVals, objVal];
                 if etime(clock, obj.midStartTime) > 0.5
                     % print time
-                    disp(['Message: Time elapsed: ',num2str(etime(clock, obj.startTime))]);
+                    disp(['Message: Time elapsed: ',num2str(etime(clock, obj.startTime)), ' iter: ', num2str(obj.iter), ' objVal: ', num2str(objVal)]);
 
                     % gui time, iterator, objVal
                     obj.timeEditField.Value = num2str(etime(clock, obj.startTime));
@@ -163,6 +163,7 @@ classdef  ALGORITHM < handle
 
                     % plot result coordinates
                     cla(obj.UIAxes_Result);
+                    hold(obj.UIAxes_Result,'on');
                     G = graph(xi,xj);
                     plot(obj.UIAxes_Result,G,'XData',obj.Data.cx,'YData',obj.Data.cy,'NodeFontSize',5);
                     scatter(obj.UIAxes_Result,obj.Data.cx(1),obj.Data.cy(1),50,'red','filled','s');
@@ -170,7 +171,7 @@ classdef  ALGORITHM < handle
                     % text(obj.UIAxes_Result, obj.Data.cx(2:end), obj.Data.cy(2:end)+1, cellstr(num2str(obj.Data.demand(2:end)')),'Fontsize', 14); % 0.5 for a step
                     
                     drawnow();
-                    pause(0.005)
+                    pause(0.01);
                     obj.midStartTime = clock;
                 end
             end
@@ -181,7 +182,7 @@ classdef  ALGORITHM < handle
                 obj.objVals = [obj.objVals, obj.Data.objVal];
                 if etime(clock, obj.midStartTime) > 0.5
                     % print time
-                    disp(['Message: Time elapsed: ',num2str(etime(clock, obj.startTime))]);
+                    disp(['Message: Time elapsed: ',num2str(etime(clock, obj.startTime)), ' iter: ', num2str(obj.iter), ' objVal: ', num2str(objVal)]);
 
                     % gui time, iterator, objVal
                     obj.timeEditField.Value = num2str(etime(clock, obj.startTime));
@@ -194,6 +195,7 @@ classdef  ALGORITHM < handle
 
                     % plot result coordinates
                     cla(obj.UIAxes_Result);
+                    hold(obj.UIAxes_Result,'on');
                     G = graph(obj.Data.xi,obj.Data.xj);
                     plot(obj.UIAxes_Result,G,'XData',obj.Data.cx,'YData',obj.Data.cy,'NodeFontSize',5);
                     scatter(obj.UIAxes_Result,obj.Data.cx(1),obj.Data.cy(1),50,'red','filled','s');
@@ -201,7 +203,7 @@ classdef  ALGORITHM < handle
                     % text(obj.UIAxes_Result, obj.Data.cx(2:end), obj.Data.cy(2:end)+1, cellstr(num2str(obj.Data.demand(2:end)')),'Fontsize', 14); % 0.5 for a step
                     
                     drawnow();
-                    pause(0.005)
+                    pause(0.01);
                     obj.midStartTime = clock;
                 end
             end
