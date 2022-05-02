@@ -41,7 +41,7 @@ classdef TSP_MC < ALGORITHM
                     result = d(path(l),path(l+1)) + result;  % 按照这个序列不断的更新走过的路程这个值
                 end
                 result = d(path(1),path(n)) + result;  % 加上从最后一个城市返回到最开始那个城市的距离
-                if result < min_result  % 判断这次模拟走过的距离是否小于最短的距离，如果小于就更新最短距离和最短的路径
+               % if result < min_result  % 判断这次模拟走过的距离是否小于最短的距离，如果小于就更新最短距离和最短的路径
                     %                     t2=clock;
                     %                     t=etime(t2,t1);
                     min_path = path;
@@ -54,7 +54,6 @@ classdef TSP_MC < ALGORITHM
                     %                     if t>timeLim
                     %                         break
                     %                     end
-                end
             end
             
             
