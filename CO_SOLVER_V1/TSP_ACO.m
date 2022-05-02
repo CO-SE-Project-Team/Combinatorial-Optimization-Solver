@@ -37,6 +37,7 @@ classdef TSP_ACO < ALGORITHM
             R_best=zeros(obj.Data.iterations,n);       %各代最佳路线
             L_best=inf.*ones(obj.Data.iterations,1);   %各代最佳路线的长度  %inf 正无穷
             L_ave=zeros(obj.Data.iterations,1);        %各代路线的平均长度
+            ShortestLength=inf;
             while obj.is_stop() == false
                 obj.Data.iterator=obj.Data.iterator+1;                      %迭代继续
                 %%第二步：将m只蚂蚁放到n个城市上%%
@@ -106,15 +107,18 @@ classdef TSP_ACO < ALGORITHM
                 %%第七步：输出结果%%%
                 Pos=find(L_best==min(L_best)); %找到最佳路径
                 Shortest_Route=R_best(Pos(1),:); %最大迭代次数后最佳路径
-                Shortest_Length=L_best(Pos(1)); %最大迭代次数后最短距离
+                Length=L_best(Pos(1)); %最大迭代次数后最短距离
                 
+                if Length<ShortestLength
+                    ShortestLength=Length;
+                end
                 path1=[];
                 for u=1:n
                     if Shortest_Route(1,u)==1
                         path1=[Shortest_Route(1,u:n) Shortest_Route(1,1:u-1) 1];
                         obj.Data.xi=path1(1,1:n);
                         obj.Data.xj=path1(1,2:n+1);
-                        obj.Data.objVal=Shortest_Length;
+                        obj.Data.objVal=Length;
                         obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
                         break
                     end
@@ -122,7 +126,7 @@ classdef TSP_ACO < ALGORITHM
             end
             
             
-            
+            obj.Data.objVal=ShortestLength;
             obj.Data.problem=problem;
             obj.Data.n=n;
             obj.Data.cx=cx;
