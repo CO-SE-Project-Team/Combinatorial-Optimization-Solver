@@ -2,11 +2,11 @@ classdef TSP_GA < ALGORITHM
     methods
         function solve(obj)
             obj.start_clock();
-            timeLim=obj.data.timeLim;
+            timeLim=obj.Data.timeLim;
             problem='TSP';
             
-            cx=obj.data.cx;
-            cy=obj.data.cy;
+            cx=obj.Data.cx;
+            cy=obj.Data.cy;
             %%
             %%%%%%%%%%%%自定义参数%%%%%%%%%%%%%
             cities = [cx;cy];
@@ -30,12 +30,12 @@ classdef TSP_GA < ALGORITHM
             end
             offspring = zeros(popSize,cityNum); %生成后代的矩阵
             %保存每代的最小路径便于画图
-            minPathes = zeros(obj.data.iterations,1); %每一代的最小路径长度
+            minPathes = zeros(obj.Data.iterations,1); %每一代的最小路径长度
             
             
             % GA算法
-            for  gen=1:obj.data.iterations %遍历每一代
-                obj.data.iterator=gen;
+            for  gen=1:obj.Data.iterations %遍历每一代
+                obj.Data.iterator=gen;
                 if obj.is_stop()==true
                     break
                 end
@@ -92,10 +92,10 @@ classdef TSP_GA < ALGORITHM
                 
                 pop = offspring;
                 % 画出当前状态下的最短路径
-                obj.data.objVal=gbest;
-                obj.data.xi=bestpoppathf1(1,1:cityNum);
-                obj.data.xj=bestpoppathf1(1,2:cityNum+1);
-                update_status_by(obj.data.objVal,obj.data.xi,obj.data.xj);
+                obj.Data.objVal=gbest;
+                obj.Data.xi=bestpoppathf1(1,1:cityNum);
+                obj.Data.xj=bestpoppathf1(1,2:cityNum+1);
+                update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
             end
             %figure
             %plot(minPathes, 'MarkerFaceColor', 'red','LineWidth',1);
@@ -222,11 +222,11 @@ classdef TSP_GA < ALGORITHM
                 %hold off
             end
             
-            obj.data.problem=problem;
-            obj.data.n=cityNum;
-            obj.data.cx=cx;
-            obj.data.cy=cy;
-            obj.data.dis=dis;
+            obj.Data.problem=problem;
+            obj.Data.n=cityNum;
+            obj.Data.cx=cx;
+            obj.Data.cy=cy;
+            obj.Data.dis=dis;
         end
     end
 end

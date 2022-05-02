@@ -50,7 +50,7 @@ classdef TSP_MC < ALGORITHM
                     obj.Data.objVal=min_result;
                     obj.Data.xi=min_path(1,1:n);
                     obj.Data.xj=min_path(1,2:n+1);
-                    update_status_by(obj.data.objVal,obj.data.xi,obj.data.xj);
+                    update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
                     %                     if t>timeLim
                     %                         break
                     %                     end
