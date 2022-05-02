@@ -74,8 +74,13 @@ classdef KP_DP < ALGORITHM
             for i=1:n
                 if v(i)==1
                     xi=[xi,cx(i)];
-                    xj=[xj,cy(i)];
+                    xj=[xj,cx(i)];
                 end
+            end
+            l=length(xi);
+            if(l>1)
+                xi(l)=[];
+                xj(1)=[];
             end
             cx(1)=[];
             cy(1)=[];

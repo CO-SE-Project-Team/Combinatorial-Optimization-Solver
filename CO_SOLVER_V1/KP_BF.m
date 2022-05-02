@@ -39,13 +39,15 @@ classdef KP_BF < ALGORITHM
             for i=1:n
                 if optv(i)=='1'
                     xi=[xi,cx(i)];
+                    xj=[xj,cx(i)];
                 end
             end
-            for i=1:n
-                if optv(i)=='1'
-                    xj=[xj,cy(i)];
-                end
+            l=length(xi);
+            if(l>1)
+                xi(l)=[];
+                xj(1)=[];
             end
+
             obj.Data.problem=problem;
             obj.Data.n=n;
             obj.Data.capacity=capacity;
