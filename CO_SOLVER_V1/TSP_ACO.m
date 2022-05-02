@@ -104,19 +104,19 @@ classdef TSP_ACO < ALGORITHM
                 Tabu=zeros(m,n);             %%直到最大迭代次数
                 
                 %%第七步：输出结果%%%
-            Pos=find(L_best==min(L_best)); %找到最佳路径
-            Shortest_Route=R_best(Pos(1),:); %最大迭代次数后最佳路径
-            Shortest_Length=L_best(Pos(1)); %最大迭代次数后最短距离
-            
-            path1=[];
-            for u=1:n
-                if Shortest_Route(1,u)==1
-                    path1=[Shortest_Route(1,u:n) Shortest_Route(1,1:u-1) 1];
-                    obj.Data.xi=path1(1,1:n);
-                    obj.Data.xj=path1(1,2:n+1);
-                    break
+                Pos=find(L_best==min(L_best)); %找到最佳路径
+                Shortest_Route=R_best(Pos(1),:); %最大迭代次数后最佳路径
+                Shortest_Length=L_best(Pos(1)); %最大迭代次数后最短距离
+                
+                path1=[];
+                for u=1:n
+                    if Shortest_Route(1,u)==1
+                        path1=[Shortest_Route(1,u:n) Shortest_Route(1,1:u-1) 1];
+                        obj.Data.xi=path1(1,1:n);
+                        obj.Data.xj=path1(1,2:n+1);
+                        break
+                    end
                 end
-            end
             end
             
             
