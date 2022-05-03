@@ -44,19 +44,19 @@ classdef TSP_MC < ALGORITHM
                 if result < min_result  % 判断这次模拟走过的距离是否小于最短的距离，如果小于就更新最短距离和最短的路径
                     %                     t2=clock;
                     %                     t=etime(t2,t1);
-                    min_path = path;
+                    
                     min_result = result;
+                    
+                    min_path = path;
                     min_path = [min_path,min_path(1)];   % 在最短路径的最后面加上一个元素，即第一个点（我们要生成一个封闭的图形）
                     obj.Data.objVal=min_result;
                     obj.Data.xi=min_path(1,1:n);
                     obj.Data.xj=min_path(1,2:n+1);
-                    update_status_by(obj.data.objVal,obj.data.xi,obj.data.xj);
+                    obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
                     %                     if t>timeLim
                     %                         break
-                    %                     end
                 end
             end
-            
             
             obj.Data.problem=problem;
             obj.Data.n=n;
