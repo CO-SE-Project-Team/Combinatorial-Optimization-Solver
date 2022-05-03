@@ -26,7 +26,7 @@ classdef KP_GA < ALGORITHM
             max_value = zeros(1,iterations);
             for i = 1:zhongqun_nums
                 jiyin = round(rand(1,n));
-                while jiyin * weight' > capacity
+                while jiyin * weight> capacity
                     jiyin = round(rand(1,n));
                 end
                 zhongqun1(i,:) = jiyin;
@@ -47,7 +47,7 @@ classdef KP_GA < ALGORITHM
                         temp = temp1(pos);
                         temp1(pos) = temp2(pos);
                         temp2(pos) = temp;
-                        if temp1 * weight' <= capacity && temp2 * weight'  <= capacity
+                        if temp1 * weight<= capacity && temp2 * weight  <= capacity
                             zhongqun2(k,:) = temp1;
                             zhongqun2(k+1,:) = temp2;
                         end
@@ -60,7 +60,7 @@ classdef KP_GA < ALGORITHM
                         pos = ceil(n*rand);
                         temp = zhongqun3(k,:);
                         temp(pos) = ~temp(pos);
-                        if  temp * weight' <= capacity
+                        if  temp * weight<= capacity
                             zhongqun3(k,:) = temp;
                         end
                     end
@@ -68,10 +68,10 @@ classdef KP_GA < ALGORITHM
                 %选择 
                 % 价值最大的前zhongqun_nums个
                 zhongqun = [zhongqun1;zhongqun2;zhongqun3];
-                temp_value = zhongqun*(cy');
+                temp_value = zhongqun*(cy);
                 [~,index] = sort(temp_value,'descend');
-                ave_value(i) = sum(zhongqun(index(1:zhongqun_nums),:)*cy')/zhongqun_nums;
-                max_value(i) = zhongqun(index(1),:)*cy';
+                ave_value(i) = sum(zhongqun(index(1:zhongqun_nums),:)*cy)/zhongqun_nums;
+                max_value(i) = zhongqun(index(1),:)*cy;
                 zhongqun1 = zhongqun(index(1:zhongqun_nums),:);
                 v=zhongqun(1,:);
                 % 注意要记得更新xi，xj，objVal等变量
@@ -99,7 +99,7 @@ classdef KP_GA < ALGORITHM
                 obj.Data.dis=0;
                 obj.Data.xi=xi;
                 obj.Data.xj=xj;
-                obj.Data.objVal=zhongqun(1,:)*cy';
+                obj.Data.objVal=zhongqun(1,:)*cy;
                 obj.Data.timeLim=timeLim;
                 obj.Data.iterations=iterations;
                 obj.Data.iterator=iterator;
