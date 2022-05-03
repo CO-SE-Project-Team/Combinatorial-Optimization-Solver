@@ -86,8 +86,8 @@ classdef TSP_2opt < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改
                 obj.Data.xi = xbestx(1 , 1:n);
                 obj.Data.xj = xbestx(1, 2:n+1);
                 obj.Data.objVal = fitxbest;
-                %disp(fitxbest);
-                %disp(xbest)
+                disp(fitxbest);
+                disp(xbest)
                 obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj); % 这将会把当前的objVal，xi，xj更新到GUI中。
             end
 
