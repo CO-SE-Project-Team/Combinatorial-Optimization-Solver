@@ -106,6 +106,7 @@ classdef KP_SA < ALGORITHM
                 obj.Data.iterations=iterations;
                 obj.Data.iterator=iterator;
                 
+                obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
                 % 当前迭代数加一，方便父类is_stop()检查是否超过iterations并停止算法
                 obj.Data.iterator = obj.Data.iterator + 1;
             end
