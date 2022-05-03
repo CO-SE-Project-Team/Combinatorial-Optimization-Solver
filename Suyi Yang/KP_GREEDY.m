@@ -67,7 +67,8 @@ classdef KP_GREEDY < ALGORITHM
             obj.Data.timeLim=timeLim;
             obj.Data.iterations=iterations;
             obj.Data.iterator=iterator;
-
+            
+            obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
         end
     end
 end

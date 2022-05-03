@@ -2,11 +2,19 @@
 classdef  ALGORITHM < handle
     properties
         Data;
+
+        iter = 0;
+        objVals; % save objVal for all iterations.
+
         timeEditField;
         iterEditField;
         objValEidtField;
         UIAxes_objVal;
+        UIAxes_Result;
+        guiSetted = false;
+
         startTime;
+        midStartTime;
         endTime;
     end
 
@@ -21,6 +29,7 @@ classdef  ALGORITHM < handle
 
         function set_Data(obj, Data)
             obj.Data = Data;
+            % obj.objVals = zeros(1,obj.Data.iterations);
         end
 
         function Data = get_Data(obj)
@@ -113,15 +122,90 @@ classdef  ALGORITHM < handle
 
         function start_clock(obj)
             obj.startTime=clock;
+            obj.midStartTime = clock;
         end
         
-        function [bool]=is_stop(obj)
+        function bool = is_stop(obj)
+            obj.iter = obj.iter + 1;
             obj.endTime=clock;
             deltaT=etime(obj.endTime,obj.startTime);
-            if (deltaT>obj.Data.timeLim) || (obj.Data.iterator > obj.Data.iterations) %iterator+=1需要算法在循环中补充
+            if (deltaT > obj.Data.timeLim) || (obj.iter > obj.Data.iterations)
                 bool=true;
             else
                 bool=false;
+            end
+        end
+
+        function set_GUI(obj, timeEditField, iterEditField, objValEidtField, UIAxes_objVal, UIAxes_Result)
+            obj.guiSetted = true;
+            obj.timeEditField = timeEditField;
+            obj.iterEditField = iterEditField;
+            obj.objValEidtField = objValEidtField;
+            obj.UIAxes_objVal = UIAxes_objVal;
+            obj.UIAxes_Result = UIAxes_Result;
+        end
+
+        function update_status_by(obj, objVal, xi, xj)
+            if obj.guiSetted == true % to exclude condition of running from command line.
+                obj.objVals = [obj.objVals, objVal];
+                if etime(clock, obj.midStartTime) > 0.5
+                    % print time
+                    disp(['Message: Time elapsed: ',num2str(etime(clock, obj.startTime)), ' iter: ', num2str(obj.iter), ' objVal: ', num2str(objVal)]);
+
+                    % gui time, iterator, objVal
+                    obj.timeEditField.Value = num2str(etime(clock, obj.startTime));
+                    obj.iterEditField.Value = num2str(size(obj.objVals,2));
+                    obj.objValEidtField.Value = num2str(objVal);
+
+                    % plot UIAxes_objVal by linspace & objVals
+                    cla(obj.UIAxes_objVal);
+                    plot(obj.UIAxes_objVal, linspace(1,size(obj.objVals,2),size(obj.objVals,2)), obj.objVals);
+
+                    % plot result coordinates
+                    cla(obj.UIAxes_Result);
+                    hold(obj.UIAxes_Result,'on');
+                    G = graph(xi,xj);
+                    plot(obj.UIAxes_Result,G,'XData',obj.Data.cx,'YData',obj.Data.cy,'NodeFontSize',5);
+                    scatter(obj.UIAxes_Result,obj.Data.cx(1),obj.Data.cy(1),50,'red','filled','s');
+                    scatter(obj.UIAxes_Result,obj.Data.cx(2:end),obj.Data.cy(2:end),20,'blue','filled');
+                    % text(obj.UIAxes_Result, obj.Data.cx(2:end), obj.Data.cy(2:end)+1, cellstr(num2str(obj.Data.demand(2:end)')),'Fontsize', 14); % 0.5 for a step
+                    
+                    drawnow();
+                    pause(0.01);
+                    obj.midStartTime = clock;
+                end
+            end
+        end
+
+        function update_status(obj)
+            if obj.guiSetted == true  % to exclude condition of running from command line.
+                obj.objVals = [obj.objVals, obj.Data.objVal];
+                if etime(clock, obj.midStartTime) > 0.5
+                    % print time
+                    disp(['Message: Time elapsed: ',num2str(etime(clock, obj.startTime)), ' iter: ', num2str(obj.iter), ' objVal: ', num2str(objVal)]);
+
+                    % gui time, iterator, objVal
+                    obj.timeEditField.Value = num2str(etime(clock, obj.startTime));
+                    obj.iterEditField.Value = num2str(size(obj.objVals,2));
+                    obj.objValEidtField.Value = num2str(obj.Data.objVal);
+
+                    % plot objVal by linspace & objVals
+                    cla(obj.UIAxes_objVal);
+                    plot(obj.UIAxes_objVal, linspace(1,size(obj.objVals,2),size(obj.objVals,2)), obj.objVals);
+
+                    % plot result coordinates
+                    cla(obj.UIAxes_Result);
+                    hold(obj.UIAxes_Result,'on');
+                    G = graph(obj.Data.xi,obj.Data.xj);
+                    plot(obj.UIAxes_Result,G,'XData',obj.Data.cx,'YData',obj.Data.cy,'NodeFontSize',5);
+                    scatter(obj.UIAxes_Result,obj.Data.cx(1),obj.Data.cy(1),50,'red','filled','s');
+                    scatter(obj.UIAxes_Result,obj.Data.cx(2:end),obj.Data.cy(2:end),20,'blue','filled');
+                    % text(obj.UIAxes_Result, obj.Data.cx(2:end), obj.Data.cy(2:end)+1, cellstr(num2str(obj.Data.demand(2:end)')),'Fontsize', 14); % 0.5 for a step
+                    
+                    drawnow();
+                    pause(0.01);
+                    obj.midStartTime = clock;
+                end
             end
         end
     end
