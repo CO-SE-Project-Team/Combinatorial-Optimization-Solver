@@ -8,9 +8,9 @@ classdef KP_GA < ALGORITHM
             problem='KP';
 
             capacity=obj.Data.capacity;% 背包的容量
-            weight=obj.Data.demand;% 物品的重量
-            cx=obj.Data.cx;
-            cy=obj.Data.cy;% 物品价值
+            weight=obj.Data.demand';% 物品的重量
+            cx=obj.Data.cx';
+            cy=obj.Data.cy';% 物品价值
             n =length(weight);% n为物品的个数
             p1 = .95; %交叉概率
             p2 = .15; %变异概率
@@ -93,9 +93,9 @@ classdef KP_GA < ALGORITHM
                 obj.Data.problem=problem;
                 obj.Data.n=n;
                 obj.Data.capacity=capacity;
-                obj.Data.demand=weight;
-                obj.Data.cx=cx;
-                obj.Data.cy=cy;
+                obj.Data.demand=weight';
+                obj.Data.cx=cx';
+                obj.Data.cy=cy';
                 obj.Data.dis=0;
                 obj.Data.xi=xi;
                 obj.Data.xj=xj;
