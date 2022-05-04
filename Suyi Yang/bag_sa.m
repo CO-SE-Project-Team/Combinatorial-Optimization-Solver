@@ -1,12 +1,12 @@
 clear
 clc
 a = 0.95;
-price = [6;3;5;4;6];        %价值
-price = -price;         %模拟退火算法是求解最小值，故取负值
+cy = [6;3;5;4;6];        %价值
+cy = -cy;         %模拟退火算法是求解最小值，故取负值
 weight = [2;2;6;5;4];          %质量
 capacity = 10;
-num = 5;
-sol_new = ones(1,num);          %生成初始解
+n = 5;
+sol_new = ones(1,n);          %生成初始解
 E_current = inf;
 E_best = inf;
 %E_current是当前解对应的目标函数值（即背包中物品总价值）
@@ -22,7 +22,7 @@ p = 1;
 while t >= tf
     for r = 1:100
         %产生随机扰动
-        tmp = ceil(rand*num);
+        tmp = ceil(rand*n);
         sol_new(1,tmp) = ~sol_new(1,tmp);
         %检查是否满足约束
         while 1
@@ -41,7 +41,7 @@ while t >= tf
         end
         
         %计算背包中的物品价值
-        E_new = sol_new * price;
+        E_new = sol_new * cy;
         if E_new < E_current
             E_current = E_new;
             sol_current = sol_new;
