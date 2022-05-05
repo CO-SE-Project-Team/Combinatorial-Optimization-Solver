@@ -18,6 +18,9 @@ classdef KP_ACO < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
             cx=obj.Data.cx';
             cy=obj.Data.cy';% 物品价值
             n =length(weight);% n为物品的个数
+            best_choice=0;
+            best_xi=[];
+            best_xj=[];
 
             % 其他变量设置 & 初始化
 
@@ -209,7 +212,12 @@ classdef KP_ACO < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
                 obj.Data.timeLim=timeLim;
                 obj.Data.iterations=iterations;
                 obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
-
+                
+                if V_best>best_choice
+                    best_choice=V_best;
+                    best_xi=xi;
+                    best_xj=xj;
+                end
 
 
 
@@ -220,6 +228,19 @@ classdef KP_ACO < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
 
                 % 这里将算法内部算好的变量赋给父类Data，方便父类get_Data()
             end
+            obj.Data.problem=problem;
+            obj.Data.n=n;
+            obj.Data.capacity=capacity;
+            obj.Data.demand=weight;
+            obj.Data.cx=cx;
+            obj.Data.cy=cy;
+            obj.Data.dis=0;
+            obj.Data.xi=best_xi;
+            obj.Data.xj=best_xj;
+            obj.Data.objVal=best_choice;
+            obj.Data.timeLim=timeLim;
+            obj.Data.iterations=iterations;
+            obj.Data.iterator=iterator;
         end
     end
 end

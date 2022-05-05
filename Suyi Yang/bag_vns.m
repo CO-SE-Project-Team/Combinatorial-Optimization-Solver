@@ -19,18 +19,19 @@ for i=1:n
 end
 num=1;
 for i=1:n
-    if(v(i)=='1')
-        v(i)='0';
+    vi=v;
+    if(vi(i)=='1')
+        vi(i)='0';
     else
-        v(i)='1';
+        vi(i)='1';
     end
     num=num+1;
     for m=1:n
-        selections(num,m)=str2num(v(m));
+        selections(num,m)=str2num(vi(m));
     end
     if(n>1)
         for j=(i+1):n
-            vj=v;
+            vj=vi;
             if(vj(j)=='1')
                 vj(j)='0';
             else
@@ -68,10 +69,10 @@ for i=1:num
             temp_w=temp_w+weight(j);
             temp_p=temp_p+cy(j);
         end
-        if (temp_w<=capacity)&&(temp_p>objVal)
-            objVal=temp_p;
-            optv=vi;
-        end
+    end
+    if ((temp_w<=capacity)&&(temp_p>objVal))
+        objVal=temp_p;
+        optv=vi;
     end
 end
 % 注意要记得更新xi，xj，objVal等变量

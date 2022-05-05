@@ -12,6 +12,9 @@ classdef KP_SA < ALGORITHM
             cx=obj.Data.cx';
             cy=obj.Data.cy';% 物品价值
             n =length(weight);% n为物品的个数
+            best_choice=0;
+            best_xi=[];
+            best_xj=[];
 
             sol_new = ones(1,n);          %生成初始解
             E_current = inf;
@@ -109,7 +112,25 @@ classdef KP_SA < ALGORITHM
                 obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
                 % 当前迭代数加一，方便父类is_stop()检查是否超过iterations并停止算法
                 obj.Data.iterator = obj.Data.iterator + 1;
+                if -E_best>best_choice
+                    best_choice=-E_best;
+                    best_xi=xi;
+                    best_xj=xj;
+                end
             end
+            obj.Data.problem=problem;
+            obj.Data.n=n;
+            obj.Data.capacity=capacity;
+            obj.Data.demand=weight;
+            obj.Data.cx=cx;
+            obj.Data.cy=cy;
+            obj.Data.dis=0;
+            obj.Data.xi=best_xi;
+            obj.Data.xj=best_xj;
+            obj.Data.objVal=best_choice;
+            obj.Data.timeLim=timeLim;
+            obj.Data.iterations=iterations;
+            obj.Data.iterator=iterator;
         end
     end
 end
