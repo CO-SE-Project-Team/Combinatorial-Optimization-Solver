@@ -72,7 +72,7 @@ classdef TSP_Greedy < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM�
             
             obj.Data.xi=xi;
             obj.Data.xj=xj;
-            obj.Data.objVal=objVal;
+            
 
             obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj); % 这将会把当前的objVal，xi，xj更新到GUI中。
         end
