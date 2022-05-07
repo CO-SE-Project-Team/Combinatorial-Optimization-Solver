@@ -1,4 +1,4 @@
-classdef TSP_2opt < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改成：'TSP_GA'，这个文件需要把ALGORITHM加到目录
+classdef TSP_VNS < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改成：'TSP_GA'，这个文件需要把ALGORITHM加到目录
     % SubALGORITHM 继承了 ALGORITHM
     % 父类具有 Data 结构体, 此处无需再次声明、
     % 本类不需要有任何变量
@@ -86,8 +86,8 @@ classdef TSP_2opt < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改
                 obj.Data.xi = xbestx(1 , 1:n);
                 obj.Data.xj = xbestx(1, 2:n+1);
                 obj.Data.objVal = fitxbest;
-                disp(fitxbest);
-                disp(xbest)
+                %disp(fitxbest);
+                %disp(xbest)
                 obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj); % 这将会把当前的objVal，xi，xj更新到GUI中。
             end
 
@@ -129,23 +129,41 @@ routeDist = sumDist;
 end
 
 function routes = neighborBy2opt( route )
-% 根据一条路径route，采用2opt方式产生其全部邻域解集
+
 cityQty = max(size(route));
-% if cityQty <= 3
-%     disp('cityQty is too small in neighborBy2opt.....');
-% end
+
 pos = 2 : cityQty;
 changePos = nchoosek(pos, 2);
 rows = size(changePos, 1);
 routes = zeros(rows, cityQty);
 % 依次对两个点进行位置互换，形成新的解
-for i  = 1 : rows
-    city1 = route(changePos(i,1));
-    city2 = route(changePos(i,2));
-    midRoute = route;
-    midRoute(changePos(i,1)) = city2;
-    midRoute(changePos(i,2)) = city1;
-    routes(i,:) = midRoute;
+k = 1;
+for i = 2:cityQty
+    for j = i + 1:cityQty
+        city1 = route(1, i);
+        city2 = route(1, j);
+        part1 = [];
+        if i > 2
+        part1 = route(1, 2:i - 1);
+        end
+        part2 = [];
+        if j > i + 1
+            part2 = route(1, i + 1:j - 1);
+        end
+        part3 = [];
+        if cityQty > j
+            part3 = route(1, j + 1:cityQty);
+        end
+        routes(k, :) = [1 route(1,i) route(1,j) part1 part2 part3];
+        k = k + 1;
+    end
 end
+% for i  = 1 : rows
+%     city1 = route(changePos(i,1));
+%     city2 = route(changePos(i,2));
+%     midRoute = route;
+%     midRoute(changePos(i,1)) = city2;
+%     midRoute(changePos(i,2)) = city1;
+%     routes(i,:) = midRoute;
+% end
 end
-%https://blog.csdn.net/weixin_52660731/article/details/121911256?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.pc_relevant_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.pc_relevant_default&utm_relevant_index=2
