@@ -4,7 +4,6 @@ classdef TSP_ACO < ALGORITHM
             obj.start_clock();
             timeLim=obj.Data.timeLim;
             problem='TSP';
-            testiter = 0;
             
             cx=obj.Data.cx;
             cy=obj.Data.cy;
@@ -40,7 +39,6 @@ classdef TSP_ACO < ALGORITHM
             L_ave=zeros(obj.Data.iterations,1);        %各代路线的平均长度
             ShortestLength=inf;
             while obj.is_stop() == false
-                testiter = testiter + 1;
                 obj.Data.iterator=obj.Data.iterator+1;                      %迭代继续
                 %%第二步：将m只蚂蚁放到n个城市上%%
                 Randpos=[];   %随即存取
@@ -123,7 +121,6 @@ classdef TSP_ACO < ALGORITHM
                     end
                 end
             end
-            disp(testiter);
             
             obj.Data.problem=problem;
             obj.Data.n=n;
