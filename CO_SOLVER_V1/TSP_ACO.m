@@ -122,7 +122,6 @@ classdef TSP_ACO < ALGORITHM
                 end
             end
             
-            
             obj.Data.problem=problem;
             obj.Data.n=n;
             obj.Data.cx=cx;

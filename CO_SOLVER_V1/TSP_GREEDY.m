@@ -1,4 +1,4 @@
-classdef TSP_Greedy < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改成：'TSP_GA'，这个文件需要把ALGORITHM加到目录
+classdef TSP_GREEDY < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改成：'TSP_GA'，这个文件需要把ALGORITHM加到目录
     % SubALGORITHM 继承了 ALGORITHM
     % 父类具有 Data 结构体, 此处无需再次声明、
     % 本类不需要有任何变量
@@ -72,7 +72,6 @@ classdef TSP_Greedy < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM�
             
             obj.Data.xi=xi;
             obj.Data.xj=xj;
-            obj.Data.objVal=objVal;
 
             obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj); % 这将会把当前的objVal，xi，xj更新到GUI中。
         end
