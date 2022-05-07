@@ -56,11 +56,7 @@ classdef TSP_Greedy < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM�
                 outputCost = outputCost + min;
             end
             objVal = 0;
-            t2 = clock;
-            t = etime(t2, t1);
-            if t > timelimit
-                objVal = -1;
-            end
+            
             outputRoad = [outputRoad , 1];
             outputCost = outputCost + inputAdjacencyMatrix(row, 1);
 
@@ -68,12 +64,12 @@ classdef TSP_Greedy < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM�
             xi = outputRoad(1, 1:n);
             xj = outputRoad(1 , 2:n + 1);
             obj.Data.dis=inputAdjacencyMatrix;
-            obj.Data.timeLim=timeLim;
+            
             obj.Data.cx = inputIndex(:, 1).';
             obj.Data.cy = inputIndex(:, 2).';
             
             obj.Data.objVal = outputCost;
-            obj.Data.timelimit = timelimit;
+            
             obj.Data.xi=xi;
             obj.Data.xj=xj;
             obj.Data.objVal=objVal;
