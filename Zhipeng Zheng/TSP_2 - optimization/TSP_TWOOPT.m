@@ -1,4 +1,4 @@
-classdef TSP_2opt < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改成：'TSP_GA'，这个文件需要把ALGORITHM加到目录
+classdef TSP_TWOOPT < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改成：'TSP_GA'，这个文件需要把ALGORITHM加到目录
     % SubALGORITHM 继承了 ALGORITHM
     % 父类具有 Data 结构体, 此处无需再次声明、
     % 本类不需要有任何变量
