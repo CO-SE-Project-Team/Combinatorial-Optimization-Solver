@@ -26,10 +26,10 @@ for i=0:2^n-1
             temp_w=temp_w+weight(j);
             temp_p=temp_p+cy(j);
         end
-        if (temp_w<=capacity)&&(temp_p>objVal)
-            objVal=temp_p;
-            xi=v;
-        end
+    end
+    if (temp_w<=capacity)&&(temp_p>objVal)
+        objVal=temp_p;
+        xi=v;
     end
 end
 xi

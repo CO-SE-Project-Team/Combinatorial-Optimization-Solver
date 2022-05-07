@@ -6,11 +6,14 @@ classdef KP_GA < ALGORITHM
             iterations=obj.Data.iterations; %迭代次数（暴力用不着）
             iterator=obj.Data.iterator; %迭代次数（暴力用不着）
             problem='KP';
+            best_choice=0;
+            best_xi=[];
+            best_xj=[];
 
             capacity=obj.Data.capacity;% 背包的容量
-            weight=obj.Data.demand;% 物品的重量
-            cx=obj.Data.cx;
-            cy=obj.Data.cy;% 物品价值
+            weight=obj.Data.demand';% 物品的重量
+            cx=obj.Data.cx';
+            cy=obj.Data.cy';% 物品价值
             n =length(weight);% n为物品的个数
             p1 = .95; %交叉概率
             p2 = .15; %变异概率
@@ -93,9 +96,9 @@ classdef KP_GA < ALGORITHM
                 obj.Data.problem=problem;
                 obj.Data.n=n;
                 obj.Data.capacity=capacity;
-                obj.Data.demand=weight;
-                obj.Data.cx=cx;
-                obj.Data.cy=cy;
+                obj.Data.demand=weight';
+                obj.Data.cx=cx';
+                obj.Data.cy=cy';
                 obj.Data.dis=0;
                 obj.Data.xi=xi;
                 obj.Data.xj=xj;
@@ -106,7 +109,25 @@ classdef KP_GA < ALGORITHM
                 obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
                 % 当前迭代数加一，方便父类is_stop()检查是否超过iterations并停止算法
                 obj.Data.iterator = obj.Data.iterator + 1;
+                if zhongqun(1,:)*cy>best_choice
+                    best_choice=zhongqun(1,:)*cy;
+                    best_xi=xi;
+                    best_xj=xj;
+                end
             end
+            obj.Data.problem=problem;
+            obj.Data.n=n;
+            obj.Data.capacity=capacity;
+            obj.Data.demand=weight;
+            obj.Data.cx=cx;
+            obj.Data.cy=cy;
+            obj.Data.dis=0;
+            obj.Data.xi=best_xi;
+            obj.Data.xj=best_xj;
+            obj.Data.objVal=best_choice;
+            obj.Data.timeLim=timeLim;
+            obj.Data.iterations=iterations;
+            obj.Data.iterator=iterator;
         end
     end
 end
