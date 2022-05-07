@@ -1,4 +1,4 @@
-classdef KP_BF < ALGORITHM
+classdef KP_KNN < ALGORITHM
     methods
         function solve(obj)
             obj.start_clock();
@@ -15,20 +15,26 @@ classdef KP_BF < ALGORITHM
             objVal=0;%被选择物品的总价值
             xi=[];
             xj=[];
+            a=[];%物品单位重量的价值
+            v=[];
+            temp=capacity;
+          
 
-            for i=0:2^n-1
-                v=dec2bin(i,n);%
-                temp_w=0;
-                temp_p=0;
-                for j=1:n
-                    if v(j)=='1'
-                        temp_w=temp_w+weight(j);
-                        temp_p=temp_p+cy(j);
-                    end
-                end
-                if (temp_w<=capacity)&&(temp_p>objVal)
-                    objVal=temp_p;
-                    optv=v;
+            %计算物品单位重量的价值并降序排列
+            for i=1:n
+                a(i)=cy(i)/weight(i);
+            end
+            [~,place]=sort(a,"descend");
+            
+            %在满足选取物品总重量不超过背包容量的前提下，优先选择单位重量价值较大的物品
+            for i=1:n-1
+                objVal=objVal+cy(place(i));
+                capacity=capacity-weight(place(i));
+                if(capacity<0)
+                    objVal=objVal-cy(place(i));
+                    capacity=capacity+weight(place(i));
+                else
+                    v(place(i))=1;
                 end
             end
 
@@ -37,7 +43,7 @@ classdef KP_BF < ALGORITHM
                 %-1表示程序没跑完
             end
             for i=1:n
-                if optv(i)=='1'
+                if v(i)==1
                     xi=[xi,cx(i)];
                     xj=[xj,cx(i)];
                 end
@@ -50,7 +56,7 @@ classdef KP_BF < ALGORITHM
 
             obj.Data.problem=problem;
             obj.Data.n=n;
-            obj.Data.capacity=capacity;
+            obj.Data.capacity=temp;
             obj.Data.demand=weight;
             obj.Data.cx=cx;
             obj.Data.cy=cy;
@@ -61,6 +67,7 @@ classdef KP_BF < ALGORITHM
             obj.Data.timeLim=timeLim;
             obj.Data.iterations=iterations;
             obj.Data.iterator=iterator;
+            
             obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
         end
     end

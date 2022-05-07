@@ -32,42 +32,17 @@ u=n/10;
 D=zeros(1,n);
 D=C(:,1)./C(:,2); %物品价值与重量之比
 D=D';
-place=[1,2,3,4,5];
-%贪婪算法计算
-for j=1:n
-    for i=1:(n-j)
-        if(D(i)<D(i+1))
-            t1=D(i);
-            t2=a(i);
-            t3=b(i);
-            t4=place(i);
-            D(i)=D(i+1);
-            a(i)=a(i+1);
-            b(i)=b(i+1);
-            place(i)=place(i+1);
-            D(i+1)=t1;
-            a(i+1)=t2;
-            b(i+1)=t3;
-            place(i+1)=t4;
-        end
-    end
-end
+
+
 C=[a',b'];
-V_best=0; %最优价值 
-W_best=0; %最优价值对应重量
-p=1;
-while W_best<=KV
-    V_best=V_best+a(p);
-    W_best=W_best+b(p);
-    p=p+1;
-end
-V_best=V_best-a(p-1);
-W_best=W_best-b(p-1);
+
 Eta=zeros(n);
 for i=1:n
     Eta(i) = D(i) ;      %Eta为启发因子，这里设为D
 end
-NC_max=n-1; 
+V_best=0;
+W_best=0;
+NC_max=n; 
 Alpha=1;
 kethe=1;
 Beta=1; 
@@ -81,7 +56,7 @@ ramta=ones(n);%ramta为全局信息素矩阵
 NC=1;%迭代计数器
 Q_best=zeros(NC_max,1); %各代最佳组合的价值 
 R_best=zeros(NC_max,n);  %各代最佳组合
-t=1;
+t=ceil(n/3);
 while NC<=NC_max    %停止条件之一：达到最大迭代次数  
 %%第二步：把贪婪算法的前t个选择赋予禁忌表 
             S=zeros(1,m);%每只蚂蚁选择物品总价值
@@ -161,17 +136,10 @@ while NC<=NC_max    %停止条件之一：达到最大迭代次数
             NC=NC+1;
 end
 %%第六步：输出结果 
-xi=[];
+
 pos=find(Q_best==V_best);
 Best_choice=R_best(pos(1),:);
-for i=1:length(Best_choice)
-    if(Best_choice(i)~=0)
-        xi=[xi,place(Best_choice(i))];
-    end
-end
+
 V_best
 W_best
-xi
-X=1:1:NC_max;
-Y=Q_best(X);
-plot(X,Y,'r*',X,Y,'c-.')
+Best_choice

@@ -25,10 +25,10 @@ classdef KP_BF < ALGORITHM
                         temp_w=temp_w+weight(j);
                         temp_p=temp_p+cy(j);
                     end
-                    if (temp_w<=capacity)&&(temp_p>objVal)
-                        objVal=temp_p;
-                        optv=v;
-                    end
+                end
+                if (temp_w<=capacity)&&(temp_p>objVal)
+                    objVal=temp_p;
+                    optv=v;
                 end
             end
 
