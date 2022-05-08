@@ -1,4 +1,4 @@
-classdef TSP_2opt < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改成：'TSP_GA'，这个文件需要把ALGORITHM加到目录
+classdef TSP_TWOOPT < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改成：'TSP_GA'，这个文件需要把ALGORITHM加到目录
     % SubALGORITHM 继承了 ALGORITHM
     % 父类具有 Data 结构体, 此处无需再次声明、
     % 本类不需要有任何变量
@@ -47,7 +47,7 @@ classdef TSP_2opt < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改
             isStop = 0;
             obj.Data.iterator = 0;
             %while(obj.Data.iterator <= 10)
-            while (obj.is_stop() == false && isStop < 4)  % is_stop()是父类方法，会检查是否超时，超迭代。如果是，则停止算法
+            while (obj.is_stop() == false)  % is_stop()是父类方法，会检查是否超时，超迭代。如果是，则停止算法
                 % 循环内部
                 % ----------------下面写你的算法内容-----------------------
 

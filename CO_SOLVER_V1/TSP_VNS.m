@@ -47,7 +47,6 @@ classdef TSP_VNS < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
             isStop = 0;
             obj.Data.iterator = 0;
             %while(obj.Data.iterator <= 10)
-             %&& isStop < 4
             while (obj.is_stop() == false)  % is_stop()是父类方法，会检查是否超时，超迭代。如果是，则停止算法
                 % 循环内部
                 % ----------------下面写你的算法内容-----------------------
@@ -87,8 +86,8 @@ classdef TSP_VNS < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
                 obj.Data.xi = xbestx(1 , 1:n);
                 obj.Data.xj = xbestx(1, 2:n+1);
                 obj.Data.objVal = fitxbest;
-%                 disp(fitxbest);
-%                 disp(xbest)
+                %disp(fitxbest);
+                %disp(xbest)
                 obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj); % 这将会把当前的objVal，xi，xj更新到GUI中。
             end
 

@@ -22,6 +22,13 @@ classdef  ALGORITHM < handle
         function obj = ALGORITHM()
         end
 
+        function clear(obj)
+            obj.Data = [];
+            obj.iter = 0;
+            obj.objVals = [];
+            obj.guiSetted = false;
+        end
+
         % IMPLEMENT YOUR ALGORITHM FOR THIS FUNCITON
         % function solve(obj)
         %     % YOUR SOLVE FUNCITON, IMPLEMENT THIS FUNCITON
@@ -129,7 +136,7 @@ classdef  ALGORITHM < handle
             obj.iter = obj.iter + 1;
             obj.endTime=clock;
             deltaT=etime(obj.endTime,obj.startTime);
-            if (deltaT > obj.Data.timeLim) || (obj.iter > obj.Data.iterations)
+            if (obj.iter > obj.Data.iterations) || (deltaT > obj.Data.timeLim)
                 bool=true;
             else
                 bool=false;
@@ -171,7 +178,7 @@ classdef  ALGORITHM < handle
                     % text(obj.UIAxes_Result, obj.Data.cx(2:end), obj.Data.cy(2:end)+1, cellstr(num2str(obj.Data.demand(2:end)')),'Fontsize', 14); % 0.5 for a step
                     
                     drawnow();
-                    pause(0.01);
+                    % pause(0.01);
                     obj.midStartTime = clock;
                 end
             end
@@ -203,7 +210,7 @@ classdef  ALGORITHM < handle
                     % text(obj.UIAxes_Result, obj.Data.cx(2:end), obj.Data.cy(2:end)+1, cellstr(num2str(obj.Data.demand(2:end)')),'Fontsize', 14); % 0.5 for a step
                     
                     drawnow();
-                    pause(0.01);
+                    % pause(0.01);
                     obj.midStartTime = clock;
                 end
             end

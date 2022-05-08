@@ -22,13 +22,6 @@ classdef  ALGORITHM < handle
         function obj = ALGORITHM()
         end
 
-        function clear(obj)
-            obj.Data = [];
-            obj.iter = 0;
-            obj.objVals = [];
-            obj.guiSetted = false;
-        end
-
         % IMPLEMENT YOUR ALGORITHM FOR THIS FUNCITON
         % function solve(obj)
         %     % YOUR SOLVE FUNCITON, IMPLEMENT THIS FUNCITON
