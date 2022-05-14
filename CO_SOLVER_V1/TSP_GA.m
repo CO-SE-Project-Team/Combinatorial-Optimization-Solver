@@ -4,7 +4,7 @@ classdef TSP_GA < ALGORITHM
             obj.start_clock();
             timeLim=obj.Data.timeLim;
             problem='TSP';
-            
+
             cx=obj.Data.cx;
             cy=obj.Data.cy;
             %%
@@ -15,14 +15,14 @@ classdef TSP_GA < ALGORITHM
             crossoverProbabilty = 0.9; %交叉概率
             mutationProbabilty = 0.1; %变异概率
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            
+
             gbest = Inf; %所有代中最短路径
             % 随机生成城市位置(读取文件不用此方法)
             %cities = rand(2,cityNum) * 100;%100是最远距离(读取文件不用此方法)
-            
+
             % 计算上述生成的城市距离
             dis = calculateDistance(cities); %邻接矩阵
-            
+
             % 生成种群，每个个体代表一个路径
             pop = zeros(popSize, cityNum); %生成第一代种群，一代种群个数*城市个数，每行代表一种解
             for i=1:popSize
@@ -31,8 +31,8 @@ classdef TSP_GA < ALGORITHM
             offspring = zeros(popSize,cityNum); %生成后代的矩阵
             %保存每代的最小路径便于画图
             minPathes = zeros(obj.Data.iterations,1); %每一代的最小路径长度
-            
-            
+
+
             % GA算法
             for  gen=1:obj.Data.iterations %遍历每一代
                 obj.Data.iterator=gen;
@@ -41,7 +41,7 @@ classdef TSP_GA < ALGORITHM
                 end
                 % 计算适应度的值，即路径总距离
                 [fval, sumDistance, minPath, maxPath] = fitness(dis, pop);
-                
+
                 % 分两次随机的从种群中选择4个染色体作候选，然后选这几个中的最好的作为父代，来交叉产生下一个子代
                 tournamentSize=4; %设置大小
                 for k=1:popSize
@@ -51,13 +51,13 @@ classdef TSP_GA < ALGORITHM
                         randomRow = randi(popSize); %返回一个1-popSize中的随机整数
                         tourPopDistances(i,1) = sumDistance(randomRow,1);
                     end
-                    
+
                     % 选择最好的，即距离最小的
                     parent1  = min(tourPopDistances);
                     [parent1X,parent1Y] = find(sumDistance==parent1,1, 'first');
                     parent1Path = pop(parent1X(1,1),:);
-                    
-                    
+
+
                     for i=1:tournamentSize
                         randomRow = randi(popSize);
                         tourPopDistances(i,1) = sumDistance(randomRow,1);
@@ -65,23 +65,53 @@ classdef TSP_GA < ALGORITHM
                     parent2  = min(tourPopDistances);
                     [parent2X,parent2Y] = find(sumDistance==parent2,1, 'first');
                     parent2Path = pop(parent2X(1,1),:);
-                    
-                    
+
+
                     %交叉，变异
                     subPath = crossover(parent1Path, parent2Path, crossoverProbabilty);%交叉
                     subPath = mutate(subPath, mutationProbabilty);%变异
-                    
+
                     offspring(k,:) = subPath(1,:); %后代这一代中的第k个个体（路径）
-                    
-                    minPathes(gen,1) = minPath;
+
+                    %                     minPathes(gen,1) = minPath;
                 end
                 %fprintf('代数:%d   最短路径:%.2fKM \n', gen,minPath);
                 % 更新
-                
-                
+
+                %打补丁：自然选择
+                all=[pop;offspring];
+                allSize=size(all,1);
+                chooseSize=2; %设置自然选择的锦标赛大小
+                [~, sumDisPop,~, ~] = fitness( dis, pop );
+                [~, sumDisOff,~, ~] = fitness( dis, offspring );
+                sumDisAll=[sumDisPop;sumDisOff];
+                choosePopDistances=[];
+                nextGen=[];
+
+                for k=1:popSize
+                    % 挑俩决斗
+                    choosePopDistances=zeros(chooseSize,1); %2行一列
+                    for i=1:chooseSize
+                        randomRow2 = randi(allSize); %返回一个1-popSize中的随机整数
+                        choosePopDistances(i,1) = sumDisAll(randomRow2,1);
+                    end
+
+                    % 选择最好的，即距离最小的
+                    next1  = min(choosePopDistances);
+                    [next1X,next1Y] = find(sumDisAll==next1,1, 'first');
+                    next1Path = all(next1X(1,1),:);
+                    nextGen(k,:)=[next1Path];
+                end
+
+
+                % 更新
+                pop = nextGen;
+                [~, sumDisNext,minPath,] = fitness( dis, pop );
+                minPathes(gen,1) = minPath;
+
                 if minPath < gbest
                     gbest = minPath; %gbest所有代中的最小值，minPath是某一代的最小值
-                    bestpoppath=paint(cities, pop, gbest, sumDistance,gen); %返回这一代中的最短路径
+                    bestpoppath=paint(cities, pop, gbest, sumDisNext,gen); %返回这一代中的最短路径
                     for z=1:cityNum
                         if bestpoppath(1,z)==1
                             bestpoppathf1=[bestpoppath(1,z:cityNum) bestpoppath(1,1:z-1) 1];
@@ -89,8 +119,8 @@ classdef TSP_GA < ALGORITHM
                         end
                     end
                 end
+
                 
-                pop = offspring;
                 % 画出当前状态下的最短路径
                 obj.Data.objVal=gbest;
                 obj.Data.xi=bestpoppathf1(1,1:cityNum);
@@ -104,12 +134,12 @@ classdef TSP_GA < ALGORITHM
             %ylabel('路径长度');
             %xlabel('迭代次数');
             %grid on
-            
-            
+
+
             %offspring 每一代
-            
+
             %%
-            
+
             function [ distances ] = calculateDistance( city )
                 %计算距离
                 [~, col] = size(city);
@@ -120,7 +150,7 @@ classdef TSP_GA < ALGORITHM
                     end
                 end
             end
-            
+
             %%
             function [childPath] = crossover(parent1Path, parent2Path, prob)
                 % 交叉
@@ -139,7 +169,7 @@ classdef TSP_GA < ALGORITHM
                         if j > length
                             j = 1;
                         end
-                        
+
                         if iterator > length
                             iterator = 1;
                         end
@@ -159,7 +189,7 @@ classdef TSP_GA < ALGORITHM
                 [popSize, col] = size(pop);
                 sumDistances = zeros(popSize,1);
                 fitnessvar = zeros(popSize,1);
-                
+
                 %打补丁：原来的代码没计算闭环（最后经过的城市回出发点）的距离，现提前加上
                 for i=1:popSize
                     sumDistances(i)=distances(pop(i,1),pop(i,col));
@@ -221,7 +251,7 @@ classdef TSP_GA < ALGORITHM
                 %drawnow
                 %hold off
             end
-            
+
             obj.Data.problem=problem;
             obj.Data.n=cityNum;
             obj.Data.cx=cx;
