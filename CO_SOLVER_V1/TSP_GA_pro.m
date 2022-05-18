@@ -1,4 +1,4 @@
-classdef TSP_GA < ALGORITHM
+classdef TSP_GA_pro < ALGORITHM
     methods
         function solve(obj)
             obj.start_clock();

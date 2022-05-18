@@ -118,9 +118,9 @@ classdef KP_GA < ALGORITHM
             obj.Data.problem=problem;
             obj.Data.n=n;
             obj.Data.capacity=capacity;
-            obj.Data.demand=weight;
-            obj.Data.cx=cx;
-            obj.Data.cy=cy;
+            obj.Data.demand=weight';
+            obj.Data.cx=cx';
+            obj.Data.cy=cy';
             obj.Data.dis=0;
             obj.Data.xi=best_xi;
             obj.Data.xj=best_xj;

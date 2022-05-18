@@ -1,5 +1,5 @@
 Data.problem = 'VRP';
-Data.n = int64(5);
+Data.n = int64(30);
 Data.capacity = int64(20);
 
 Data.demand = int64(randi(10,1,Data.n));

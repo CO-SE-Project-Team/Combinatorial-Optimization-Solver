@@ -1,5 +1,5 @@
 function ttlDis=Evaluation(route,Distance,Demand,Capacity)
-%% 计算各个体的路径长度 适应度函数  
+%% 计算各个体的路径长度 适应度函数
 % 输入：
 % route         种群矩阵
 % Distance      两两城市之间的距离
