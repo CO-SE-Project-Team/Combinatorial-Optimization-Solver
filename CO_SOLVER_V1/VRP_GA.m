@@ -96,7 +96,7 @@ classdef  VRP_GA < ALGORITHM
                     end
                 end
                 bestroute(bestroute==0)=[];  %删去多余零元素
-                bestroute=bestroute-1;  % 编码各减1，与文中的编码一致
+                % bestroute=bestroute-1;  % 编码各减1，与文中的编码一致
                 obj.Data.objVal=mindisbygen;
                 obj.Data.xi = bestroute(1, 1:size(bestroute,2)-1);
                 obj.Data.xj = bestroute(1, 2:size(bestroute,2));
