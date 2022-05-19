@@ -14,7 +14,7 @@ classdef  VRP_BF < ALGORITHM
                 dis=zeros(n);
                 for i=2:n 
                     for j=1:i
-                        dis(i,j) = sqrt(double((cx(i)-cx(j))^2 + (cy(i)-cy(j))^2));
+                        dis(i,j) = sqrt((cx(i)-cx(j))^2 + (cy(i)-cy(j))^2);
                     end
                 end
                 % for i = n+1:n+n-2
