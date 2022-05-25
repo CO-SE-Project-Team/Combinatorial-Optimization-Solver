@@ -146,7 +146,7 @@ classdef  VRP_HPSO < ALGORITHM
             obj.Data.xi = Gbest(1, 1:size(Gbest,2)-1);
             obj.Data.xj = Gbest(1, 2:size(Gbest,2));
 
-            obj.update_status_by(obj.Data.objVal, obj.Data.xi, obj.Data.xj);
+%             obj.update_status_by(obj.Data.objVal, obj.Data.xi, obj.Data.xj);
             obj.Data.n = n;
             obj.Data.distance = Distance;
 

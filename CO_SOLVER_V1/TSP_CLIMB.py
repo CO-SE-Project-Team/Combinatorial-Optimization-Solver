@@ -1,11 +1,9 @@
 import random
 import copy
 import math
-# from xml.etree.ElementInclude import XINCLUDE
-
 from sympy import N
 
-class ClimbSolution():
+class ClimbSolution:
 	"""
 	爬山算法解决TSP问题:
 	"""
@@ -128,18 +126,3 @@ class ClimbSolution():
 		self.Data['objVal'] = distance
 
 		return self.Data
-
-
-# p=ClimbSolution()
-# Data={'problem':'TSP',
-# 		'n':8,
-# 		'capacity':0,
-# 		'demand':0,
-# 		'cx':[0.6400,    0.4100,    0.9900,    0.5500,    0.7700,    0.2500,    0.1100,    0.8900],
-# 		'cy':[0.7400,    0.4500,    0.6600,    0.2100,    0.3200,    0.9900,    0.5400,    0.1100],
-# 		'timeLim':1000,
-# 		'xi':[],
-# 		'xj':[],
-# 		'objVal':0}
-# q=p.get_solved_Data(Data)
-# print (q)
