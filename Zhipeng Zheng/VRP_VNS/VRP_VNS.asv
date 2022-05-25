@@ -59,11 +59,11 @@ classdef VRP_VNS < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
                 if fitnow < fitxbest                                    % 如果xnow优于xbest时将xnow赋给xbest
                     [xbest,fitxbest] = dist(neighbors(i,:), data, capacity, demand, n);
                 end
-                xnew = [1,neighbors(idx(1), :)];                                            % 将xnow赋给xnew
+%                 xnew = [1,neighbors(idx(1), :)];                                            % 将xnow赋给xnew
 
                 % 解随机移动下
                 segCities = circshift(2:n,randperm(n,1)-1);
-                newIdx = [1 segCities];
+                 newIdx = [1 segCities];
                 xnew = xnew(newIdx);                
                 
                 
@@ -77,13 +77,14 @@ classdef VRP_VNS < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
                 % ----------------以上是你的算法内容-----------------------
                         
                 % 这里将算法内部算好的变量赋给父类Data，方便父类get_Data()
+                xbest
                 obj.Data.xi=xbest(1, 1:size(xbest, 2) - 1);
                 obj.Data.xj=xbest(1,2:size(xbest,2));
                 obj.Data.objVal=fitxbest;
 
                 obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);% 这将会把当前的objVal，xi，xj更新到GUI中。
             end
-            obj.Data.
+            obj.Data.distance = data;
         end
     end
 end
@@ -100,15 +101,16 @@ for i = 1:n-1
         dist = dist + data(before, route(i));
         before = route(i);
     else
-        i = i - 1;
-        count = 0;
-        dist = data(before, 1);
+        Route = [Route, route(i)];
+        count = demand;
+        dist = dist + data(before, 1);
         before = 1;
         Route = [Route, 1];
     end
 
 end
 Route = [Route, 1];
+dist = dist + data(1, before);
 end
 
 function dist = dist2(route, data, cap, demand,n)
@@ -123,10 +125,10 @@ for i = 1:n-1
     else
         i = i - 1;
         count = 0;
-        dist = data(before, 1);
+        dist = dist + data(before, 1);
         before = 1;
     end
-
+dist = dist + data(1, before);
 end
 end
 function routes = neighborBy2opt( route )
