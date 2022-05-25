@@ -68,7 +68,8 @@ classdef VRP_TWOOPT < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM�
                 xnew = xnew(newIdx);                
                 
                 
-                
+                xnew
+                fitnow
                 
                 
                 
@@ -81,11 +82,12 @@ classdef VRP_TWOOPT < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM�
                 
                 obj.Data.xi=xbest(1, 1:size(xbest, 2) - 1);
                 obj.Data.xj=xbest(1,2:size(xbest,2));
-                obj.Data.objVal=fitxbest;
+                obj.Data.objVal=fitnow;
 
                 obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);% 这将会把当前的objVal，xi，xj更新到GUI中。
+                best_obj=fitxbest;
             end
-            obj.Data.distance = data;
+            obj.Data.objVal=best_obj;
         end
     end
 end

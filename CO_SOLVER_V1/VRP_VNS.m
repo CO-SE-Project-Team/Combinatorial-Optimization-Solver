@@ -79,7 +79,7 @@ classdef VRP_VNS < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
                 obj.Data.objVal=fitnow;
                 % 注意要记得更新xi，xj，objVal等变量
                 % ----------------以上是你的算法内容-----------------------
-                        
+                        obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);% 这将会把当前的objVal，xi，xj更新到GUI中。
                 % 这里将算法内部算好的变量赋给父类Data，方便父类get_Data()
                 best_obj=fitxbest;
             end
