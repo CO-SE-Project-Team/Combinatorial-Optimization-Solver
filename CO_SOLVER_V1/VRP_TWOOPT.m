@@ -38,6 +38,7 @@ classdef VRP_TWOOPT < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM�
             [xbest, fitxbest] = dist(xnew, data, capacity, demand, n);
             
                xnew = [1, xnew];
+               %
             while (obj.is_stop() == false)  % is_stop()是父类方法，会检查是否超时，超迭代。如果是，则停止算法
                 % 循环内部
                 % ----------------下面写你的算法内容-----------------------
