@@ -139,9 +139,9 @@ classdef  VRP_HPSO < ALGORITHM
             end
             Gbest(Gbest==0)=[];  %删去多余零元素
 
-            Gbest=Gbest-1;  % 编码各减1，与文中的编码一致
-            Gbest(Gbest==0)=[];  %删去多余零元素
-            Gbest=Gbest-1;  % 编码各减1，与文中的编码一致
+            % Gbest=Gbest-1;  % 编码各减1，与文中的编码一致
+            % Gbest(Gbest==0)=[];  %删去多余零元素
+            % Gbest=Gbest-1;  % 编码各减1，与文中的编码一致
             obj.Data.objVal=GbestDistance;
             obj.Data.xi = Gbest(1, 1:size(Gbest,2)-1);
             obj.Data.xj = Gbest(1, 2:size(Gbest,2));
