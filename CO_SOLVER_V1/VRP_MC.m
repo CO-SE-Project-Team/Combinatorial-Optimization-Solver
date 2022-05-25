@@ -19,13 +19,13 @@ classdef  VRP_MC < ALGORITHM
             dis = dis + dis';
 
             sequenceBest = [];
-            objVal =0;
+            objValBest = 0;
             while obj.is_stop() == false
                 clientsPool = linspace(2, n, n-1);
-                for i = 1:size(clientsPool,2)
-                    index = randi(size(clientsPool,2));
-                    objVal = objVal + dis
-
+                sequence = [1];
+                objVal = 0;
+                while size(sequence,2) ~= n
+                    
                 end
 
                 obj.Data.xi=sequence(1,size(sequence,2)-1);
@@ -34,8 +34,8 @@ classdef  VRP_MC < ALGORITHM
                 obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
             end
             
-            obj.Data.xi = r(1, 1:size(r,2)-1);
-            obj.Data.xj = r(1, 2:size(r,2));
+            obj.Data.xi = sequenceBest(1, 1:size(sequenceBest,2)-1);
+            obj.Data.xj = sequenceBest(1, 2:size(sequenceBest,2));
             obj.Data.objVal = minDis;
             obj.Data.n = n;
             obj.Data.distance = dis;
