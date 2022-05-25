@@ -133,13 +133,13 @@ classdef  ALGORITHM < handle
         end
         
         function bool = is_stop(obj)
-            obj.iter = obj.iter + 1;
             obj.endTime=clock;
             deltaT=etime(obj.endTime,obj.startTime);
-            if (obj.iter > obj.Data.iterations) || (deltaT > obj.Data.timeLim)
+            if (obj.iter >= obj.Data.iterations) || (deltaT > obj.Data.timeLim)
                 bool=true;
             else
                 bool=false;
+                obj.iter = obj.iter + 1;
             end
         end
 

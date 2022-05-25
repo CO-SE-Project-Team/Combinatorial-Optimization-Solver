@@ -18,10 +18,10 @@ classdef  VRP_MC < ALGORITHM
             end
             dis = dis + dis';
 
+            sequenceBest = [];
+            objVal =0;
             while obj.is_stop() == false
                 clientsPool = linspace(2, n, n-1);
-                sequence = [1];
-                objVal = 0;
                 for i = 1:size(clientsPool,2)
                     index = randi(size(clientsPool,2));
                     objVal = objVal + dis
