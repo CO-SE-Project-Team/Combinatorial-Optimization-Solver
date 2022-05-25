@@ -16,6 +16,8 @@ classdef  ALGORITHM < handle
         startTime;
         midStartTime;
         endTime;
+
+        start_clock_called = false;
     end
 
     methods
@@ -128,11 +130,17 @@ classdef  ALGORITHM < handle
         end
 
         function start_clock(obj)
+            obj.start_clock_called = true;
             obj.startTime=clock;
             obj.midStartTime = clock;
         end
         
         function bool = is_stop(obj)
+            if obj.start_clock_called == false % if first time calling, start_clock automatically
+                obj.start_clock();
+                obj.start_clock_called = true;
+            end
+
             obj.endTime=clock;
             deltaT=etime(obj.endTime,obj.startTime);
             if (obj.iter >= obj.Data.iterations) || (deltaT > obj.Data.timeLim)

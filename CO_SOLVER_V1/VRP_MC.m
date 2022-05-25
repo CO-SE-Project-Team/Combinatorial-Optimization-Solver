@@ -18,8 +18,8 @@ classdef  VRP_MC < ALGORITHM
             end
             dis = dis + dis';
 
-            bestSequence = [];
-            bestObjVal = 0;
+            bestSequence = []; % record bestSequence
+            bestObjVal = 0; % record bestObjVal
             % for one possible solution
             while obj.is_stop() == false
                 clients = linspace(2, n, n-1); % clients that haven't been delivered
@@ -29,6 +29,7 @@ classdef  VRP_MC < ALGORITHM
                 truckLoad = capacity; % full load
                 % while there are clients that haven't been delivered.
                 while size(clients,2) ~= 0
+                    % find out possibleClients
                     possibleClients = []; % the possibleClients that truck can go next
                     for i = 1:clients % for every clients
                         if demand(clients(i)) <= truckLoad % if trucl can satisfy this client
@@ -38,15 +39,15 @@ classdef  VRP_MC < ALGORITHM
                     if size(possibleClients,2) == 0 % no clients are possible to satisfied
                         objVal = objVal + dis(sequence(end),1);
                         sequence(end+1) = 1; % go back to depot
-                        truckLoad = 0; %
+                        truckLoad = capacity; % fill full of items.
                         continue; % ready to go to clients
                     end
 
-                    index = randi(size(possibleClients,2)); % random select a possibleClient
-                    objVal = objVal + dis(sequence(end),possibleClients(index)); % update objVal
-                    sequence(end+1) = possibleClients(index); % add to sequence
-                    truckLoad = truckLoad - possibleClients(inex); % move items out of the truck
-                    possibleClients(index) = []; % delete this client out of the possibleClients
+                    randomIndex = randi(size(possibleClients,2)); % random select a possibleClient
+                    objVal = objVal + dis(sequence(end),possibleClients(randomIndex)); % update objVal
+                    sequence(end+1) = possibleClients(randomIndex); % add to sequence
+                    truckLoad = truckLoad - possibleClients(randomIndex); % move items out of the truck
+                    clients(randomIndex) = []; % delete this client out of the clients
                 end
 
                 if objVal < bestObjVal
