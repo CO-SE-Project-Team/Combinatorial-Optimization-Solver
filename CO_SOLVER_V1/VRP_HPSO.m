@@ -19,11 +19,7 @@ classdef  VRP_HPSO < ALGORITHM
             %Gbest          最短路径
             %GbestDistance	最短路径长度
 
-            %% 加载数据
-            %load('../test_data/City.mat')	      %需求点经纬度，用于画实际路径的XY坐标
-            %load('../test_data/Distance.mat')	  %距离矩阵
-            %load('../test_data/Demand.mat')       %需求量
-            %load('../test_data/Capacity.mat')     %车容量约束
+          
 
             %% 初始化问题参数
             Demand = demand;
@@ -70,90 +66,90 @@ classdef  VRP_HPSO < ALGORITHM
             GbestDistance = mindis; % 初始Gbest粒子的目标函数值
 
             %% 开始迭代
-            Iter=1;
-            while obj.is_stop() == false
+            
+            % while obj.is_stop() == false
+            %for  Iter=1:obj.Data.iterations %遍历每一代
+               % obj.Data.iterator=Iter;
+                %if obj.is_stop()==true
+                 %   break
+                %end
+                Iter=1;
                 while Iter <= MAXGEN
-                    %% 每个粒子更新
-                    for i=1:NIND
-                        %% 粒子与Pbest交叉
-                        Population(i,2:end-1)=Crossover(Population(i,2:end-1),Pbest(i,2:end-1)); %交叉
+                %% 每个粒子更新
+                for i=1:NIND
+                    %% 粒子与Pbest交叉
+                    Population(i,2:end-1)=Crossover(Population(i,2:end-1),Pbest(i,2:end-1)); %交叉
 
-                        % 新路径长度变短则记录至Pbest
-                        PopDistance(i) = CalcDis(Population(i,:),Distance,Demand,Capacity); %计算距离
-                        if PopDistance(i) < PbestDistance(i) %若新路径长度变短
-                            Pbest(i,:)=Population(i,:); %更新Pbest
-                            PbestDistance(i)=PopDistance(i); %更新Pbest距离
-                        end
-
-                        %% 根据Pbest更新Gbest
-                        [mindis,index] = min(PbestDistance); %找出Pbest中最短距离
-
-                        if mindis < GbestDistance %若Pbest中最短距离小于Gbest距离
-                            Gbest = Pbest(index,:); %更新Gbest
-                            GbestDistance = mindis; %更新Gbest距离
-                        end
-
-                        %% 粒子与Gbest交叉
-                        Population(i,2:end-1)=Crossover(Population(i,2:end-1),Gbest(2:end-1));
-
-                        % 新路径长度变短则记录至Pbest
-                        PopDistance(i) = CalcDis(Population(i,:),Distance,Demand,Capacity); %计算距离
-                        if PopDistance(i) < PbestDistance(i) %若新路径长度变短
-                            Pbest(i,:)=Population(i,:); %更新Pbest
-                            PbestDistance(i)=PopDistance(i); %更新Pbest距离
-                        end
-
-                        %% 粒子自身变异
-                        Population(i,:)=Mutate(Population(i,:));
-
-                        % 新路径长度变短则记录至Pbest
-                        PopDistance(i) = CalcDis(Population(i,:),Distance,Demand,Capacity); %计算距离
-                        if PopDistance(i) < PbestDistance(i) %若新路径长度变短
-                            Pbest(i,:)=Population(i,:); %更新Pbest
-                            PbestDistance(i)=PopDistance(i); %更新Pbest距离
-                        end
-
-                        %% 根据Pbest更新Gbest
-                        [mindis,index] = min(PbestDistance); %找出Pbest中最短距离
-
-                        if mindis < GbestDistance %若Pbest中最短距离小于Gbest距离
-                            Gbest = Pbest(index,:); %更新Gbest
-                            GbestDistance = mindis; %更新Gbest距离
-                        end
+                    % 新路径长度变短则记录至Pbest
+                    PopDistance(i) = CalcDis(Population(i,:),Distance,Demand,Capacity); %计算距离
+                    if PopDistance(i) < PbestDistance(i) %若新路径长度变短
+                        Pbest(i,:)=Population(i,:); %更新Pbest
+                        PbestDistance(i)=PopDistance(i); %更新Pbest距离
                     end
 
-                    %% 显示此代信息
-                    %fprintf('Iteration = %d, Min Distance = %.2f km  \n',Iter,GbestDistance)
+                    %% 根据Pbest更新Gbest
+                    [mindis,index] = min(PbestDistance); %找出Pbest中最短距离
 
-                    %% 存储此代最短距离
-                    GbestDisByGen(Iter)=GbestDistance;
+                    if mindis < GbestDistance %若Pbest中最短距离小于Gbest距离
+                        Gbest = Pbest(index,:); %更新Gbest
+                        GbestDistance = mindis; %更新Gbest距离
+                    end
 
-                    %% 更新迭代次数
-                    Iter=Iter+1;
-                end
+                    %% 粒子与Gbest交叉
+                    Population(i,2:end-1)=Crossover(Population(i,2:end-1),Gbest(2:end-1));
 
-                %删去路径中多余1
-                for i=1:length(Gbest)-1
-                    if Gbest(i)==Gbest(i+1)
-                        Gbest(i)=0;  %相邻位都为1时前一个置零
+                    % 新路径长度变短则记录至Pbest
+                    PopDistance(i) = CalcDis(Population(i,:),Distance,Demand,Capacity); %计算距离
+                    if PopDistance(i) < PbestDistance(i) %若新路径长度变短
+                        Pbest(i,:)=Population(i,:); %更新Pbest
+                        PbestDistance(i)=PopDistance(i); %更新Pbest距离
+                    end
+
+                    %% 粒子自身变异
+                    Population(i,:)=Mutate(Population(i,:));
+
+                    % 新路径长度变短则记录至Pbest
+                    PopDistance(i) = CalcDis(Population(i,:),Distance,Demand,Capacity); %计算距离
+                    if PopDistance(i) < PbestDistance(i) %若新路径长度变短
+                        Pbest(i,:)=Population(i,:); %更新Pbest
+                        PbestDistance(i)=PopDistance(i); %更新Pbest距离
+                    end
+
+                    %% 根据Pbest更新Gbest
+                    [mindis,index] = min(PbestDistance); %找出Pbest中最短距离
+
+                    if mindis < GbestDistance %若Pbest中最短距离小于Gbest距离
+                        Gbest = Pbest(index,:); %更新Gbest
+                        GbestDistance = mindis; %更新Gbest距离
                     end
                 end
-                Gbest(Gbest==0)=[];  %删去多余零元素
 
-                Gbest=Gbest-1;  % 编码各减1，与文中的编码一致
-                Gbest(Gbest==0)=[];  %删去多余零元素
-                Gbest=Gbest-1;  % 编码各减1，与文中的编码一致
-                obj.Data.objVal=GbestDistance;
-                obj.Data.xi = Gbest(1, 1:size(Gbest,2)-1);
-                obj.Data.xj = Gbest(1, 2:size(Gbest,2));
-                disp(obj.Data.xi);
-                disp(obj.Data.xj);
-                disp(obj.Data.objVal);
-                obj.update_status_by(obj.Data.objVal, obj.Data.xi, obj.Data.xj);
-                obj.Data.n = n;
-                obj.Data.distance = Distance;
+                %% 存储此代最短距离
+                GbestDisByGen(Iter)=GbestDistance;
 
+                %% 更新迭代次数
+                Iter=Iter+1;
             end
+
+            %删去路径中多余1
+            for i=1:length(Gbest)-1
+                if Gbest(i)==Gbest(i+1)
+                    Gbest(i)=0;  %相邻位都为1时前一个置零
+                end
+            end
+            Gbest(Gbest==0)=[];  %删去多余零元素
+
+            Gbest=Gbest-1;  % 编码各减1，与文中的编码一致
+            Gbest(Gbest==0)=[];  %删去多余零元素
+            Gbest=Gbest-1;  % 编码各减1，与文中的编码一致
+            obj.Data.objVal=GbestDistance;
+            obj.Data.xi = Gbest(1, 1:size(Gbest,2)-1);
+            obj.Data.xj = Gbest(1, 2:size(Gbest,2));
+
+            obj.update_status_by(obj.Data.objVal, obj.Data.xi, obj.Data.xj);
+            obj.Data.n = n;
+            obj.Data.distance = Distance;
+
         end
     end
 end
@@ -290,3 +286,10 @@ RandIndex = randperm(length(route)-2)+1; %除去染色体首尾配送中心位�
 route(RandIndex(2:-1:1)) = route(RandIndex(1:2)); %换位变异
 route(RandIndex(4:-1:3)) = route(RandIndex(3:4)); %二次换位变异
 end
+%本地命令行测试步骤
+% p=SubALGORITHM()
+% 打开.mat文件导入数据Data
+% p.set_Data(Data)
+% p.solve()
+% p.get_Data() 需要在变量里把Data.timeLim修改，测试能完整跑完和无法完整跑完两种情况
+% p.get_solved_Data(Data)这个是前几种方法的集合，也需要测试一次
