@@ -77,7 +77,7 @@ classdef VRP_VNS < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
                 % ----------------以上是你的算法内容-----------------------
                         
                 % 这里将算法内部算好的变量赋给父类Data，方便父类get_Data()
-                xbest
+                
                 obj.Data.xi=xbest(1, 1:size(xbest, 2) - 1);
                 obj.Data.xj=xbest(1,2:size(xbest,2));
                 obj.Data.objVal=fitxbest;
