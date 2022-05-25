@@ -18,33 +18,54 @@ classdef  VRP_MC < ALGORITHM
             end
             dis = dis + dis';
 
-            sequenceBest = [];
-            objValBest = 0;
+            bestSequence = [];
+            bestObjVal = 0;
+            % for one possible solution
             while obj.is_stop() == false
-                clientsPool = linspace(2, n, n-1);
-                sequence = [1];
-                objVal = 0;
-                while size(sequence,2) ~= n
-                    
+                clients = linspace(2, n, n-1); % clients that haven't been delivered
+                sequence = [1]; % sequence for this solution, starting from depot 1.
+                objVal = 0; % objVal for this objVal
+                
+                truckLoad = capacity; % full load
+                % while there are clients that haven't been delivered.
+                while size(clients,2) ~= 0
+                    possibleClients = []; % the possibleClients that truck can go next
+                    for i = 1:clients % for every clients
+                        if demand(clients(i)) <= truckLoad % if trucl can satisfy this client
+                            possibleClients(end+1) = clients(i); % add to possible 
+                        end
+                    end
+                    if size(possibleClients,2) == 0 % no clients are possible to satisfied
+                        objVal = objVal + dis(sequence(end),1);
+                        sequence(end+1) = 1; % go back to depot
+                        truckLoad = 0; %
+                        continue; % ready to go to clients
+                    end
+
+                    index = randi(size(possibleClients,2)); % random select a possibleClient
+                    objVal = objVal + dis(sequence(end),possibleClients(index)); % update objVal
+                    sequence(end+1) = possibleClients(index); % add to sequence
+                    truckLoad = truckLoad - possibleClients(inex); % move items out of the truck
+                    possibleClients(index) = []; % delete this client out of the possibleClients
                 end
 
-                obj.Data.xi=sequence(1,size(sequence,2)-1);
-                obj.Data.xj=sequence(2,size(sequence,2));
-                obj.Data.objVal=objVal;
+                if objVal < bestObjVal
+                    bestObjVal = objVal;
+                    bestSequence = sequence;
+
+                    obj.Data.xi=bestSequence(1,size(bestSequence,2)-1);
+                    obj.Data.xj=bestSequence(2,size(bestSequence,2));
+                    obj.Data.objVal=bestObjVal;
+                end
+
+                % update_status_by() to GUI
                 obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
             end
             
-            obj.Data.xi = sequenceBest(1, 1:size(sequenceBest,2)-1);
-            obj.Data.xj = sequenceBest(1, 2:size(sequenceBest,2));
-            obj.Data.objVal = minDis;
-            obj.Data.n = n;
+            obj.Data.objVal = bestObjVal;
+            obj.Data.xi = bestSequence(1, 1:size(bestSequence,2)-1);
+            obj.Data.xj = bestSequence(1, 2:size(bestSequence,2));
             obj.Data.distance = dis;
-
-            % obj.start_clock();
-            % while (obj.is_stop() == false)
-
-            %     obj.Data.iterator = obj.Data.iterator + 1;
-            % end
         end     
     end
 end
