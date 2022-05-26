@@ -129,9 +129,7 @@ classdef  VRP_HPSO < ALGORITHM
                         end
                         Gbestshort(Gbestshort==0)=[];  %删去多余零元素
                         GbestDistance = mindis; %更新Gbest距离
-                        obj.Data.objVal=GbestDistance;
-                        obj.Data.xi = Gbestshort(1, 1:size(Gbestshort,2)-1);
-                        obj.Data.xj = Gbestshort(1, 2:size(Gbestshort,2));
+                        
                         
                     end
                     
@@ -142,6 +140,9 @@ classdef  VRP_HPSO < ALGORITHM
 
                 %% 更新迭代次数
                 Iter=Iter+1;
+                obj.Data.objVal=GbestDistance;
+                obj.Data.xi = Gbestshort(1, 1:size(Gbestshort,2)-1);
+                obj.Data.xj = Gbestshort(1, 2:size(Gbestshort,2));
                 obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
             end
 
