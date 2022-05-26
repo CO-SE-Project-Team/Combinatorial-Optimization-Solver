@@ -1,7 +1,7 @@
 import random
 import copy
 import math
-# from sympy import N
+from sympy import N
 
 class ClimbSolution:
 	"""
