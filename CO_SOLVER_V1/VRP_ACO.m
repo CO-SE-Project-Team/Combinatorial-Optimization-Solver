@@ -1,12 +1,13 @@
 classdef  VRP_ACO < ALGORITHM
     methods
         function solve(obj)
+            obj.start_clock();
             capacity = obj.Data.capacity;
             demand = obj.Data.demand;
             cx = obj.Data.cx;
             cy = obj.Data.cy;
-            
-            
+
+
             %% 蚁群算法求解CVRP
             %输入：
             %City           需求点经纬度
@@ -63,9 +64,9 @@ classdef  VRP_ACO < ALGORITHM
             MinDis = zeros(MaxIter,1);              % 各代最佳路径的长度
 
             %% 迭代寻找最佳路径
-            Iter = 1;   
+            Iter = 1;
             % 迭代次数初值
-            obj.start_clock();
+
             while obj.is_stop() == false %当未到达最大迭代次数
                 %% 逐个蚂蚁路径选择
 
@@ -161,7 +162,7 @@ classdef  VRP_ACO < ALGORITHM
                     end
                 end
 
-                mindisever = MinDis(MaxIter); % 取得历史最优适应值的位置、最优目标函数值
+%                 mindisever = MinDis(MaxIter); % 取得历史最优适应值的位置、最优目标函数值
                 bestroute = bestind; % 取得最优个体
                 %删去路径中多余1
                 for i=1:length(bestroute)-1
@@ -171,13 +172,13 @@ classdef  VRP_ACO < ALGORITHM
                 end
                 bestroute(bestroute==0)=[];  %删去多余零元素
 
-%                 bestroute=bestroute-1;  % 编码各减1，与文中的编码一致
+                %                 bestroute=bestroute-1;  % 编码各减1，与文中的编码一致
                 obj.Data.objVal=min_Length;
                 obj.Data.xi = bestroute(1, 1:size(bestroute,2)-1);
                 obj.Data.xj = bestroute(1, 2:size(bestroute,2));
-                disp(obj.Data.xi);
-                disp(obj.Data.xj);
-                disp(obj.Data.objVal);
+%                 disp(obj.Data.xi);
+%                 disp(obj.Data.xj);
+%                 disp(obj.Data.objVal);
                 obj.update_status_by(obj.Data.objVal, obj.Data.xi, obj.Data.xj);
                 %% 更新信息素
                 Delta_Tau = zeros(CityNum+1,CityNum+1); %预分配内存
@@ -189,7 +190,7 @@ classdef  VRP_ACO < ALGORITHM
                         Delta_Tau(Population(i,j),Population(i,j+1)) = Delta_Tau(Population(i,j),Population(i,j+1)) + Q/ttlDistance(i);
                     end
                 end
-                Tau = (1-Rho)*Tau+Delta_Tau; %对信息素矩阵进行整体计算，减去挥发，加上新生成的信息素  
+                Tau = (1-Rho)*Tau+Delta_Tau; %对信息素矩阵进行整体计算，减去挥发，加上新生成的信息素
                 %% 更新迭代次数
                 Iter = Iter+1; %迭代次数加1
                 %Population = zeros(AntNum,CityNum*2+1); %清空路径记录表
@@ -201,7 +202,6 @@ classdef  VRP_ACO < ALGORITHM
 
             obj.Data.n = n;
             obj.Data.distance = Distance;
-            
         end
     end
 end
