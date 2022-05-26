@@ -23,6 +23,7 @@ class ClimbSolution:
 		self.yc = [2]
 		self.points = list(zip(self.xc,self.yc))
 		self.TimeLimit = 20
+		self.iterations = 1
 		self.length = len(self.points)
 		self.map = self.distance_map()
 		self.Data = {}
@@ -80,7 +81,7 @@ class ClimbSolution:
 		router = self.points
 		distance = self.router_distance(router)
 		sol=[0 for x in range(1, self.n+1)]
-		turn = 1000
+		turn = self.iterations
 		while turn:
 			p1 = int(random.random() * self.length)
 			p2 = int(random.random() * self.length)
@@ -108,6 +109,7 @@ class ClimbSolution:
 		self.Data = Data
 		self.problem = self.Data['problem']
 		self.n = self.Data['n']
+		self.iterations=self.Data['iterations']
 		self.Capacity = self.Data['capacity']
 		self.Dmd = self.Data['demand']
 		self.xc = self.Data['cx']
