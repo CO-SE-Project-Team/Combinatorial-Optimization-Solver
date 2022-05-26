@@ -19,7 +19,7 @@ classdef  VRP_MC < ALGORITHM
             dis = dis + dis';
 
             bestSequence = []; % record bestSequence
-            bestObjVal = 0; % record bestObjVal
+            bestObjVal = Inf; % record bestObjVal
             % for one possible solution
             while obj.is_stop() == false
                 clients = linspace(2, n, n-1); % clients that haven't been delivered
@@ -31,8 +31,8 @@ classdef  VRP_MC < ALGORITHM
                 while size(clients,2) ~= 0
                     % find out possibleClients
                     possibleClients = []; % the possibleClients that truck can go next
-                    for i = 1:clients % for every clients
-                        if demand(clients(i)) <= truckLoad % if trucl can satisfy this client
+                    for i = 1:size(clients,2) % for every clients
+                        if demand(clients(i)) <= truckLoad % if truck can satisfy this client
                             possibleClients(end+1) = clients(i); % add to possible 
                         end
                     end
@@ -54,8 +54,8 @@ classdef  VRP_MC < ALGORITHM
                     bestObjVal = objVal;
                     bestSequence = sequence;
 
-                    obj.Data.xi=bestSequence(1,size(bestSequence,2)-1);
-                    obj.Data.xj=bestSequence(2,size(bestSequence,2));
+                    obj.Data.xi=bestSequence(1:size(bestSequence,2)-1);
+                    obj.Data.xj=bestSequence(2:size(bestSequence,2));
                     obj.Data.objVal=bestObjVal;
                 end
 
@@ -64,8 +64,8 @@ classdef  VRP_MC < ALGORITHM
             end
             
             obj.Data.objVal = bestObjVal;
-            obj.Data.xi = bestSequence(1, 1:size(bestSequence,2)-1);
-            obj.Data.xj = bestSequence(1, 2:size(bestSequence,2));
+            obj.Data.xi = bestSequence(1:size(bestSequence,2)-1);
+            obj.Data.xj = bestSequence(2:size(bestSequence,2));
             obj.Data.distance = dis;
         end     
     end

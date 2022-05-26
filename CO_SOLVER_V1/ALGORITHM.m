@@ -189,6 +189,9 @@ classdef  ALGORITHM < handle
                     % pause(0.01);
                     obj.midStartTime = clock;
                 end
+            else % run by command line
+                % print time
+                disp(['Message: Time elapsed: ',num2str(etime(clock, obj.startTime)), ' iter: ', num2str(obj.iter), ' objVal: ', num2str(objVal)]);
             end
         end
 
@@ -221,6 +224,9 @@ classdef  ALGORITHM < handle
                     % pause(0.01);
                     obj.midStartTime = clock;
                 end
+            else % run by command line
+                % print time
+                disp(['Message: Time elapsed: ',num2str(etime(clock, obj.startTime)), ' iter: ', num2str(obj.iter), ' objVal: ', num2str(objVal)]);
             end
         end
     end
