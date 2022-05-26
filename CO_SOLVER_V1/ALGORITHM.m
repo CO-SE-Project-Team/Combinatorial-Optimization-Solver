@@ -17,6 +17,8 @@ classdef  ALGORITHM < handle
         midStartTime;
         endTime;
 
+        runTime;
+
         start_clock_called = false;
     end
 
@@ -49,6 +51,10 @@ classdef  ALGORITHM < handle
             obj.Data = Data;
             obj.solve();
             Data = obj.get_Data();
+        end
+
+        function runTime = get_runTime(obj)
+            runTime = obj.runTime;
         end
 
         % FOLLOWING FUNCTIONS/METHODS ARE NOT NEEDED FOR INITIAL VERSIONS
