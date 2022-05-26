@@ -19,7 +19,7 @@ classdef  VRP_HPSO < ALGORITHM
             %Gbest          最短路径
             %GbestDistance	最短路径长度
 
-          
+
 
             %% 初始化问题参数
             Demand = demand;
@@ -66,15 +66,15 @@ classdef  VRP_HPSO < ALGORITHM
             GbestDistance = mindis; % 初始Gbest粒子的目标函数值
 
             %% 开始迭代
-            
+
             % while obj.is_stop() == false
             %for  Iter=1:obj.Data.iterations %遍历每一代
-               % obj.Data.iterator=Iter;
-                %if obj.is_stop()==true
-                 %   break
-                %end
-                Iter=1;
-                while Iter <= MAXGEN
+            % obj.Data.iterator=Iter;
+            %if obj.is_stop()==true
+            %   break
+            %end
+            Iter=1;
+            while Iter <= MAXGEN
                 %% 每个粒子更新
                 for i=1:NIND
                     %% 粒子与Pbest交叉
@@ -120,7 +120,18 @@ classdef  VRP_HPSO < ALGORITHM
 
                     if mindis < GbestDistance %若Pbest中最短距离小于Gbest距离
                         Gbest = Pbest(index,:); %更新Gbest
+                        Gbestshort=Gbest;
+                        %删去路径中多余1
+                        for ii=1:length(Gbestshort)-1
+                            if Gbestshort(ii)==Gbestshort(ii+1)
+                                Gbestshort(ii)=0;  %相邻位都为1时前一个置零
+                            end
+                        end
+                        Gbestshort(Gbestshort==0)=[];  %删去多余零元素
                         GbestDistance = mindis; %更新Gbest距离
+                        obj.Data.objVal=GbestDistance;
+                        obj.Data.xi = Gbestshort(1, 1:size(Gbestshort,2)-1);
+                        obj.Data.xj = Gbestshort(1, 2:size(Gbestshort,2));
                     end
                 end
 
@@ -131,22 +142,12 @@ classdef  VRP_HPSO < ALGORITHM
                 Iter=Iter+1;
             end
 
-            %删去路径中多余1
-            for i=1:length(Gbest)-1
-                if Gbest(i)==Gbest(i+1)
-                    Gbest(i)=0;  %相邻位都为1时前一个置零
-                end
-            end
-            Gbest(Gbest==0)=[];  %删去多余零元素
-
             % Gbest=Gbest-1;  % 编码各减1，与文中的编码一致
             % Gbest(Gbest==0)=[];  %删去多余零元素
             % Gbest=Gbest-1;  % 编码各减1，与文中的编码一致
-            obj.Data.objVal=GbestDistance;
-            obj.Data.xi = Gbest(1, 1:size(Gbest,2)-1);
-            obj.Data.xj = Gbest(1, 2:size(Gbest,2));
+            
 
-%             obj.update_status_by(obj.Data.objVal, obj.Data.xi, obj.Data.xj);
+            %             obj.update_status_by(obj.Data.objVal, obj.Data.xi, obj.Data.xj);
             obj.Data.n = n;
             obj.Data.distance = Distance;
 
