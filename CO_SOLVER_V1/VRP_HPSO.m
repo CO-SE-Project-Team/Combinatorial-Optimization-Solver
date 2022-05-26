@@ -120,25 +120,24 @@ classdef  VRP_HPSO < ALGORITHM
 
                     if mindis < GbestDistance %若Pbest中最短距离小于Gbest距离
                         Gbest = Pbest(index,:); %更新Gbest
-                        Gbestshort=Gbest;
-                        %删去路径中多余1
-                        for ii=1:length(Gbestshort)-1
-                            if Gbestshort(ii)==Gbestshort(ii+1)
-                                Gbestshort(ii)=0;  %相邻位都为1时前一个置零
-                            end
-                        end
-                        Gbestshort(Gbestshort==0)=[];  %删去多余零元素
+
                         GbestDistance = mindis; %更新Gbest距离
-                        
-                        
                     end
-                    
+
                 end
 
                 %% 存储此代最短距离
                 GbestDisByGen(Iter)=GbestDistance;
 
                 %% 更新迭代次数
+                Gbestshort=Gbest;
+                %删去路径中多余1
+                for ii=1:length(Gbestshort)-1
+                    if Gbestshort(ii)==Gbestshort(ii+1)
+                        Gbestshort(ii)=0;  %相邻位都为1时前一个置零
+                    end
+                end
+                Gbestshort(Gbestshort==0)=[];  %删去多余零元素
                 Iter=Iter+1;
                 obj.Data.objVal=GbestDistance;
                 obj.Data.xi = Gbestshort(1, 1:size(Gbestshort,2)-1);
@@ -149,7 +148,7 @@ classdef  VRP_HPSO < ALGORITHM
             % Gbest=Gbest-1;  % 编码各减1，与文中的编码一致
             % Gbest(Gbest==0)=[];  %删去多余零元素
             % Gbest=Gbest-1;  % 编码各减1，与文中的编码一致
-            
+
 
             %             obj.update_status_by(obj.Data.objVal, obj.Data.xi, obj.Data.xj);
             obj.Data.n = n;
