@@ -1,6 +1,7 @@
 classdef  VRP_HPSO < ALGORITHM
     methods
         function solve(obj)
+            obj.start_clock();
             capacity = obj.Data.capacity;
             demand = obj.Data.demand;
             cx = obj.Data.cx;
@@ -13,7 +14,7 @@ classdef  VRP_HPSO < ALGORITHM
             %Demand         各点需求量
             %Capacity       车容量约束
             %NIND           种群个数
-            %MAXGEN         遗传到第MAXGEN代时程序停止
+            %obj.Data.iterations         遗传到第obj.Data.iterations代时程序停止
 
             %输出：
             %Gbest          最短路径
@@ -41,12 +42,11 @@ classdef  VRP_HPSO < ALGORITHM
 
             %% 初始化算法参数
             NIND=60; %粒子数量
-            MAXGEN=100; %最大迭代次数
 
             %% 为预分配内存而初始化的0矩阵
             Population = zeros(NIND,CityNum*2+1); %预分配内存，用于存储种群数据
             PopDistance = zeros(NIND,1); %预分配矩阵内存
-            GbestDisByGen = zeros(MAXGEN,1); %预分配矩阵内存
+            GbestDisByGen = zeros(obj.Data.iterations,1); %预分配矩阵内存
 
             for i = 1:NIND
                 %% 初始化各粒子
@@ -74,7 +74,7 @@ classdef  VRP_HPSO < ALGORITHM
             %   break
             %end
             Iter=1;
-            while Iter <= MAXGEN
+            while obj.is_stop() == false
                 %% 每个粒子更新
                 for i=1:NIND
                     %% 粒子与Pbest交叉
@@ -132,6 +132,7 @@ classdef  VRP_HPSO < ALGORITHM
                         obj.Data.objVal=GbestDistance;
                         obj.Data.xi = Gbestshort(1, 1:size(Gbestshort,2)-1);
                         obj.Data.xj = Gbestshort(1, 2:size(Gbestshort,2));
+                        obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
                     end
                 end
 
