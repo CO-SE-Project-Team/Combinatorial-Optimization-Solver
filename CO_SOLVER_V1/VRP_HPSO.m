@@ -132,8 +132,9 @@ classdef  VRP_HPSO < ALGORITHM
                         obj.Data.objVal=GbestDistance;
                         obj.Data.xi = Gbestshort(1, 1:size(Gbestshort,2)-1);
                         obj.Data.xj = Gbestshort(1, 2:size(Gbestshort,2));
-                        obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
+                        
                     end
+                    
                 end
 
                 %% 存储此代最短距离
@@ -141,6 +142,7 @@ classdef  VRP_HPSO < ALGORITHM
 
                 %% 更新迭代次数
                 Iter=Iter+1;
+                obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
             end
 
             % Gbest=Gbest-1;  % 编码各减1，与文中的编码一致
