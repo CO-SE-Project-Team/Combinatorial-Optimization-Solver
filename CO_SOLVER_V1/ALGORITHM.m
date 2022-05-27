@@ -31,6 +31,7 @@ classdef  ALGORITHM < handle
             obj.iter = 0;
             obj.objVals = [];
             obj.guiSetted = false;
+            obj.start_clock_called = false;
         end
 
         % IMPLEMENT YOUR ALGORITHM FOR THIS FUNCITON
@@ -51,6 +52,10 @@ classdef  ALGORITHM < handle
             obj.Data = Data;
             obj.solve();
             Data = obj.get_Data();
+        end
+
+        function objVals = get_objVals(obj)
+            objVals = obj.objVals;
         end
 
         function runTime = get_runTime(obj)
