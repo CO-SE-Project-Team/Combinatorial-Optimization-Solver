@@ -112,6 +112,7 @@ class SASolution():
 		self.xc = self.Data['cx']
 		self.yc = self.Data['cy']
 		self.TimeLimit = self.Data['timeLim']
+		self.iterations=self.Data['iterations']
 
 		self.points = list(zip(self.xc,self.yc))
 		self.length = len(self.points)
