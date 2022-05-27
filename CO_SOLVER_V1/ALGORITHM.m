@@ -62,6 +62,10 @@ classdef  ALGORITHM < handle
             runTime = obj.runTime;
         end
 
+        function iter = get_iter(obj)
+            iter = obj.iter;
+        end
+
         % FOLLOWING FUNCTIONS/METHODS ARE NOT NEEDED FOR INITIAL VERSIONS
         % function pause(obj)
         % end
