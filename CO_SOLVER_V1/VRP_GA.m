@@ -85,7 +85,7 @@ classdef  VRP_GA < ALGORITHM
                 Iter=Iter+1;
 
                 %% 找出历史最短距离和对应路径
-%                 mindisever=mindis(MAXGEN);  % 取最优适应值的位置、最优目标函数值
+                %                 mindisever=mindis(MAXGEN);  % 取最优适应值的位置、最优目标函数值
                 [ttlDistance1,~]=Fitness(Distance,Demand,Chrom,Capacity);  %计算路径长度
                 [mindisbygennew,bestindex1] = min(ttlDistance1);
                 bestind = Chrom(bestindex1,:); % 最优个体集
@@ -156,44 +156,44 @@ bb=b(s:e); %用于检查重复元素
 a(s:e)=[];     %去除交叉部分   去除后后面的元素会往前移
 b(s:e)=[];     %去除交叉部分   去除后后面的元素会往前移
 outlen=length(a); %去除交叉部分后，  a，b的长度   length outside cross section
-inlen=e-s+1;      %交叉部分长度  length inside cross section 
+inlen=e-s+1;      %交叉部分长度  length inside cross section
 
 for i=1:inlen     %交叉部分去除相同元素
-	for j=1:inlen
-		if aa(i)==bb(j) %若交叉部分内上下有相同元素
-			aa(i)=0; %删去
-			bb(j)=0;
-			break  %  break能保证最后aa和bb一样长 且无重复元素
-		end
-	end
+    for j=1:inlen
+        if aa(i)==bb(j) %若交叉部分内上下有相同元素
+            aa(i)=0; %删去
+            bb(j)=0;
+            break  %  break能保证最后aa和bb一样长 且无重复元素
+        end
+    end
 end
 aa(aa==0)=[];   % 0置空后后面的元素往前移
 bb(bb==0)=[];% 0置空后后面的元素往前移
 
 exlen=length(aa);     %交叉部分去除相同元素后长度   length after deduplication
 for i=1:exlen %ab上下去重后
-	for j=1:outlen %交叉部分外
-		if bb(i)==a(j)   %若交叉部分内上下有相同元素
-			a(j)=aa(i); %冗余元素换为缺失元素
-			break
-		end
-	end
+    for j=1:outlen %交叉部分外
+        if bb(i)==a(j)   %若交叉部分内上下有相同元素
+            a(j)=aa(i); %冗余元素换为缺失元素
+            break
+        end
+    end
 end
 
 for i=1:exlen%ab上下去重后
-	for j=1:outlen%交叉部分外
-		if aa(i)==b(j) %若交叉部分内上下有相同元素
-			b(j)=bb(i); %冗余元素换为缺失元素
-			break
-		end
-	end
+    for j=1:outlen%交叉部分外
+        if aa(i)==b(j) %若交叉部分内上下有相同元素
+            b(j)=bb(i); %冗余元素换为缺失元素
+            break
+        end
+    end
 end
 a=[a(1:s-1),b0,a(s:outlen)]; %重新拼接生成子代1
 b=[b(1:s-1),a0,b(s:outlen)]; %重新拼接生成子代2
 end
 
 function [ttlDistance,FitnV]=Fitness(Distance,Demand,Chrom,Capacity)
-%% 计算各个体的路径长度 适应度函数  
+%% 计算各个体的路径长度 适应度函数
 % 输入：
 % Distance      两两城市之间的距离
 % Demand        各点需求量
@@ -247,14 +247,14 @@ Chrom=zeros(NIND,CityNum*2+1); %预分配内存，用于存储种群数据
 for i=1:NIND
     TSProute=[0,randperm(CityNum)]+1; %随机生成一条不包括尾位的TSP路线
     VRProute=ones(1,CityNum*2+1); %初始化VRP路径
-    
+
     delivery=0; % 汽车已经送货量，即已经到达点的需求量之和
     k=1;
     for j=2:CityNum+1
         k=k+1;   %对VRP路径下一点进行赋值
         if delivery+Demand(TSProute(j)) > Capacity %这一点配送完成后车辆可配送量超容量约束
-        	VRProute(k)=1; %经过配送中心
-            
+            VRProute(k)=1; %经过配送中心
+
             % 新一辆车再去下一个需求点
             delivery=Demand(TSProute(j)); %新一辆车可配送量初始化
             k=k+1;
@@ -294,7 +294,7 @@ function Chrom=Reins(Chrom,SelCh,FitnV)
 %ObjV       亲代适应度
 %输出
 %Chrom      组合亲代与子代后得到的新种群
- 
+
 NIND=size(Chrom,1); %亲代种群个体数
 NSel=size(SelCh,1); %参与此代进化的个体数
 [~,index] = sort(FitnV,'descend'); %亲代个体的适应度降序排列
@@ -336,13 +336,13 @@ Px=FitnV/sum(FitnV);  %概率归一化为列向量
 Px=cumsum(Px);    %轮盘赌概率累加为列向量
 
 for i=1:max(floor(NIND*GGAP+.5),2)   %对于主动选择的每个个体：  % 保证选择超过2条染色体（因为要交叉），且选择的个体数为整数
-	theta=rand;  % 不在for里面用rand是因为内部for只用确定的一个随机数rand()
-	for j=1:NIND %对于被选择到的，将放到第i个个体位置的个体
-		if theta<=Px(j) %若随机数落进这个
-			SelCh(i,:)=Chrom(j,:);  %轮盘赌规则确定父亲
-			break
-		end
-	end
+    theta=rand;  % 不在for里面用rand是因为内部for只用确定的一个随机数rand()
+    for j=1:NIND %对于被选择到的，将放到第i个个体位置的个体
+        if theta<=Px(j) %若随机数落进这个
+            SelCh(i,:)=Chrom(j,:);  %轮盘赌规则确定父亲
+            break
+        end
+    end
 end
 end
 
