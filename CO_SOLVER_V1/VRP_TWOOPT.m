@@ -66,13 +66,7 @@ classdef VRP_TWOOPT < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM�
 %                 segCities = circshift(2:n,randperm(n,1)-1);
 %                  newIdx = [1 segCities];
 %                 xnew = xnew(newIdx);                
-<<<<<<< HEAD
-                
-                
-                
-                
-=======
->>>>>>> 605af0434f50d68e631d51df42256eb647bf9740
+
                 
           
                 
