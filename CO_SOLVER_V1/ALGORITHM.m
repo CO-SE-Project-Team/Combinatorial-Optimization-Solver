@@ -17,7 +17,7 @@ classdef  ALGORITHM < handle
         midStartTime;
         endTime;
 
-        runTime;
+        runTime = 0;
 
         start_clock_called = false;
     end
