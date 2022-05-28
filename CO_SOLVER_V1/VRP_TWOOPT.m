@@ -38,7 +38,6 @@ classdef VRP_TWOOPT < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM�
             [xbest, fitxbest] = dist(xnew, data, capacity, demand, n);
             
                xnew = [1, xnew];
-               %
             while (obj.is_stop() == false)  % is_stop()是父类方法，会检查是否超时，超迭代。如果是，则停止算法
                 % 循环内部
                 % ----------------下面写你的算法内容-----------------------
@@ -63,11 +62,14 @@ classdef VRP_TWOOPT < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM�
 %                 xnew = [1,neighbors(idx(1), :)];                                            % 将xnow赋给xnew
 
                 % 解随机移动下
-%                 segCities = circshift(2:n,randperm(n,1)-1);
-%                  newIdx = [1 segCities];
-%                 xnew = xnew(newIdx);                
+                segCities = circshift(2:n,randperm(n,1)-1);
+                 newIdx = [1 segCities];
+                xnew = xnew(newIdx);                
                 
-          
+                
+                
+                
+                
                 
                 
                 
@@ -75,15 +77,14 @@ classdef VRP_TWOOPT < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM�
                 % ----------------以上是你的算法内容-----------------------
                         
                 % 这里将算法内部算好的变量赋给父类Data，方便父类get_Data()
-                
+                xbest
                 obj.Data.xi=xbest(1, 1:size(xbest, 2) - 1);
                 obj.Data.xj=xbest(1,2:size(xbest,2));
-                obj.Data.objVal=fitnow;
+                obj.Data.objVal=fitxbest;
 
                 obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);% 这将会把当前的objVal，xi，xj更新到GUI中。
-                best_obj=fitxbest;
             end
-            obj.Data.objVal=best_obj;
+            obj.Data.distance = data;
         end
     end
 end
