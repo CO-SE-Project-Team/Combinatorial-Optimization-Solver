@@ -31,6 +31,7 @@ classdef  ALGORITHM < handle
             obj.iter = 0;
             obj.objVals = [];
             obj.guiSetted = false;
+            obj.start_clock_called = false;
         end
 
         % IMPLEMENT YOUR ALGORITHM FOR THIS FUNCITON
@@ -53,8 +54,16 @@ classdef  ALGORITHM < handle
             Data = obj.get_Data();
         end
 
+        function objVals = get_objVals(obj)
+            objVals = obj.objVals;
+        end
+
         function runTime = get_runTime(obj)
             runTime = obj.runTime;
+        end
+
+        function iter = get_iter(obj)
+            iter = obj.iter;
         end
 
         % FOLLOWING FUNCTIONS/METHODS ARE NOT NEEDED FOR INITIAL VERSIONS
@@ -169,7 +178,7 @@ classdef  ALGORITHM < handle
         function update_status_by(obj, objVal, xi, xj)
             if obj.guiSetted == true % to exclude condition of running from command line.
                 obj.objVals = [obj.objVals, objVal];
-                if etime(clock, obj.midStartTime) > 0.5
+                if etime(clock, obj.midStartTime) > 0.1
                     % print time
                     disp(['Message: Time elapsed: ',num2str(etime(clock, obj.startTime)), ' iter: ', num2str(obj.iter), ' objVal: ', num2str(objVal)]);
 
@@ -204,7 +213,7 @@ classdef  ALGORITHM < handle
         function update_status(obj)
             if obj.guiSetted == true  % to exclude condition of running from command line.
                 obj.objVals = [obj.objVals, obj.Data.objVal];
-                if etime(clock, obj.midStartTime) > 0.5
+                if etime(clock, obj.midStartTime) > 0.1
                     % print time
                     disp(['Message: Time elapsed: ',num2str(etime(clock, obj.startTime)), ' iter: ', num2str(obj.iter), ' objVal: ', num2str(objVal)]);
 

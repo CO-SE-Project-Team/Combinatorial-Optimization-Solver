@@ -1,11 +1,11 @@
 import random
 import copy
 import math
-from sympy import N
 
-class ClimbSolution:
+class GreedSolution():
 	"""
-	爬山算法解决TSP问题:
+	TSP（Travelling Salesman Problem）
+	旅行商问题的类
 	"""
 	def __init__(self):
 		"""
@@ -13,8 +13,6 @@ class ClimbSolution:
 		points例如: [(1,2), (3,2)]
 		"""
 		# 加入起点
-	
-		
 		self.problem = 'TSP'
 		self.n = 20
 		self.Capacity = 20
@@ -36,7 +34,6 @@ class ClimbSolution:
 		"""
 		return ((point1[0] - point2[0]) ** 2 + 
 				(point1[1] - point2[1]) ** 2) ** 0.5
-
 
 	def distance_map(self):
 		"""
@@ -68,60 +65,68 @@ class ClimbSolution:
 			ret += self.distance(router[i-1], router[i])
 		return ret
 
-
-
-
-
-	def climb(self):
+	def nearest(self, row, arrived):
 		"""
-		爬山算法，查找局部最优解
-		查找过程参考：
-		交换任意两个节点的顺序, 找到局部最优解
+		找到贪心算法在某个点上可以选择的最优的点的坐标
+		row: 某个点对应与另外所有点的距离列表
+		arrvied: 已经到达过的点的集合
 		"""
-		router = self.points
-		distance = self.router_distance(router)
+		min_ = float('inf')
+		index = None
+		# print("arrived in nearest:", arrived)
+		for i in range(len(row)):
+			if i in arrived or row[i] == 0:
+				continue
+			if row[i] < min_:
+				min_ = row[i]
+				index = i
+		return index
+
+	def greed(self):
+		"""
+		从起点(0, 0)出发，选择最近的点；
+		再从该点出发，选择最近的点；
+		重复执行该步骤，直到没有点时返回起点。
+
+		返回路径
+		例如： [(0, 0), (3, 4), (0, 0)]
+		"""
+		curr = 0
+		router = [self.points[0]]
 		sol=[0 for x in range(1, self.n+1)]
-		turn = self.iterations
-		while turn:
-			p1 = int(random.random() * self.length)
-			p2 = int(random.random() * self.length)
-			while p1 == p2:
-				p2 = int(random.random() * self.length)
-
-			temp = copy.deepcopy(router)
-			temp[p1], temp[p2] = temp[p2], temp[p1]
-			curr_distance = self.router_distance(temp)
-			if curr_distance < distance:
-				distance = curr_distance
-				router = temp
-				for i in range(self.n):
-					for j in range(self.n):
-						if router[i]==self.points[j]:
-							sol[i]=j+1
-			
-							
-			turn -= 1
+		arrived = set()
+		arrived.add(0)
+		total_distance = 0
+		while True:
+			curr = self.nearest(self.map[curr], arrived)
+			if curr is None:
+				break
+			router.append(self.points[curr])
+			arrived.add(curr)
+		for i in range(self.n):
+			for j in range(self.n):
+				if router[i]==self.points[j]:
+					sol[i]=j+1
+		# print(arrived, router)
+		# print("greed 总距离:", self.router_distance(router))
 		sol.append(sol[0])
-		return distance,sol
-
+		return self.router_distance(router),sol
 
 	def get_solved_Data(self, Data):
 		self.Data = Data
 		self.problem = self.Data['problem']
 		self.n = self.Data['n']
-		self.iterations=self.Data['iterations']
 		self.Capacity = self.Data['capacity']
 		self.Dmd = self.Data['demand']
 		self.xc = self.Data['cx']
 		self.yc = self.Data['cy']
 		self.TimeLimit = self.Data['timeLim']
-		self.iterations=self.Data['iterations']
 
 		self.points = list(zip(self.xc,self.yc))
 		self.length = len(self.points)
 		self.map = self.distance_map()
 
-		distance,sol=self.climb()
+		distance,sol=self.greed()
 
 		self.objVal = distance
 		self.Data['xi'] = sol[0:self.n]

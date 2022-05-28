@@ -46,10 +46,9 @@ classdef  VRP_MC < ALGORITHM
                     randomIndex = randi(size(possibleClients,2)); % random select a possibleClient
                     objVal = objVal + dis(sequence(end),possibleClients(randomIndex)); % update objVal
                     sequence(end+1) = possibleClients(randomIndex); % add to sequence
-                    truckLoad = truckLoad - demand(possibleClients(randomIndex)); % move items out of the truck
-                    clients(find(clients==possibleClients(randomIndex))) = []; % delete this client out of the clients
+                    truckLoad = truckLoad - possibleClients(randomIndex); % move items out of the truck
+                    clients(randomIndex) = []; % delete this client out of the clients
                 end
-                sequence(end+1) = 1;
 
                 if objVal < bestObjVal
                     bestObjVal = objVal;

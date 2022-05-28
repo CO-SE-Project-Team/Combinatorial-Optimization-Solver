@@ -1,12 +1,12 @@
 classdef  VRP_ACO < ALGORITHM
     methods
         function solve(obj)
+            obj.start_clock();
             capacity = obj.Data.capacity;
             demand = obj.Data.demand;
             cx = obj.Data.cx;
             cy = obj.Data.cy;
-            
-            
+
             %% 蚁群算法求解CVRP
             %输入：
             %City           需求点经纬度
@@ -25,11 +25,6 @@ classdef  VRP_ACO < ALGORITHM
             %bestroute      最短路径
             %mindisever     路径长度
 
-            %% 加载数据
-            %load('../test_data/City.mat')	      %需求点经纬度，用于画实际路径的XY坐标
-            %load('../test_data/Distance.mat')	  %距离矩阵
-            %load('../test_data/Demand.mat')       %需求量
-            %load('../test_data/Capacity.mat')     %车容量约束
 
             %% 初始化问题参数
             Demand = demand;
@@ -47,7 +42,8 @@ classdef  VRP_ACO < ALGORITHM
                     Distance(j,i)=Distance(i,j);
                 end
             end
-            CityNum = size(City,1)-1;    %需求点个数
+            CityNum=size(City,1)-1;    %需求点个数
+
 
             %% 初始化参数
             AntNum = 8;                            % 蚂蚁数量
@@ -55,7 +51,7 @@ classdef  VRP_ACO < ALGORITHM
             Beta = 5;                               % 启发函数重要程度因子
             Rho = 0.1;                              % 信息素挥发因子
             Q = 1;                                  % 常系数
-            Eta = 1./Distance;                      % 启发函数
+            Eta = 1./(Distance+0.1);                      % 启发函数
             Tau = ones(CityNum+1);                  % (CityNum+1)*(CityNum+1)信息素矩阵  初始化全为1
             Population = zeros(AntNum,CityNum*2+1);  % AntNum行,(CityNum*2+1)列 的路径记录表
             MaxIter = obj.Data.iterations;                           % 最大迭代次数
@@ -63,12 +59,9 @@ classdef  VRP_ACO < ALGORITHM
             MinDis = zeros(MaxIter,1);              % 各代最佳路径的长度
 
             %% 迭代寻找最佳路径
-            Iter = 1;   
-            % 迭代次数初值
-            obj.start_clock();
+            Iter = 1;                               % 迭代次数初值
             while obj.is_stop() == false %当未到达最大迭代次数
                 %% 逐个蚂蚁路径选择
-
                 maxSubpathLength=zeros(AntNum,1);
                 for i = 1:AntNum
                     TSProute=2:CityNum+1; %生成一条顺序不包括首尾位的升序TSP路线
@@ -155,30 +148,11 @@ classdef  VRP_ACO < ALGORITHM
                 else
                     [min_Length,min_index] = min(ttlDistance); %取得此次迭代最短距离
                     MinDis(Iter) = min(MinDis(Iter-1),min_Length); %与上次迭代结果对比
-
                     if min_Length == MinDis(Iter) %若此代最短距离是在此代中出现
                         bestind = Population(min_index,:); %此代最短距离对应的路径赋给此代最优路径
                     end
                 end
 
-                mindisever = MinDis(MaxIter); % 取得历史最优适应值的位置、最优目标函数值
-                bestroute = bestind; % 取得最优个体
-                %删去路径中多余1
-                for i=1:length(bestroute)-1
-                    if bestroute(i)==bestroute(i+1) %相邻位都为1时
-                        bestroute(i)=0;  %前一个置零
-                    end
-                end
-                bestroute(bestroute==0)=[];  %删去多余零元素
-
-%                 bestroute=bestroute-1;  % 编码各减1，与文中的编码一致
-                obj.Data.objVal=min_Length;
-                obj.Data.xi = bestroute(1, 1:size(bestroute,2)-1);
-                obj.Data.xj = bestroute(1, 2:size(bestroute,2));
-                disp(obj.Data.xi);
-                disp(obj.Data.xj);
-                disp(obj.Data.objVal);
-                obj.update_status_by(obj.Data.objVal, obj.Data.xi, obj.Data.xj);
                 %% 更新信息素
                 Delta_Tau = zeros(CityNum+1,CityNum+1); %预分配内存
 
@@ -189,19 +163,40 @@ classdef  VRP_ACO < ALGORITHM
                         Delta_Tau(Population(i,j),Population(i,j+1)) = Delta_Tau(Population(i,j),Population(i,j+1)) + Q/ttlDistance(i);
                     end
                 end
-                Tau = (1-Rho)*Tau+Delta_Tau; %对信息素矩阵进行整体计算，减去挥发，加上新生成的信息素  
+                Tau = (1-Rho)*Tau+Delta_Tau; %对信息素矩阵进行整体计算，减去挥发，加上新生成的信息素
+
+
+                %% 找出历史最短距离和对应路径
+                mindisever = MinDis(Iter); %找出历史最优目标函数值
+                bestroute = bestind; % 取得最优个体
+
+                %删去路径中多余1
+                for i=1:length(bestroute)-1
+                    if bestroute(i)==bestroute(i+1)
+                        bestroute(i)=0;  %相邻位都为1时前一个置零
+                    end
+                end
+                bestroute(bestroute==0)=[];  %删去多余零元素
+                % bestroute=bestroute-1;  % 编码各减1，与文中的编码一致
+                obj.Data.objVal=mindisever;
+                obj.Data.xi = bestroute(1, 1:size(bestroute,2)-1);
+                obj.Data.xj = bestroute(1, 2:size(bestroute,2));
+                %             disp(obj.Data.xi);
+                %             disp(obj.Data.xj);
+                %             disp(obj.Data.objVal);
+                obj.update_status_by(obj.Data.objVal, obj.Data.xi, obj.Data.xj);
+
                 %% 更新迭代次数
                 Iter = Iter+1; %迭代次数加1
                 %Population = zeros(AntNum,CityNum*2+1); %清空路径记录表
 
             end
-
-            %% 找出历史最短距离和对应路径
-
-
             obj.Data.n = n;
             obj.Data.distance = Distance;
-            
+
         end
     end
 end
+
+
+
