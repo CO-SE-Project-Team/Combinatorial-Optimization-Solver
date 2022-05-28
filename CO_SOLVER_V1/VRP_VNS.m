@@ -63,10 +63,10 @@ classdef VRP_VNS < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
 %                 xnew = [1,neighbors(idx(1), :)];                                            % 将xnow赋给xnew
 
                 % 解随机移动下
-                segCities = circshift(2:n,randperm(n,1)-1);
-                 newIdx = [1 segCities];
-                xnew = xnew(newIdx);                
-                
+%                 segCities = circshift(2:n,randperm(n,1)-1);
+%                  newIdx = [1 segCities];
+%                 xnew = xnew(newIdx);                
+%                 
                 obj.Data.problem=problem;
                 obj.Data.n=n;
                 obj.Data.capacity=capacity;
