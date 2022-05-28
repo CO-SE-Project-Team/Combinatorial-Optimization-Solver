@@ -1,11 +1,11 @@
 import random
 import copy
 import math
-from sympy import N
 
-class ClimbSolution:
+class SASolution():
 	"""
-	爬山算法解决TSP问题:
+	模拟退火算法解决TSP问题:
+	SA（Simulated annealing)
 	"""
 	def __init__(self):
 		"""
@@ -13,8 +13,6 @@ class ClimbSolution:
 		points例如: [(1,2), (3,2)]
 		"""
 		# 加入起点
-	
-		
 		self.problem = 'TSP'
 		self.n = 20
 		self.Capacity = 20
@@ -68,21 +66,23 @@ class ClimbSolution:
 			ret += self.distance(router[i-1], router[i])
 		return ret
 
-
-
-
-
-	def climb(self):
+	def sa(self):
 		"""
-		爬山算法，查找局部最优解
+		模拟退火算法，查找全局最优解
 		查找过程参考：
 		交换任意两个节点的顺序, 找到局部最优解
+		退火的方式：
+		 1.降温系数α<1，以Tn+1=αTn的形式下降，比如取α=0.99 (*目前采用)
+		 2.Tn=T0/(1+n)
+		 3.Tn=T0/log(1+n)
 		"""
 		router = self.points
 		distance = self.router_distance(router)
 		sol=[0 for x in range(1, self.n+1)]
+		a = 0.99  # 降温系数
 		turn = self.iterations
-		while turn:
+		e = math.e
+		for _ in range(turn):
 			p1 = int(random.random() * self.length)
 			p2 = int(random.random() * self.length)
 			while p1 == p2:
@@ -91,25 +91,22 @@ class ClimbSolution:
 			temp = copy.deepcopy(router)
 			temp[p1], temp[p2] = temp[p2], temp[p1]
 			curr_distance = self.router_distance(temp)
-			if curr_distance < distance:
+			if curr_distance < distance * e ** a:
 				distance = curr_distance
 				router = temp
 				for i in range(self.n):
 					for j in range(self.n):
 						if router[i]==self.points[j]:
 							sol[i]=j+1
-			
-							
-			turn -= 1
+			# 更新降温系数
+			a = a * a
 		sol.append(sol[0])
 		return distance,sol
-
 
 	def get_solved_Data(self, Data):
 		self.Data = Data
 		self.problem = self.Data['problem']
 		self.n = self.Data['n']
-		self.iterations=self.Data['iterations']
 		self.Capacity = self.Data['capacity']
 		self.Dmd = self.Data['demand']
 		self.xc = self.Data['cx']
@@ -121,7 +118,7 @@ class ClimbSolution:
 		self.length = len(self.points)
 		self.map = self.distance_map()
 
-		distance,sol=self.climb()
+		distance,sol=self.sa()
 
 		self.objVal = distance
 		self.Data['xi'] = sol[0:self.n]
@@ -129,3 +126,4 @@ class ClimbSolution:
 		self.Data['objVal'] = distance
 
 		return self.Data
+

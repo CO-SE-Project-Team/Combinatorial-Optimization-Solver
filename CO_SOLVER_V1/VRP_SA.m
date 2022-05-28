@@ -1,6 +1,7 @@
 classdef  VRP_SA < ALGORITHM
     methods
         function solve(obj)
+            obj.start_clock();
             capacity = obj.Data.capacity;
             demand = obj.Data.demand;
             cx = obj.Data.cx;
@@ -43,9 +44,9 @@ classdef  VRP_SA < ALGORITHM
 
             %% 初始化算法参数
             T0=1000;        %初始温度
-            Tend=1e-3;      %终止温度
+            %             Tend=1e-3;      %终止温度
             L=200;          %各温度下的迭代次数（链长）
-            q=0.9;          %降温速率
+            %             q=0.9;          %降温速率
             Iter=0;        %迭代计数
 
             %% 初始解（必须为满足各约束的可行解）
@@ -70,41 +71,35 @@ classdef  VRP_SA < ALGORITHM
             end
 
             %% 计算迭代的次数Time，即求解 T0 * q^x = Tend
-            Time=ceil(double(log(Tend/T0)/log(q)));
-
+            %             Time=ceil(double(log(Tend/T0)/log(q)))
+            Time=obj.Data.iterations;
             bestind=zeros(1,CityNum*2+1);      %每代的最优路线矩阵初始化
             BestObjByIter=zeros(Time,1);       %每代目标值矩阵初始化
 
             %% 迭代
-            obj.start_clock();
+
             while obj.is_stop() == false
 
-                while T0 > Tend
-                    Iter = Iter+1;     %更新迭代次数
-                    Population = zeros(L,CityNum*2+1); %为此温度下迭代个体矩阵分配内存
-                    ObjByIter = zeros(L,1); %为此温度下迭代个体的目标函数值矩阵分配内存
-                    for k = 1:L
-                        %% 产生新解
-                        S2 = NewSolution(S1);
-                        %% Metropolis法则判断是否接受新解
-                        [S1,ttlDis] = Metropolis(S1,S2,Distance,Demand,Capacity,T0);  % Metropolis 抽样算法
-                        ObjByIter(k) = ttlDis;    %此温度下每迭代一次就存储一次目标函数值
-                        Population(k,:) = S1;          %此温度下每迭代一次就存储一次此代最优个体
-                    end
-
-                    %% 记录每次迭代过程的最优路线
-                    [d0,index] = min(ObjByIter); %取出此温度下所有迭代中最优的一次
-                    if Iter == 1 || d0 < BestObjByIter(Iter-1) %若为第一次迭代或上次迭代比这次更满意
-                        BestObjByIter(Iter) = d0;            %如果当前温度下最优路程小于上一路程则记录当前路程
-                        bestind = Population(index,:);  %记录当前温度的最优路线
-                    else
-                        BestObjByIter(Iter) = BestObjByIter(Iter-1);  %如果当前温度下最优路程大于上一路程则记录上一路程的目标函数值
-                    end
-
-                    T0 = q * T0; %降温
-
+                Iter = Iter+1;     %更新迭代次数
+                Population = zeros(L,CityNum*2+1); %为此温度下迭代个体矩阵分配内存
+                ObjByIter = zeros(L,1); %为此温度下迭代个体的目标函数值矩阵分配内存
+                for k = 1:L
+                    %% 产生新解
+                    S2 = NewSolution(S1);
+                    %% Metropolis法则判断是否接受新解
+                    [S1,ttlDis] = Metropolis(S1,S2,Distance,Demand,Capacity,T0);  % Metropolis 抽样算法
+                    ObjByIter(k) = ttlDis;    %此温度下每迭代一次就存储一次目标函数值
+                    Population(k,:) = S1;          %此温度下每迭代一次就存储一次此代最优个体
                 end
 
+                %% 记录每次迭代过程的最优路线
+                [d0,index] = min(ObjByIter); %取出此温度下所有迭代中最优的一次
+                if Iter == 1 || d0 < BestObjByIter(Iter-1) %若为第一次迭代或上次迭代比这次更满意
+                    BestObjByIter(Iter) = d0;            %如果当前温度下最优路程小于上一路程则记录当前路程
+                    bestind = Population(index,:);  %记录当前温度的最优路线
+                else
+                    BestObjByIter(Iter) = BestObjByIter(Iter-1);  %如果当前温度下最优路程大于上一路程则记录上一路程的目标函数值
+                end
                 %% 找出历史最短距离和对应路径
                 mindisever = BestObjByIter(Iter); %找出历史最优目标函数值
                 bestroute=bestind; % 取最优个体
@@ -117,17 +112,18 @@ classdef  VRP_SA < ALGORITHM
                 end
                 bestroute(bestroute==0)=[];  %删去多余零元素
 
-                bestroute=bestroute-1;  % 编码各减1，与文中的编码一致
+                %                 bestroute=bestroute-1;  % 编码各减1，与文中的编码一致
                 obj.Data.objVal=mindisever;
                 obj.Data.xi = bestroute(1, 1:size(bestroute,2)-1);
                 obj.Data.xj = bestroute(1, 2:size(bestroute,2));
-                disp(obj.Data.xi);
-                disp(obj.Data.xj);
-                disp(obj.Data.objVal);
+                %                 disp(obj.Data.xi);
+                %                 disp(obj.Data.xj);
+                %                 disp(obj.Data.objVal);
                 obj.update_status_by(obj.Data.objVal, obj.Data.xi, obj.Data.xj);
-
+                %                 T0 = q * T0; %降温
 
             end
+
             obj.Data.n = n;
             obj.Data.distance = Distance;
         end

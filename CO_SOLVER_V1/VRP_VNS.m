@@ -66,6 +66,7 @@ classdef VRP_VNS < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
 %                 segCities = circshift(2:n,randperm(n,1)-1);
 %                  newIdx = [1 segCities];
 %                 xnew = xnew(newIdx);                
+<<<<<<< HEAD
                 
                 
                 
@@ -79,13 +80,26 @@ classdef VRP_VNS < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
                         
                 % 这里将算法内部算好的变量赋给父类Data，方便父类get_Data()
 %                 xbest
+=======
+%                 
+                obj.Data.problem=problem;
+                obj.Data.n=n;
+                obj.Data.capacity=capacity;
+                obj.Data.demand=demand;
+                obj.Data.cx=cx;
+                obj.Data.cy=cy;
+                obj.Data.distance=data;
+>>>>>>> 605af0434f50d68e631d51df42256eb647bf9740
                 obj.Data.xi=xbest(1, 1:size(xbest, 2) - 1);
                 obj.Data.xj=xbest(1,2:size(xbest,2));
-                obj.Data.objVal=fitxbest;
-
-                obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);% 这将会把当前的objVal，xi，xj更新到GUI中。
+                obj.Data.objVal=fitnow;
+                % 注意要记得更新xi，xj，objVal等变量
+                % ----------------以上是你的算法内容-----------------------
+                        obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);% 这将会把当前的objVal，xi，xj更新到GUI中。
+                % 这里将算法内部算好的变量赋给父类Data，方便父类get_Data()
+                best_obj=fitxbest;
             end
-            obj.Data.distance = data;
+            obj.Data.objVal=best_obj;
         end
     end
 end

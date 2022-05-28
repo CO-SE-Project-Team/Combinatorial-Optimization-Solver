@@ -1,6 +1,7 @@
 classdef  VRP_HPSO < ALGORITHM
     methods
         function solve(obj)
+            obj.start_clock();
             capacity = obj.Data.capacity;
             demand = obj.Data.demand;
             cx = obj.Data.cx;
@@ -13,13 +14,13 @@ classdef  VRP_HPSO < ALGORITHM
             %Demand         各点需求量
             %Capacity       车容量约束
             %NIND           种群个数
-            %MAXGEN         遗传到第MAXGEN代时程序停止
+            %obj.Data.iterations         遗传到第obj.Data.iterations代时程序停止
 
             %输出：
             %Gbest          最短路径
             %GbestDistance	最短路径长度
 
-          
+
 
             %% 初始化问题参数
             Demand = demand;
@@ -41,12 +42,11 @@ classdef  VRP_HPSO < ALGORITHM
 
             %% 初始化算法参数
             NIND=60; %粒子数量
-            MAXGEN=100; %最大迭代次数
 
             %% 为预分配内存而初始化的0矩阵
             Population = zeros(NIND,CityNum*2+1); %预分配内存，用于存储种群数据
             PopDistance = zeros(NIND,1); %预分配矩阵内存
-            GbestDisByGen = zeros(MAXGEN,1); %预分配矩阵内存
+            GbestDisByGen = zeros(obj.Data.iterations,1); %预分配矩阵内存
 
             for i = 1:NIND
                 %% 初始化各粒子
@@ -66,15 +66,15 @@ classdef  VRP_HPSO < ALGORITHM
             GbestDistance = mindis; % 初始Gbest粒子的目标函数值
 
             %% 开始迭代
-            
+
             % while obj.is_stop() == false
             %for  Iter=1:obj.Data.iterations %遍历每一代
-               % obj.Data.iterator=Iter;
-                %if obj.is_stop()==true
-                 %   break
-                %end
-                Iter=1;
-                while Iter <= MAXGEN
+            % obj.Data.iterator=Iter;
+            %if obj.is_stop()==true
+            %   break
+            %end
+            Iter=1;
+            while obj.is_stop() == false
                 %% 每个粒子更新
                 for i=1:NIND
                     %% 粒子与Pbest交叉
@@ -120,33 +120,37 @@ classdef  VRP_HPSO < ALGORITHM
 
                     if mindis < GbestDistance %若Pbest中最短距离小于Gbest距离
                         Gbest = Pbest(index,:); %更新Gbest
+
                         GbestDistance = mindis; %更新Gbest距离
                     end
+
                 end
 
                 %% 存储此代最短距离
                 GbestDisByGen(Iter)=GbestDistance;
 
                 %% 更新迭代次数
-                Iter=Iter+1;
-            end
-
-            %删去路径中多余1
-            for i=1:length(Gbest)-1
-                if Gbest(i)==Gbest(i+1)
-                    Gbest(i)=0;  %相邻位都为1时前一个置零
+                Gbestshort=Gbest;
+                %删去路径中多余1
+                for ii=1:length(Gbestshort)-1
+                    if Gbestshort(ii)==Gbestshort(ii+1)
+                        Gbestshort(ii)=0;  %相邻位都为1时前一个置零
+                    end
                 end
+                Gbestshort(Gbestshort==0)=[];  %删去多余零元素
+                Iter=Iter+1;
+                obj.Data.objVal=GbestDistance;
+                obj.Data.xi = Gbestshort(1, 1:size(Gbestshort,2)-1);
+                obj.Data.xj = Gbestshort(1, 2:size(Gbestshort,2));
+                obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
             end
-            Gbest(Gbest==0)=[];  %删去多余零元素
 
             % Gbest=Gbest-1;  % 编码各减1，与文中的编码一致
             % Gbest(Gbest==0)=[];  %删去多余零元素
             % Gbest=Gbest-1;  % 编码各减1，与文中的编码一致
-            obj.Data.objVal=GbestDistance;
-            obj.Data.xi = Gbest(1, 1:size(Gbest,2)-1);
-            obj.Data.xj = Gbest(1, 2:size(Gbest,2));
 
-%             obj.update_status_by(obj.Data.objVal, obj.Data.xi, obj.Data.xj);
+
+            %             obj.update_status_by(obj.Data.objVal, obj.Data.xi, obj.Data.xj);
             obj.Data.n = n;
             obj.Data.distance = Distance;
 
