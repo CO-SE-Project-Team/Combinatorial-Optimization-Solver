@@ -38,7 +38,6 @@ classdef VRP_VNS < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
             [xbest, fitxbest] = dist(xnew, data, capacity, demand, n);
             
                xnew = [1, xnew];
-%                
             while (obj.is_stop() == false)  % is_stop()是父类方法，会检查是否超时，超迭代。如果是，则停止算法
                 % 循环内部
                 % ----------------下面写你的算法内容-----------------------
@@ -53,7 +52,8 @@ classdef VRP_VNS < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
                     fitnesses(i) = dist2(neighbors(i,:), data, capacity, demand, n);  % 计算每个邻域解的路线长度
                 end
                 [~, idx] = sortrows(fitnesses);                         % 对邻域解进行升序排列
-                xnow = neighbors(idx(1),:);                             % 把最短路线长度的解赋给xnow
+                xnow = neighbors(idx(1),:);
+                xnew = [1,xnow];% 把最短路线长度的解赋给xnow
                 fitnow = fitnesses(idx(1));                             % xnow的路线长度
 
                 % 进行解的更新和终止循环判断
@@ -63,9 +63,9 @@ classdef VRP_VNS < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
 %                 xnew = [1,neighbors(idx(1), :)];                                            % 将xnow赋给xnew
 
                 % 解随机移动下
-                segCities = circshift(2:n,randperm(n,1)-1);
-                 newIdx = [1 segCities];
-                xnew = xnew(newIdx);                
+%                 segCities = circshift(2:n,randperm(n,1)-1);
+%                  newIdx = [1 segCities];
+%                 xnew = xnew(newIdx);                
                 
                 
                 
@@ -78,7 +78,7 @@ classdef VRP_VNS < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
                 % ----------------以上是你的算法内容-----------------------
                         
                 % 这里将算法内部算好的变量赋给父类Data，方便父类get_Data()
-                
+%                 xbest
                 obj.Data.xi=xbest(1, 1:size(xbest, 2) - 1);
                 obj.Data.xj=xbest(1,2:size(xbest,2));
                 obj.Data.objVal=fitxbest;
