@@ -158,6 +158,7 @@ classdef  ALGORITHM < handle
 
             obj.endTime=clock;
             deltaT=etime(obj.endTime,obj.startTime);
+            obj.runTime = deltaT; % update runTime
             if (obj.iter >= obj.Data.iterations) || (deltaT > obj.Data.timeLim)
                 bool=true;
             else
