@@ -157,9 +157,9 @@ classdef KP_ACO < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
                     R_best(NC,:)=Tabu(pos(1),:);
                 else
                     t=t+1;
-%                     if t > n
-%                         t = n;
-%                     end
+                    if t > n
+                        t = n;
+                    end
                     Q_best(NC)=V_best;
                     R_best(NC,:)=Tabu(1,:);
                 end
@@ -187,14 +187,6 @@ classdef KP_ACO < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
                 
 %                  bbbbb = Best_choice(1, 1:Select);
 
-
-                obj.Data.problem=problem;
-                obj.Data.n=n;
-                obj.Data.capacity=capacity;
-                obj.Data.demand=weight';
-                obj.Data.cx=cx';
-                obj.Data.cy=cy';
-                obj.Data.dis=0;
                 xi=[];
                 xj=[];
                 for i=1:length(Best_choice)
@@ -210,8 +202,6 @@ classdef KP_ACO < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
                 obj.Data.xi=xi;
                 obj.Data.xj=xj;
                 obj.Data.objVal=V_best;
-                obj.Data.timeLim=timeLim;
-                obj.Data.iterations=iterations;
                 obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
                 
                 if V_best>best_choice
@@ -229,19 +219,10 @@ classdef KP_ACO < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
 
                 % 这里将算法内部算好的变量赋给父类Data，方便父类get_Data()
             end
-            obj.Data.problem=problem;
-            obj.Data.n=n;
-            obj.Data.capacity=capacity;
-            obj.Data.demand=weight;
-            obj.Data.cx=cx;
-            obj.Data.cy=cy;
-            obj.Data.dis=0;
+            
             obj.Data.xi=best_xi;
             obj.Data.xj=best_xj;
             obj.Data.objVal=best_choice;
-            obj.Data.timeLim=timeLim;
-            obj.Data.iterations=iterations;
-            obj.Data.iterator=iterator+1;
             end
             
         end

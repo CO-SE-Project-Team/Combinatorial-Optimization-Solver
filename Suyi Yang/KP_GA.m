@@ -93,19 +93,10 @@ classdef KP_GA < ALGORITHM
                     xj(1)=[];
                 end
     
-                obj.Data.problem=problem;
-                obj.Data.n=n;
-                obj.Data.capacity=capacity;
-                obj.Data.demand=weight';
-                obj.Data.cx=cx';
-                obj.Data.cy=cy';
-                obj.Data.dis=0;
+                
                 obj.Data.xi=xi;
                 obj.Data.xj=xj;
                 obj.Data.objVal=zhongqun(1,:)*cy;
-                obj.Data.timeLim=timeLim;
-                obj.Data.iterations=iterations;
-                obj.Data.iterator=iterator;
                 obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
                 % 当前迭代数加一，方便父类is_stop()检查是否超过iterations并停止算法
                 obj.Data.iterator = obj.Data.iterator + 1;
@@ -115,19 +106,10 @@ classdef KP_GA < ALGORITHM
                     best_xj=xj;
                 end
             end
-            obj.Data.problem=problem;
-            obj.Data.n=n;
-            obj.Data.capacity=capacity;
-            obj.Data.demand=weight';
-            obj.Data.cx=cx';
-            obj.Data.cy=cy';
-            obj.Data.dis=0;
+            
             obj.Data.xi=best_xi;
             obj.Data.xj=best_xj;
             obj.Data.objVal=best_choice;
-            obj.Data.timeLim=timeLim;
-            obj.Data.iterations=iterations;
-            obj.Data.iterator=iterator;
         end
     end
 end

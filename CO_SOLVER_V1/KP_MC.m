@@ -56,13 +56,7 @@ classdef KP_MC < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改成
                     MaxVal = Val;
                     MaxObj = sort(set);
                 end
-                obj.Data.problem=problem;
-                obj.Data.n=n;
-                obj.Data.capacity=capacity;
-                obj.Data.demand=weight;
-                obj.Data.cx=cx;
-                obj.Data.cy=cy;
-                obj.Data.dis=0;
+                
                 xi=MaxObj;
                 xj=MaxObj;
                 if num > 1
@@ -72,8 +66,6 @@ classdef KP_MC < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改成
                 obj.Data.xi=xi;
                 obj.Data.xj=xj;
                 obj.Data.objVal=MaxVal;
-                obj.Data.timeLim=timeLim;
-                obj.Data.iterations=iterations;
                 obj.update_status_by(obj.Data.objVal,obj.Data.xi,obj.Data.xj);
 
 

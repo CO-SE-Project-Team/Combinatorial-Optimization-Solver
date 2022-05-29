@@ -16,10 +16,22 @@ classdef  ALGORITHM < handle
         startTime;
         midStartTime;
         endTime;
+
+        runTime = 0;
+
+        start_clock_called = false;
     end
 
     methods
         function obj = ALGORITHM()
+        end
+
+        function clear(obj)
+            obj.Data = [];
+            obj.iter = 0;
+            obj.objVals = [];
+            obj.guiSetted = false;
+            obj.start_clock_called = false;
         end
 
         % IMPLEMENT YOUR ALGORITHM FOR THIS FUNCITON
@@ -40,6 +52,18 @@ classdef  ALGORITHM < handle
             obj.Data = Data;
             obj.solve();
             Data = obj.get_Data();
+        end
+
+        function objVals = get_objVals(obj)
+            objVals = obj.objVals;
+        end
+
+        function runTime = get_runTime(obj)
+            runTime = obj.runTime;
+        end
+
+        function iter = get_iter(obj)
+            iter = obj.iter;
         end
 
         % FOLLOWING FUNCTIONS/METHODS ARE NOT NEEDED FOR INITIAL VERSIONS
@@ -121,18 +145,25 @@ classdef  ALGORITHM < handle
         end
 
         function start_clock(obj)
+            obj.start_clock_called = true;
             obj.startTime=clock;
             obj.midStartTime = clock;
         end
         
         function bool = is_stop(obj)
-            obj.iter = obj.iter + 1;
+            if obj.start_clock_called == false % if first time calling, start_clock automatically
+                obj.start_clock();
+                obj.start_clock_called = true;
+            end
+
             obj.endTime=clock;
             deltaT=etime(obj.endTime,obj.startTime);
-            if (deltaT > obj.Data.timeLim) || (obj.iter > obj.Data.iterations)
+            obj.runTime = deltaT; % update runTime
+            if (obj.iter >= obj.Data.iterations) || (deltaT > obj.Data.timeLim)
                 bool=true;
             else
                 bool=false;
+                obj.iter = obj.iter + 1;
             end
         end
 
@@ -148,7 +179,7 @@ classdef  ALGORITHM < handle
         function update_status_by(obj, objVal, xi, xj)
             if obj.guiSetted == true % to exclude condition of running from command line.
                 obj.objVals = [obj.objVals, objVal];
-                if etime(clock, obj.midStartTime) > 0.5
+                if etime(clock, obj.midStartTime) > 0.1
                     % print time
                     disp(['Message: Time elapsed: ',num2str(etime(clock, obj.startTime)), ' iter: ', num2str(obj.iter), ' objVal: ', num2str(objVal)]);
 
@@ -171,16 +202,19 @@ classdef  ALGORITHM < handle
                     % text(obj.UIAxes_Result, obj.Data.cx(2:end), obj.Data.cy(2:end)+1, cellstr(num2str(obj.Data.demand(2:end)')),'Fontsize', 14); % 0.5 for a step
                     
                     drawnow();
-                    pause(0.01);
+                    % pause(0.01);
                     obj.midStartTime = clock;
                 end
+            else % run by command line
+                % print time
+                disp(['Message: Time elapsed: ',num2str(etime(clock, obj.startTime)), ' iter: ', num2str(obj.iter), ' objVal: ', num2str(objVal)]);
             end
         end
 
         function update_status(obj)
             if obj.guiSetted == true  % to exclude condition of running from command line.
                 obj.objVals = [obj.objVals, obj.Data.objVal];
-                if etime(clock, obj.midStartTime) > 0.5
+                if etime(clock, obj.midStartTime) > 0.1
                     % print time
                     disp(['Message: Time elapsed: ',num2str(etime(clock, obj.startTime)), ' iter: ', num2str(obj.iter), ' objVal: ', num2str(objVal)]);
 
@@ -203,9 +237,12 @@ classdef  ALGORITHM < handle
                     % text(obj.UIAxes_Result, obj.Data.cx(2:end), obj.Data.cy(2:end)+1, cellstr(num2str(obj.Data.demand(2:end)')),'Fontsize', 14); % 0.5 for a step
                     
                     drawnow();
-                    pause(0.01);
+                    % pause(0.01);
                     obj.midStartTime = clock;
                 end
+            else % run by command line
+                % print time
+                disp(['Message: Time elapsed: ',num2str(etime(clock, obj.startTime)), ' iter: ', num2str(obj.iter), ' objVal: ', num2str(objVal)]);
             end
         end
     end
