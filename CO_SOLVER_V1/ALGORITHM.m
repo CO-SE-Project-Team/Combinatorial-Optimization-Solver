@@ -8,7 +8,7 @@ classdef  ALGORITHM < handle
 
         timeEditField;
         iterEditField;
-        objValEidtField;
+        objValEditField;
         UIAxes_objVal;
         UIAxes_Result;
         guiSetted = false;
@@ -167,11 +167,11 @@ classdef  ALGORITHM < handle
             end
         end
 
-        function set_GUI(obj, timeEditField, iterEditField, objValEidtField, UIAxes_objVal, UIAxes_Result)
+        function set_GUI(obj, timeEditField, iterEditField, objValEditField, UIAxes_objVal, UIAxes_Result)
             obj.guiSetted = true;
             obj.timeEditField = timeEditField;
             obj.iterEditField = iterEditField;
-            obj.objValEidtField = objValEidtField;
+            obj.objValEditField = objValEditField;
             obj.UIAxes_objVal = UIAxes_objVal;
             obj.UIAxes_Result = UIAxes_Result;
         end
@@ -186,7 +186,7 @@ classdef  ALGORITHM < handle
                     % gui time, iterator, objVal
                     obj.timeEditField.Value = num2str(etime(clock, obj.startTime));
                     obj.iterEditField.Value = num2str(size(obj.objVals,2));
-                    obj.objValEidtField.Value = num2str(objVal);
+                    obj.objValEditField.Value = num2str(objVal);
 
                     % plot UIAxes_objVal by linspace & objVals
                     cla(obj.UIAxes_objVal);
@@ -221,7 +221,7 @@ classdef  ALGORITHM < handle
                     % gui time, iterator, objVal
                     obj.timeEditField.Value = num2str(etime(clock, obj.startTime));
                     obj.iterEditField.Value = num2str(size(obj.objVals,2));
-                    obj.objValEidtField.Value = num2str(obj.Data.objVal);
+                    obj.objValEditField.Value = num2str(obj.Data.objVal);
 
                     % plot objVal by linspace & objVals
                     cla(obj.UIAxes_objVal);
