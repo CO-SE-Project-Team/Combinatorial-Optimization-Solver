@@ -87,8 +87,8 @@ classdef KP_ACO < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
 
             % 开始你的迭代循环
             %obj.is_stop() == false && 
-            while (NC < NC_max)  % is_stop()是父类方法，会检查是否超时，超迭代。如果是，则停止算法
-                
+            while(obj.is_stop()==false)
+                while (NC < NC_max)  % is_stop()是父类方法，会检查是否超时，超迭代。如果是，则停止算法
                 obj.Data.iterator = obj.Data.iterator + 1;
                 % 循环内部
                 % ----------------下面写你的算法内容-----------------------
@@ -241,7 +241,9 @@ classdef KP_ACO < ALGORITHM %类名改成 问题_算法, 如把subALGORITHM改�
             obj.Data.objVal=best_choice;
             obj.Data.timeLim=timeLim;
             obj.Data.iterations=iterations;
-            obj.Data.iterator=iterator;
+            obj.Data.iterator=iterator+1;
+            end
+            
         end
     end
 end
